@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vintage Story - Creative Tools Guide V2</title>
+    <style>
+        /* Basic Reset & Font */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Verdana", "Arial", sans-serif;
+            background-color: #1e1e1e; /* Dark background like VS */
+            color: #e0e0e0; /* Light text */
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden; /* Prevent body scroll, allow internal scroll */
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIoSURBVHhe7doxTgNBFIbRr10gISYgwgoiJCJChsRkCG2CiYgxcgJ7EBsCV2BWpGEPzGFACSKKx8Z0YOHKk3+f7H8z1y183Hw/NvN2v5v1/K8AAGAMRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANxssv8ddv/mHWft1x3/uGMAAaYEAARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYNANwNDL0BFbH4wAAAABJRU5ErkJggg=='); /* Subtle noise texture */
+            background-repeat: repeat;
+        }
+
+        .app-container {
+            display: flex;
+            flex-grow: 1;
+            overflow: hidden;
+        }
+
+        /* Sidebar (Tool Selection) */
+        .sidebar {
+            width: 60px;
+            background-color: #2a2a2a;
+            padding-top: 10px;
+            border-right: 2px solid #444;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .tool-button {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 10px;
+            background-color: #3c3c3c;
+            border: 1px solid #555;
+            color: #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px; /* For icon-like text/emojis */
+            transition: background-color 0.2s, border-color 0.2s;
+            border-radius: 3px;
+            user-select: none; /* Prevent text selection on rapid clicks */
+        }
+
+        .tool-button:hover {
+            background-color: #4a4a4a;
+            border-color: #666;
+        }
+
+        .tool-button.active {
+            background-color: #5a7a9a;
+            border-color: #7a9ac0;
+            color: #fff;
+        }
+
+        /* Main Content Area Wrapper */
+        .main-area {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Top Options Bar (Tool Specific) */
+        .tool-options-bar {
+            background-color: #333333;
+            padding: 6px 10px; /* Slightly reduced padding */
+            border-bottom: 2px solid #444;
+            min-height: 48px; /* Adjusted min-height */
+            display: flex;
+            align-items: center;
+            gap: 8px; /* Reduced gap */
+            flex-wrap: wrap;
+            overflow-x: auto; /* Allow horizontal scroll if too many options */
+            overflow-y: hidden;
+        }
+
+        .tool-options-bar button,
+        .tool-options-bar input,
+        .tool-options-bar select,
+        .tool-options-bar label {
+            background-color: #4a4a4a;
+            border: 1px solid #666;
+            color: #e0e0e0;
+            padding: 4px 8px; /* Adjusted padding */
+            border-radius: 3px;
+            font-size: 0.85em; /* Slightly smaller font */
+            white-space: nowrap; /* Prevent wrapping within elements */
+        }
+        .tool-options-bar input[type="number"] {
+            width: 60px; /* Smaller number inputs */
+        }
+         .tool-options-bar input[type="text"] {
+            width: 100px;
+         }
+        .tool-options-bar input[type="checkbox"] {
+            margin-right: 4px;
+            vertical-align: middle;
+        }
+        .tool-options-bar button:hover {
+            background-color: #5a5a5a;
+        }
+
+        .tool-options-bar .option-group {
+            display: flex;
+            align-items: center;
+            gap: 4px; /* Reduced gap in group */
+            padding: 2px 5px; /* Adjusted padding */
+            background-color: #3a3a3a;
+            border-radius: 3px;
+            border: 1px solid #505050;
+        }
+         .tool-options-bar .option-group label {
+            background: none;
+            border: none;
+            padding: 0;
+            font-size: 0.8em; /* Smaller labels in groups */
+         }
+        .tool-options-bar .option-separator {
+            width: 1px;
+            height: 25px;
+            background-color: #555;
+            margin: 0 3px;
+        }
+        .tool-options-bar .toggle-button.active {
+            background-color: #5a7a9a;
+            border-color: #7a9ac0;
+        }
+
+
+        /* Tool Details Content */
+        .tool-details-content {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #252525;
+        }
+
+        .tool-details-content h2 {
+            color: #87ceeb;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 5px;
+        }
+        .tool-details-content h3 {
+            color: #c0c0c0;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+        .tool-details-content p,
+        .tool-details-content ul {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        .tool-details-content ul {
+            list-style-position: inside;
+            padding-left: 20px;
+        }
+         .tool-details-content li {
+            margin-bottom: 5px;
+         }
+        .tool-details-content code {
+            background-color: #333;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: "Courier New", Courier, monospace;
+            color: #f0f090;
+        }
+        .tool-details-content a {
+            color: #6caddf;
+            text-decoration: none;
+        }
+        .tool-details-content a:hover {
+            text-decoration: underline;
+        }
+        .tool-details-content .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted #ccc;
+            cursor: help;
+        }
+        .tool-details-content .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 220px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -110px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tool-details-content .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+
+        /* Responsive considerations */
+        @media (max-width: 768px) {
+            .app-container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                flex-direction: row;
+                overflow-x: auto;
+                padding: 5px;
+                border-right: none;
+                border-bottom: 2px solid #444;
+            }
+            .tool-button {
+                margin-bottom: 0;
+                margin-right: 5px;
+                flex-shrink: 0;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar" id="toolSidebar">
+            <!-- Tools will be populated by JS -->
+        </aside>
+        <div class="main-area">
+            <header class="tool-options-bar" id="toolOptionsBar">
+                <!-- Universal options first -->
+                <button id="toggleToolDrawingBtn" class="toggle-button" title="Toggle visibility of tool visual aids like selection boxes">Disable Tool Drawing</button>
+                <div class="option-separator"></div>
+                <!-- Tool-specific options will be populated after separator -->
+                <span id="toolSpecificOptionsContainer">Select a tool from the left.</span>
+            </header>
+            <main class="tool-details-content" id="toolDetailsContent">
+                <h2>Welcome to the Vintage Story Creative Tools Guide!</h2>
+                <p>Select a tool from the sidebar on the left to learn how to use it. The options bar at the top will change based on the selected tool, mimicking the in-game interface.</p>
+                <p>This guide is designed to help you master the creative mode tools available in Vintage Story. Most advanced tools are part of the WorldEdit system, accessible when you have the <code>worldedit</code> [Privilege]. Standard tools like the Chisel are available to all players in creative mode.</p>
+                <p>Common game terms are linked to the official <a href="https://wiki.vintagestory.at/" target="_blank">Vintage Story Wiki</a>. For example, [Blocks] or [Items].</p>
+                <p><strong>Note on Tool Drawing:</strong> The "Disable Tool Drawing" button in the top bar simulates a common setting to hide visual guides (like selection outlines) which can improve performance or reduce visual clutter.</p>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        const VINTAGE_STORY_WIKI_BASE_URL = "https://wiki.vintagestory.at/index.php?title=";
+
+        const toolsData = [
+            // --- SELECTION AND MODIFICATION ---
+            {
+                id: 'select',
+                name: 'Select',
+                iconEmoji: '⬚', // Dotted square
+                optionsHTML: () => `
+                    <div class="option-group">
+                        <label for="select-mode" title="How this selection interacts with previous selections">Mode:</label>
+                        <select id="select-mode">
+                            <option value="set">Set</option>
+                            <option value="add">Add</option>
+                            <option value="subtract">Subtract</option>
+                            <option value="intersect">Intersect</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label for="select-shape" title="The geometric shape of the selection area">Shape:</label>
+                        <select id="select-shape">
+                            <option value="cuboid">Cuboid</option>
+                            <option value="sphere">Sphere</option>
+                            <option value="cylinder">Cylinder</option>
+                            <option value="ellipsoid">Ellipsoid</option>
+                        </select>
+                    </div>
+                    <button title="Clear the current selection (//desel)">Clear Sel.</button>
+                    <button title="Copy selection to clipboard (//copy)">Copy</button>
+                    <button title="Cut selection to clipboard (//cut)">Cut</button>
+                    <button title="Paste clipboard contents (//paste)">Paste</button>
+                `,
+                details: `
+                    <h2>Selection Tool (WorldEdit)</h2>
+                    <p>The Selection Tool defines a region in the world for [WorldEdit] commands. It's the foundation for most large-scale edits.</p>
+                    <h3>Primary Controls (typically with [Magicowand] or <code>//wand</code>):</h3>
+                    <ul>
+                        <li><strong>Left Click:</strong> Sets Position 1 (Pos1) of the selection.</li>
+                        <li><strong>Right Click:</strong> Sets Position 2 (Pos2) of the selection.</li>
+                    </ul>
+                    <h3>Options Bar Explained:</h3>
+                    <ul>
+                        <li><strong>Mode:</strong> Determines how a new selection interacts if one already exists.
+                            <ul>
+                                <li><code>Set</code>: Replaces the old selection (default).</li>
+                                <li><code>Add</code>: Expands the current selection to include the new area.</li>
+                                <li><code>Subtract</code>: Removes the new area from the current selection.</li>
+                                <li><code>Intersect</code>: Keeps only the overlapping parts of the old and new selections.</li>
+                            </ul>
+                            <em>(Note: These modes are conceptual for some WE versions; often selection is just reset or done via commands like <code>//sel add</code>)</em>
+                        </li>
+                        <li><strong>Shape:</strong> The geometric form of the selection.
+                            <ul>
+                                <li><code>Cuboid</code>: A rectangular box (default). Command: <code>//sel cuboid</code>.</li>
+                                <li><code>Sphere</code>: A perfect sphere. Command: <code>//sel sphere</code>.</li>
+                                <li><code>Cylinder</code>: A cylinder. Command: <code>//sel cyl</code>.</li>
+                                <li><code>Ellipsoid</code>: An oval shape. Command: <code>//sel ellipsoid</code>.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Clear Sel.:</strong> Deselects the current region (<code>//desel</code> or <code>//sel</code>).</li>
+                        <li><strong>Copy:</strong> Copies the blocks in the selection to your clipboard (<code>//copy</code>). Can be pasted with <code>//paste</code>.</li>
+                        <li><strong>Cut:</strong> Copies the blocks and then removes them (<code>//cut</code> or <code>//copy</code> followed by <code>//set air</code>).</li>
+                        <li><strong>Paste:</strong> Pastes the clipboard contents relative to your position (<code>//paste</code>). Use <code>-a</code> flag (<code>//paste -a</code>) to exclude air blocks.</li>
+                    </ul>
+                    <h3>Common Selection Commands:</h3>
+                    <ul>
+                        <li><code>//wand</code>: Gives you the selection wand item.</li>
+                        <li><code>//pos1</code>, <code>//pos2</code>: Sets selection points to your current location or target block.</li>
+                        <li><code>//chunk</code>: Selects the entire [Chunk] you are in.</li>
+                        <li><code>//expand [amount] [direction]</code>: Expands selection (e.g., <code>//expand 5 up</code>).</li>
+                        <li><code>//contract [amount] [direction]</code>: Shrinks selection.</li>
+                        <li><code>//size</code>: Shows the dimensions of the current selection.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'move',
+                name: 'Move',
+                iconEmoji: '↔️',
+                optionsHTML: () => `
+                    <div class="option-group">
+                        <label for="move-distance" title="Number of blocks to move">Dist:</label>
+                        <input type="number" id="move-distance" value="1" min="1">
+                    </div>
+                    <div class="option-group">
+                        <label for="move-direction" title="Direction of movement">Dir:</label>
+                        <select id="move-direction">
+                            <option value="me">Me (forward)</option>
+                            <option value="up">Up</option> <option value="down">Down</option>
+                            <option value="north">N</option> <option value="south">S</option>
+                            <option value="east">E</option> <option value="west">W</option>
+                        </select>
+                    </div>
+                    <label title="If checked, moves air blocks too. Unchecked leaves original space empty."><input type="checkbox" id="move-replace"> Move Dest.</label>
+                `,
+                details: `
+                    <h2>Move Tool (WorldEdit)</h2>
+                    <p>Moves the contents of the current selection to a new location. The original area is typically filled with air unless specified.</p>
+                    <h3>Command: <code>//move [distance] [direction] [-s]</code></h3>
+                    <h3>Options Bar Explained:</h3>
+                    <ul>
+                        <li><strong>Dist (Distance):</strong> How many blocks to move the selection.</li>
+                        <li><strong>Dir (Direction):</strong> The direction of movement. 'Me' usually means the direction you are facing.
+                            <em>In-game, you might also specify X, Y, Z offsets.</em></li>
+                        <li><strong>Move Dest. (Move Destination / Shift):</strong> If checked (like <code>-s</code> flag for <code>//move</code>), it shifts the selection itself to the new location. If unchecked, the original selection stays and its contents are moved, leaving air behind. Some WE versions might interpret this as "Replace destination blocks" if not moving air.
+                           Vintage Story's "Move" tool might replace destination blocks by default if they are not air.
+                        </li>
+                    </ul>
+                    <p>To use: First, make a [Selection]. Then, configure options and (conceptually) click an "Apply" button or execute the command. The selected blocks and entities will be moved.</p>
+                `
+            },
+            {
+                id: 'repeat',
+                name: 'Repeat',
+                iconEmoji: '🔄',
+                optionsHTML: () => `
+                    <div class="option-group">
+                        <label for="repeat-count" title="How many times to repeat/stack">Count:</label>
+                        <input type="number" id="repeat-count" value="1" min="1">
+                    </div>
+                    <div class="option-group">
+                        <label for="repeat-direction" title="Direction to stack">Dir:</label>
+                        <select id="repeat-direction">
+                            <option value="me">Me (forward)</option>
+                            <option value="up">Up</option> <option value="down">Down</option>
+                            <option value="north">N</option> <option value="south">S</option>
+                            <option value="east">E</option> <option value="west">W</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label for="repeat-offset-x" title="Offset X per repeat">OX:</label> <input type="number" id="repeat-offset-x" value="0" style="width:40px;">
+                        <label for="repeat-offset-y" title="Offset Y per repeat">OY:</label> <input type="number" id="repeat-offset-y" value="0" style="width:40px;">
+                        <label for="repeat-offset-z" title="Offset Z per repeat">OZ:</label> <input type="number" id="repeat-offset-z" value="0" style="width:40px;">
+                    </div>
+                `,
+                details: `
+                    <h2>Repeat / Stack Tool (WorldEdit)</h2>
+                    <p>Duplicates the contents of the current selection multiple times in a specified direction or with offsets.</p>
+                    <h3>Command: <code>//stack [count] [direction]</code> or <code>//stack [count] [x] [y] [z]</code> for offsets</h3>
+                    <h3>Options Bar Explained:</h3>
+                    <ul>
+                        <li><strong>Count:</strong> The number of copies to create.</li>
+                        <li><strong>Dir (Direction):</strong> The primary direction for stacking if not using explicit offsets. The selection will be tiled contiguously in this direction.</li>
+                        <li><strong>OX, OY, OZ (Offsets):</strong> The X, Y, and Z offset for each subsequent copy relative to the previous one. If these are non-zero, they usually override the simple 'Dir' option. A zero offset means the copies will touch.
+                            <em>Example: To stack upwards, Count=5, Dir=Up (or OY = height of selection).</em>
+                        </li>
+                    </ul>
+                    <p>To use: Make a [Selection] of what you want to repeat. Configure the count, direction, and/or offsets. The command <code>//stack</code> will then create the copies. This is very powerful for things like walls, floors, or repeating patterns.</p>
+                `
+            },
+             {
+                id: 'growshrink',
+                name: 'Grow/Shrink Sel.',
+                iconEmoji: '↔️', // Could use 🌱/🍂 but move icon fits expand/contract
+                optionsHTML: () => `
+                    <div class="option-group">
+                        <label for="gs-amount" title="Number of blocks to expand/contract by">Amount:</label>
+                        <input type="number" id="gs-amount" value="1" min="1">
+                    </div>
+                    <div class="option-group">
+                        <label for="gs-direction" title="Direction to grow/shrink">Dir:</label>
+                        <select id="gs-direction">
+                            <option value="all">All Sides</option>
+                            <option value="vert">Vertical (Up/Down)</option>
+                            <option value="up">Up</option> <option value="down">Down</option>
+                            <option value="north">North</option> <option value="south">South</option>
+                            <option value="east">East</option> <option value="west">West</option>
+                        </select>
+                    </div>
+                    <button id="gs-grow-btn" title="Expand the current selection (//expand)">Grow</button>
+                    <button id="gs-shrink-btn" title="Contract the current selection (//contract)">Shrink</button>
+                `,
+                details: `
+                    <h2>Grow/Shrink Selection Tool (WorldEdit)</h2>
+                    <p>Modifies the boundaries of the current [Selection], making it larger (grow/expand) or smaller (shrink/contract).</p>
+                    <h3>Commands: <code>//expand [amount] [direction]</code>, <code>//contract [amount] [direction]</code></h3>
+                    <h3>Options Bar Explained:</h3>
+                    <ul>
+                        <li><strong>Amount:</strong> The number of blocks to add or remove from the selection's edge(s).</li>
+                        <li><strong>Dir (Direction):</strong> Specifies which face(s) of the selection to modify.
+                            <ul>
+                                <li><code>All Sides</code>: Expands/contracts in all 6 directions (or 4 horizontal + vertical if 'vert' is separate).</li>
+                                <li><code>Vertical</code>: Expands/contracts both up and down.</li>
+                                <li>Specific directions (Up, Down, North, etc.): Modifies only that face.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Grow Button:</strong> Applies the <code>//expand</code> command with the given parameters.</li>
+                        <li><strong>Shrink Button:</strong> Applies the <code>//contract</code> command.</li>
+                    </ul>
+                    <p>This is useful for quickly adjusting a selection without re-defining Pos1 and Pos2. For example, after selecting a room, you can easily expand it by 1 block upwards to include the ceiling.</p>
+                `
+            },
+
+            // --- BRUSHES AND PAINTING ---
+            {
+                id: 'brush',
+                name: 'Brush',
+                iconEmoji: '🖌️',
+                optionsHTML: () => `
+                    <div class="option-group">
+                        <label for="brush-shape" title="Shape of the brush">Shape:</label>
+                        <select id="brush-shape">
+                            <option value="sphere">Sphere</option>
+                            <option value="cube">Cube</option>
+                            <option value="cylinder">Cylinder</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label for="brush-size" title="Size/radius of the brush">Size:</label>
+                        <input type="number" id="brush-size" value="3" min="1" max="64">
+                    </div>
+                    <div class="option-group">
+                        <label for="brush-material" title="Block ID to paint with (e.g., stone, soil-low)">Mat:</label>
+                        <input type="text" id="brush-material" value="stone">
+                    </div>
+                    <label title="Create a hollow shape instead of solid"><input type="checkbox" id="brush-hollow"> Hollow</label>
+                `,
+                details: `
+                    <h2>Brush Tool (WorldEdit)</h2>
+                    <p>The Brush Tool allows you to "paint" [Blocks] into the world. You bind a brush configuration to an item and then right-click with that item.</p>
+                    <h3>Primary Controls (after setting up a brush):</h3>
+                    <ul>
+                        <li><strong>Right Click (with bound tool):</strong> Applies the brush at the targeted block.</li>
+                    </ul>
+                    <h3>Options Bar Explained:</h3>
+                    <ul>
+                        <li><strong>Shape:</strong> The geometric form of the brush.
+                            <ul>
+                                <li><code>Sphere</code>: Paints spheres (<code>//brush sphere [mat] [size]</code>).</li>
+                                <li><code>Cube</code>: Paints cubes (<code>//brush cube [mat] [size]</code>).</li>
+                                <li><code>Cylinder</code>: Paints cylinders (<code>//brush cylinder [mat] [size] [height]</code> - height often defaults or uses size).</li>
+                            </ul>
+                        </li>
+                        <li><strong>Size:</strong> The radius (for sphere/cylinder) or side length (for cube) of the brush.</li>
+                        <li><strong>Mat (Material):</strong> The [Block ID] to paint with (e.g., <code>granite</code>, <code>planks-maple</code>, <code>clay-blue</code>).</li>
+                        <li><strong>Hollow:</strong> If checked, the brush creates a hollow shape (e.g., <code>//brush sphere hollow [mat] [size]</code>).</li>
+                    </ul>
+                    <h3>Common Brush Commands:</h3>
+                    <ul>
+                        <li><code>//tool brush</code>: Selects the brush tool mode for the held item.</li>
+                        <li><code>//brush sphere [material] [radius]</code>: Example: <code>//brush sphere dirt 3</code>.</li>
+                        <li><code>//mask [block_to_replace]</code>: Brush only affects specified existing blocks. <code>//mask</code> clears.</li>
+                        <li><code>//none</code>: Unbinds any special tool from the held item.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'airbrush',
+                name: 'Air Brush',
+                iconEmoji: '💨',
+                optionsHTML: () => `
+                    <div class="option-group">
+                        <label for="airbrush-shape" title="Shape of the air brush">Shape:</label>
+                        <select id="airbrush-shape">
+                            <option value="sphere">Sphere</option>
+                            <option value="cube">Cube</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label for="airbrush-size" title="Size/radius of the air brush">Size:</label>
+                        <input type="number" id="airbrush-size" value="3" min="1" max="64">
+                    </div>
+                `,
+                details: `
+                    <h2>Air Brush / Eraser Tool (WorldEdit)</h2>
+                    <p>The Air Brush is essentially a brush that paints with 'air', effectively deleting blocks. It's often used as an eraser.</p>
+                    <h3>Primary Controls (after setting up):</h3>
+                    <ul>
+                        <li><strong>Right Click (with bound tool):</strong> Applies the air brush (deletes blocks).</li>
+                    </ul>
+                    <h3>Options Bar Explained:</h3>
+                    <ul>
+                        <li><strong>Shape:</strong> The geometric form of the area to clear.
+                            <ul>
+                                <li><code>Sphere</code>: Clears a spherical area (<code>//brush sphere air [size]</code>).</li>
+                                <li><code>Cube</code>: Clears a cubical area (<code>//brush cube air [size]</code>).</li>
+                            </ul>
+                        </li>
+                        <li><strong>Size:</strong> The radius or side length of the area to clear.</li>
+                    </ul>
+                    <p>This tool is identical in command structure to the regular brush tool, but with the material set to <code>air</code>. Example: <code>//brush sphere air 5</code>. It's very useful for quick sculpting or clearing out mistakes.</p>
+                    <p>See also: [Eraser Tool](#eraser) which is functionally the same.</p>
+                `
+            },
+            {
+                id: 'eraser',
+                name: 'Eraser',
+                iconEmoji: '🧼', // or ⌫
+                optionsHTML: () => `
+                    <div class="option-group">
+                        <label for="eraser-shape" title="Shape of the eraser">Shape:</label>
+                        <select id="eraser-shape">
+                            <option value="sphere">Sphere</option>
+                            <option value="cube">Cube</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label for="eraser-size" title="Size/radius of the eraser">Size:</label>
+                        <input type="number" id="eraser-size" value="3" min="1" max="64">
+                    </div>
+                `,
+                details: `
+                    <h2>Eraser Tool (WorldEdit)</h2>
+                    <p>The Eraser Tool removes blocks, effectively painting with 'air'. It's a convenient way to think about a brush set to clear blocks.</p>
+                    <h3>Primary Controls (after setting up):</h3>
+                    <ul>
+                        <li><strong>Right Click (with bound tool):</strong> Erases blocks in the brush shape.</li>
+                    </ul>
+                    <h3>Options Bar Explained:</h3>
+                    <ul>
+                        <li><strong>Shape:</strong> The geometric form of the eraser.
+                            <ul>
+                                <li><code>Sphere</code>: Erases a spherical area (command: <code>//brush sphere air [size]</code>).</li>
+                                <li><code>Cube</code>: Erases a cubical area (command: <code>//brush cube air [size]</code>).</li>
+                            </ul>
+                        </li>
+                        <li><strong>Size:</strong> The radius (for sphere) or side length (for cube) of the eraser.</li>
+                    </ul>
+                    <p>Functionally, this is the same as the [Air Brush](#airbrush). The underlying command is typically <code>//brush [shape] air [size]</code>. For example, <code>//brush sphere air 3</code> would make your bound tool erase in a sphere of radius 3.</p>
+                `
+            },
+            {
+                id: 'floodfill',
+                name: 'Flood Fill',
+                iconEmoji: '💧',
+                optionsHTML: () => `
+                    <div class="option-group">
+                        <label for="floodfill-block" title="Block ID to fill with (e.g., water, stone)">Fill With:</label>
+                        <input type="text" id="floodfill-block" value="stone">
+                    </div>
+                    <div class="option-group">
+                        <label for="floodfill-range" title="Max distance/radius of the fill">Range:</label>
+                        <input type="number" id="floodfill-range" value="10" min="1">
+                    </div>
+                    <label title="Fill in 3D, otherwise 2D (surface)"><input type="checkbox" id="floodfill-3d"> 3D Fill</label>
+                `,
+                details: `
+                    <h2>Flood Fill Tool (WorldEdit)</h2>
+                    <p>The Flood Fill tool replaces connected blocks of the same type as the one you target, or fills an area with a new material. The Vintage Story screenshot shows a "Flood fill" tool with specific options like "Max Distance" and "Mode (Flat/Volume)".</p>
+                    <h3>Primary Controls (conceptual, often via commands or a specific tool mode):</h3>
+                    <ul>
+                        <li><strong>Right Click (on a block):</strong> Initiates the fill from that block.</li>
+                    </ul>
+                    <h3>Options Bar Explained:</h3>
+                    <ul>
+                        <li><strong>Fill With:</strong> The [Block ID] to use for filling (e.g., <code>water-still</code>, <code>lava-still</code>, <code>soil-medium</code>).
+                            <em>In the VS screenshot, this is implied to be the block in your hand/hotbar.</em>
+                        </li>
+                        <li><strong>Range:</strong> The maximum radius or distance the fill will spread. (Corresponds to "Max Distance" in VS screenshot).</li>
+                        <li><strong>3D Fill:</strong> If checked, fills in a volume (like <code>//fill [block] [radius] [depth]</code>). If unchecked, fills on a 2D plane (like <code>//fill [block] [radius]</code>, "Flat (2D)" mode in VS).
+                        </li>
+                    </ul>
+                    <h3>WorldEdit Commands:</h3>
+                    <ul>
+                        <li><code>//fill [block_to_place] [radius]</code>: Fills a 2D area starting from the block you are looking at, replacing similar blocks.</li>
+                        <li><code>//fill [block_to_place] [radius] [depth]</code>: Fills a 3D area.</li>
+                        <li>The game's dedicated "Flood fill" tool likely simplifies these. Left-click might "flood delete" (fill with air).</li>
+                    </ul>
+                `
+            },
+
+            // --- TERRAFORMING ---
+            {
+                id: 'raiselower',
+                name: 'Raise/Lower',
+                iconEmoji: '⛰️', // or ↕️
+                optionsHTML: () => `
+                    <div class="option-group">
+                        <label for="rl-shape" title="Shape of the area to affect">Shape:</label>
+                        <select id="rl-shape">
+                            <option value="sphere">Sphere</option>
+                            <option value="square">Square</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label for="rl-size" title="Radius/size of the area">Size:</label>
+                        <input type="number" id="rl-size" value="5" min="1">
+                    </div>
+                    <div class="option-group">
+                        <label for="rl-height" title="Amount to raise/lower per click">Height:</label>
+                        <input type="number" id="rl-height" value="1" min="1">
+                    </div>
+                    <button id="rl-raise-btn" title="Raise terrain">Raise</button>
+                    <button id="rl-lower-btn" title="Lower terrain (melt)">Lower</button>
+                `,
+                details: `
+                    <h2>Raise/Lower Terrain Tool (Conceptual / VoxelSniper-like)</h2>
+                    <p>This tool allows for direct manipulation of terrain height, pushing it up or carving it down. While base WorldEdit doesn't have a direct "raise/lower" brush like VoxelSniper, similar effects can be achieved or scripted.</p>
+                    <h3>Primary Controls (conceptual for a dedicated tool):</h3>
+                    <ul>
+                        <li><strong>Left Click (Raise):</strong> Increases terrain height in the affected area.</li>
+                        <li><strong>Right Click (Lower):</strong> Decreases terrain height.</li>
+                    </ul>
+                    <h3>Options Bar Explained:</h3>
+                    <ul>
+                        <li><strong>Shape:</strong> The form of the brush's influence (e.g., <code>Sphere</code>, <code>Square</code>).</li>
+                        <li><strong>Size:</strong> The radius or extent of the area affected by each click.</li>
+                        <li><strong>Height:</strong> The number of blocks the terrain will be raised or lowered by per application.</li>
+                        <li><strong>Raise/Lower Buttons:</strong> Simulate the action.</li>
+                    </ul>
+                    <h3>Achieving with WorldEdit/Commands (Examples):</h3>
+                    <ul>
+                        <li><strong>Raise:</strong> Select an area. <code>//move 1 up -s</code> (if selection is on ground), then fill gap if needed. Or using a brush: <code>//brush sphere grass [size]</code> then click repeatedly. More advanced might involve <code>//deform</code>.</li>
+                        <li><strong>Lower (Melt):</strong> <code>//brush sphere air [size]</code> carefully, or <code>//deform</code>. VoxelSniper's "melt" brush (<code>/b melt</code>) is famous for this.</li>
+                        <li>VS might have its own implementation for this tool.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'erode',
+                name: 'Erode/Smooth',
+                iconEmoji: '🌬️', // Wind for erosion
+                optionsHTML: () => `
+                    <div class="option-group">
+                        <label for="erode-shape" title="Shape of the brush">Shape:</label>
+                        <select id="erode-shape">
+                            <option value="sphere">Sphere</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label for="erode-size" title="Size/radius of the brush">Size:</label>
+                        <input type="number" id="erode-size" value="5" min="1">
+                    </div>
+                    <div class="option-group">
+                        <label for="erode-iterations" title="Intensity of smoothing/erosion">Iter:</label>
+                        <input type="number" id="erode-iterations" value="1" min="1" max="5">
+                    </div>
+                    <button id="erode-smooth-btn" title="Smooth terrain">Smooth</button>
+                    <button id="erode-erode-btn" title="Erode terrain (more aggressive)">Erode</button>
+                `,
+                details: `
+                    <h2>Erode/Smooth Tool (WorldEdit / VoxelSniper-like)</h2>
+                    <p>This tool helps in making terrain look more natural by smoothing sharp edges or applying erosive effects.</p>
+                    <h3>Primary Controls:</h3>
+                    <ul>
+                        <li><strong>Right Click (with bound tool):</strong> Applies the smoothing or erosion effect.</li>
+                    </ul>
+                    <h3>Options Bar Explained:</h3>
+                    <ul>
+                        <li><strong>Shape:</strong> Typically <code>Sphere</code> for terrain tools.</li>
+                        <li><strong>Size:</strong> The radius of the brush's influence.</li>
+                        <li><strong>Iter (Iterations):</strong> How many times the smoothing algorithm runs per click. Higher values mean a stronger effect.</li>
+                        <li><strong>Smooth Button:</strong> Averages out heights, softening features (e.g., <code>//brush smooth [size] [iterations]</code>).</li>
+                        <li><strong>Erode Button:</strong> Simulates natural erosion, can be more complex. VoxelSniper has various erosion brushes (e.g., hydraulic, thermal). A simple WE version might be a more aggressive smooth or a blend/overlay brush.</li>
+                    </ul>
+                    <h3>WorldEdit Commands:</h3>
+                    <ul>
+                        <li><code>//brush smooth [radius] [iterations]</code>: This is the primary command for smoothing terrain.</li>
+                        <li>For more complex erosion, you might use overlay brushes (<code>//brush blendball</code> in some WE versions) or specific VoxelSniper brushes if that system is in use.</li>
+                    </ul>
+                `
+            },
+
+            // --- CONSTRUCTION AIDS ---
+            {
+                id: 'line',
+                name: 'Line',
+                iconEmoji: '📏',
+                optionsHTML: () => `
+                    <div class="option-group">
+                        <label for="line-material" title="Block ID for the line">Mat:</label>
+                        <input type="text" id="line-material" value="stone">
+                    </div>
+                    <div class="option-group">
+                        <label for="line-thickness" title="Thickness of the line in blocks">Thick:</label>
+                        <input type="number" id="line-thickness" value="1" min="1">
+                    </div>
+                    <label title="Create a hollow line/tube"><input type="checkbox" id="line-hollow"> Hollow</label>
+                `,
+                details: `
+                    <h2>Line Tool (WorldEdit)</h2>
+                    <p>Draws a line of blocks between two selected points (Pos1 and Pos2 from your [Selection]).</p>
+                    <h3>Command: <code>//line [material] [thickness]</code></h3>
+                    <p>You first set two points using the selection wand (Left Click for Pos1, Right Click for Pos2). Then, this tool/command draws a line connecting them.</p>
+                    <h3>Options Bar Explained:</h3>
+                    <ul>
+                        <li><strong>Mat (Material):</strong> The [Block ID] to use for the line (e.g., <code>log-pine</code>, <code>brick-fired</code>).</li>
+                        <li><strong>Thick (Thickness):</strong> The thickness of the line in blocks. A thickness of 1 creates a single-block wide line. Larger values create thicker lines/cylinders.</li>
+                        <li><strong>Hollow:</strong> If checked, creates a hollow tube/line if thickness is > 1 (<code>//line hollow [mat] [thick]</code>).</li>
+                    </ul>
+                    <p>This tool is very useful for creating straight beams, pipes, roads, or guidelines quickly.</p>
+                `
+            },
+            {
+                id: 'tree',
+                name: 'Tree',
+                iconEmoji: '🌳',
+                optionsHTML: () => `
+                    <div class="option-group">
+                        <label for="tree-step" title="Increment step for size sliders">Step:</label>
+                        <input type="number" id="tree-step-val" value="1" min="1" max="10" style="width:40px;">
+                    </div>
+                     <button id="tree-constrain-btn" class="toggle-button" title="Toggle placement constraints (e.g., on grass only)">Constrain: Off</button>
+                    <div class="option-separator"></div>
+                    <div class="option-group">
+                        <label for="tree-min-size" title="Minimum size multiplier">Min.S:</label>
+                        <input type="number" id="tree-min-size" value="0.7" step="0.1" min="0.1">
+                    </div>
+                    <div class="option-group">
+                        <label for="tree-max-size" title="Maximum size multiplier">Max.S:</label>
+                        <input type="number" id="tree-max-size" value="1.3" step="0.1" min="0.1">
+                    </div>
+                    <div class="option-group">
+                        <label for="tree-variant" title="Type of tree to generate">Variant:</label>
+                        <select id="tree-variant">
+                            <option>oak</option><option>pine</option><option>birch</option><option>acacia</option>
+                            <option>maple</option><option>walnut</option><option>purpleheart</option><option>ebony</option>
+                            <option>kapok</option><option>larch</option><option>redwood</option>
+                        </select>
+                    </div>
+                `,
+                details: `
+                    <h2>Tree Generation Tool</h2>
+                    <p>Places pre-defined or procedurally generated trees. This is more advanced than planting a [Sapling].</p>
+                    <h3>Primary Controls (for a dedicated tool):</h3>
+                    <ul>
+                        <li><strong>Right Click:</strong> Places a tree at the targeted location using current settings.</li>
+                    </ul>
+                     <h3>Options Bar Explained (based on VS screenshot):</h3>
+                    <ul>
+                        <li><strong>Step:</strong> Seems to control the increment for the Min/Max Size sliders if they were adjusted with arrow keys or a separate control. Default "1" in screenshot, likely refers to fine-tuning.
+                            <em>(The actual sliders here use step="0.1" directly.)</em>
+                        </li>
+                        <li><strong>Constrain: Off/On:</strong> Toggles placement constraints. "On" might mean the tree can only be placed on valid blocks like grass, or within certain height limits. "Off" allows placement anywhere.</li>
+                        <li><strong>Min.S / Max.S (Min/Max Size):</strong> Controls the scale variation of the generated tree. 1.0 is standard. Values between Min and Max will be chosen randomly for each tree.</li>
+                        <li><strong>Variant:</strong> The type of tree (e.g., <code>oak</code>, <code>pine</code>). This corresponds to the <code>[type]</code> in <code>//tree [type]</code>.</li>
+                    </ul>
+                    <h3>WorldEdit Command:</h3>
+                    <ul>
+                        <li><code>//tree [type]</code>: Spawns a tree of the specified type (e.g., <code>//tree pine</code>). The size might be fixed or have limited variation with this basic command.
+                        The game's integrated TreeGen tool provides much finer control as seen in its UI.</li>
+                        <li><code>/forestgen</code> (or similar server-specific commands) might offer more advanced forest creation.</li>
+                    </ul>
+                    <p>The "W: Requires magic wand..." and "Sc: Place trees..." from your screenshot indicates the tool might need WorldEdit permissions (magic wand) and Scroll-Click (Sc) could be another way to place trees, perhaps with different behavior than Right-Click (R).</p>
+                `
+            },
+            {
+                id: 'import',
+                name: 'Import Schematic',
+                iconEmoji: '📥',
+                optionsHTML: () => `
+                    <div class="option-group">
+                        <label for="import-filename" title="Name of the .vsschem or .schematic file">File:</label>
+                        <input type="text" id="import-filename" value="mybuild">
+                    </div>
+                    <button title="Load the schematic into clipboard (//schem load)">Load</button>
+                    <button title="Paste the loaded schematic (//paste)">Paste</button>
+                    <div class="option-group">
+                        <label for="import-rotate" title="Rotate schematic before pasting">Rot:</label>
+                        <select id="import-rotate"><option value="0">0°</option><option value="90">90°</option><option value="180">180°</option><option value="270">270°</option></select>
+                    </div>
+                    <label title="Paste without air blocks (-a flag)"><input type="checkbox" id="import-noair"> No Air</label>
+                `,
+                details: `
+                    <h2>Import Schematic Tool (WorldEdit)</h2>
+                    <p>Allows you to load and place pre-built structures saved as schematic files (e.g., <code>.vsschem</code> for Vintage Story, or <code>.schematic</code>/<code>.schem</code> for general WorldEdit).</p>
+                    <h3>Commands: <code>//schem load [filename]</code>, <code>//schem list</code>, <code>//paste [-a]</code>, <code>//rotate [degrees]</code></h3>
+                    <h3>Options Bar Explained:</h3>
+                    <ul>
+                        <li><strong>File:</strong> The name of the schematic file (without extension, usually). Schematics are typically stored in a specific server or client folder (e.g., <code>worldedit/schematics</code>).</li>
+                        <li><strong>Load Button:</strong> Loads the specified schematic into your WorldEdit clipboard (<code>//schem load [filename]</code>).</li>
+                        <li><strong>Paste Button:</strong> Pastes the loaded schematic from your clipboard into the world at your current position (<code>//paste</code>).</li>
+                        <li><strong>Rot (Rotate):</strong> Rotates the schematic in your clipboard before pasting (<code>//rotate [degrees_yaw]</code>). The selection here applies to the Y-axis rotation.</li>
+                        <li><strong>No Air:</strong> If checked, pastes the schematic without its air blocks (<code>//paste -a</code>). This prevents air from the schematic carving out existing structures.</li>
+                    </ul>
+                    <p>To use: Type the filename, click Load. Position yourself where you want the schematic, optionally rotate, then click Paste. You can also save your own selections as schematics using <code>//copy</code> then <code>//schem save [filename]</code>.</p>
+                `
+            },
+
+            // --- VANILLA CREATIVE TOOLS ---
+            {
+                id: 'chisel',
+                name: 'Chisel',
+                iconEmoji: '🛠️',
+                optionsHTML: () => `
+                    <div class="option-group">
+                        <label title="Material is taken from your hotbar's selected chisel-compatible block">Material: (From Hotbar)</label>
+                    </div>
+                    <div class="option-group">
+                        <label for="chisel-mode" title="Chisel mode selected in-game (F key by default)">Mode:</label>
+                        <select id="chisel-mode">
+                            <option>Stair</option><option>Slab</option><option>2 Voxels</option>
+                            <option>4 Voxels</option><option>8 Voxels (Block)</option><option>Copy</option><option>Delete</option>
+                        </select>
+                    </div>
+                     <button title="Press 'F' in-game to cycle modes">Cycle Mode (F)</button>
+                `,
+                details: `
+                    <h2>Chisel Tool (Vanilla Vintage Story)</h2>
+                    <p>The Chisel is a powerful vanilla tool for micro-detailing [Blocks]. It allows you to remove small voxels from a block or add voxels of a different material to it.</p>
+                    <h3>Primary Controls (In-Game):</h3>
+                    <ul>
+                        <li><strong>Hold Chisel:</strong> Select the Chisel in your hotbar.</li>
+                        <li><strong>Select Material Block (Optional):</strong> Place a compatible block (e.g., stone, wood, bricks) in your off-hand or active hotbar slot to add that material. If no material is selected, chiseling removes voxels.</li>
+                        <li><strong>Aim at a Block Face.</strong></li>
+                        <li><strong>F Key (Default):</strong> Cycles through different chiseling modes (Stair, Slab, various voxel sizes, Copy, Delete).</li>
+                        <li><strong>Left Click:</strong> Removes voxels according to the selected mode and highlighted area.</li>
+                        <li><strong>Right Click:</strong> Adds voxels of the selected material (if any) according to the mode and area.</li>
+                        <li><strong>Shift + Scroll Wheel:</strong> Changes detailed chisel selection patterns within some modes.</li>
+                    </ul>
+                    <h3>Options Bar Explained (Simulating In-Game State):</h3>
+                    <ul>
+                        <li><strong>Material (From Hotbar):</strong> The Chisel uses the block type you have selected in your hotbar (or sometimes off-hand) as the material to add. This UI element is a reminder.</li>
+                        <li><strong>Mode:</strong> Represents the current chiseling mode selected by pressing 'F'.
+                            <ul>
+                                <li><code>Stair/Slab</code>: Predefined larger shapes.</li>
+                                <li><code>2/4/8 Voxels</code>: Allows adding/removing individual voxels or small groups. "8 Voxels (Block)" means one full small voxel layer. Vintage Story uses up to 16x16x16 voxels per block, so these are relative sizes.</li>
+                                <li><code>Copy</code>: Copies the chiseled state of one block to another.</li>
+                                <li><code>Delete</code>: Removes all chiseling from a block, restoring it to a full block.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Cycle Mode (F) Button:</strong> A reminder of the in-game key.</li>
+                    </ul>
+                    <p>The Chisel is essential for creating intricate details, custom slopes, fine carvings, and mixing materials within a single block space. It's not a WorldEdit tool but a core creative building mechanic.</p>
+                `
+            },
+             {
+                id: 'magicowand',
+                name: 'Magicowand',
+                iconEmoji: '✨',
+                optionsHTML: () => `
+                    <div class="option-group">
+                        <label title="Mode of the Magicowand">Mode:</label>
+                        <select>
+                            <option>Manual</option>
+                            <option>Area</option>
+                            <option>Tool</option>
+                        </select>
+                    </div>
+                    <div class="option-separator"></div>
+                    <button title="Copy selection (//copy)">Copy</button>
+                    <button title="Clear selection and clipboard (//desel & //clearclipboard)">Clear</button>
+                    <button title="Delete blocks in selection (//set air)">Delete</button>
+                    <div class="option-group">
+                        <label for="magic-fill-block" title="Block to fill selection with">Fill:</label>
+                        <input type="text" id="magic-fill-block" value="stone" style="width:80px;">
+                    </div>
+                    <button title="Recalculate lighting in selection (//fixlighting or /world relightchunks)">Relight</button>
+                    <button title="Normalize selection positions (conceptual)">Norm Pos</button>
+                `,
+                details: `
+                    <h2>Magicowand (WorldEdit Core Tool)</h2>
+                    <p>The [Magicowand] (often just "wand") is the primary tool for using [WorldEdit]. It's typically used for making selections and can sometimes be bound to brushes or other tools. The screenshot shows a specialized interface when it's active.</p>
+                    <h3>Obtaining the Wand:</h3>
+                    <ul>
+                        <li>Command: <code>//wand</code>. This gives you the wand item or binds wand behavior to your held item.</li>
+                    </ul>
+                    <h3>Default Wand Behavior (Selection):</h3>
+                    <ul>
+                        <li><strong>Left Click a block:</strong> Sets Position 1 of your selection.</li>
+                        <li><strong>Right Click a block:</strong> Sets Position 2 of your selection.</li>
+                    </ul>
+                    <h3>Interpreting the Screenshot's Top Bar for "Magicowand":</h3>
+                    <ul>
+                        <li><strong>Mode (Manual, Area, Tool):</strong> These are likely specific operational modes for the wand in a particular WorldEdit setup or addon.
+                            <ul>
+                                <li><code>Manual</code>: Standard Pos1/Pos2 selection.</li>
+                                <li><code>Area</code>: Might auto-select predefined areas (e.g., a chunk, a room based on walls).</li>
+                                <li><code>Tool</code>: Could switch the wand to activate other tools directly (like a brush) instead of selecting.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Copy:</strong> Equivalent to <code>//copy</code>.</li>
+                        <li><strong>Clear:</strong> Could be <code>//desel</code> (clear selection) and/or <code>//clearclipboard</code> (clear WorldEdit clipboard).</li>
+                        <li><strong>Delete:</strong> Equivalent to <code>//set air</code> within the current selection.</li>
+                        <li><strong>Fill (with input field):</strong> Fills the current selection with the specified block (<code>//set [block_from_input]</code>).</li>
+                        <li><strong>Relight:</strong> Recalculates lighting for the area, e.g., <code>//fixlighting</code> or <code>/world relightchunks</code>.</li>
+                        <li><strong>Norm Pos (Normalize Position):</strong> This is less standard. Could be for aligning selection to grid/chunks, or related to schematic placement precision.</li>
+                    </ul>
+                `
+            }
+        ];
+
+        const toolSidebar = document.getElementById('toolSidebar');
+        const toolOptionsBar = document.getElementById('toolOptionsBar');
+        const toolSpecificOptionsContainer = document.getElementById('toolSpecificOptionsContainer');
+        const toolDetailsContent = document.getElementById('toolDetailsContent');
+        const toggleToolDrawingBtn = document.getElementById('toggleToolDrawingBtn');
+        let isToolDrawingEnabled = false; // Start with "Disable Tool Drawing" text, meaning it's currently enabled
+
+        function updateToolDrawingButton() {
+            if (isToolDrawingEnabled) {
+                toggleToolDrawingBtn.textContent = 'Disable Tool Drawing';
+                toggleToolDrawingBtn.classList.remove('active'); // 'active' could mean drawing is disabled
+                // console.log("Tool drawing is ON");
+            } else {
+                toggleToolDrawingBtn.textContent = 'Enable Tool Drawing';
+                toggleToolDrawingBtn.classList.add('active');
+                // console.log("Tool drawing is OFF");
+            }
+        }
+        toggleToolDrawingBtn.addEventListener('click', () => {
+            isToolDrawingEnabled = !isToolDrawingEnabled;
+            updateToolDrawingButton();
+        });
+
+
+        function processWikiLinks(htmlContent) {
+            const wikiLinkRegex = /\[([^\]]+)\]/g;
+            return htmlContent.replace(wikiLinkRegex, (match, term) => {
+                const wikiTerm = term.replace(/\s+/g, '_');
+                return `<a href="${VINTAGE_STORY_WIKI_BASE_URL}${encodeURIComponent(wikiTerm)}" target="_blank" title="Go to VS Wiki for ${term}">${term}</a>`;
+            });
+        }
+
+        function displayToolInfo(toolId) {
+            const tool = toolsData.find(t => t.id === toolId);
+            if (!tool) {
+                toolSpecificOptionsContainer.innerHTML = 'Error: Tool not found.';
+                toolDetailsContent.innerHTML = '<h2>Error</h2><p>Tool data could not be loaded.</p>';
+                return;
+            }
+
+            document.querySelectorAll('.tool-button').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.toolId === toolId);
+            });
+            
+            if (typeof tool.optionsHTML === 'function') {
+                toolSpecificOptionsContainer.innerHTML = tool.optionsHTML();
+            } else {
+                toolSpecificOptionsContainer.innerHTML = tool.optionsHTML || `No specific options for ${tool.name}.`;
+            }
+            toolDetailsContent.innerHTML = processWikiLinks(tool.details);
+        }
+
+        function populateSidebar() {
+            toolsData.forEach(tool => {
+                const button = document.createElement('button');
+                button.className = 'tool-button';
+                if (tool.iconEmoji) {
+                    button.textContent = tool.iconEmoji;
+                } else if (tool.iconClass) {
+                    const span = document.createElement('span');
+                    span.className = tool.iconClass;
+                    button.appendChild(span);
+                } else {
+                    button.textContent = tool.name.substring(0, 1);
+                }
+                button.dataset.toolId = tool.id;
+                button.title = tool.name;
+                button.addEventListener('click', () => displayToolInfo(tool.id));
+                toolSidebar.appendChild(button);
+            });
+        }
+
+        // Initialize
+        updateToolDrawingButton(); // Set initial state of the button
+        populateSidebar();
+        // No tool selected by default, shows welcome message.
+    </script>
+</body>
+</html>

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<!-- Version 1.0 - Initial Joke Page with Emoji Rain -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCA Daily Jokes!</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial Rounded MT Bold', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f8ff; /* AliceBlue */
+            color: #333;
+            text-align: center;
+            overflow: hidden; /* Hide scrollbars from emojis going off screen */
+            position: relative; /* For emoji positioning */
+        }
+
+        #joke-container {
+            background-color: #fff;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+            min-height: 150px; /* Ensure space for joke */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 5px solid #4682b4; /* SteelBlue */
+        }
+
+        #school-name {
+            font-size: 1.5em;
+            color: #ff6347; /* Tomato */
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        #joke-text {
+            font-size: 1.8em;
+            margin-bottom: 30px;
+            min-height: 60px; /* Space for joke text before clicking */
+            color: #2c3e50; /* Dark Slate Gray */
+            line-height: 1.4;
+        }
+
+        #new-joke-button {
+            background-color: #3498db; /* Peter River Blue */
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+
+        #new-joke-button:hover {
+            background-color: #2980b9; /* Belize Hole Blue */
+        }
+
+        #new-joke-button:active {
+            transform: translateY(2px);
+        }
+
+        .emoji {
+            position: absolute;
+            font-size: 2rem;
+            animation: fall 5s linear forwards, fadeOut 5s linear forwards;
+            user-select: none; /* Prevent text selection of emojis */
+            pointer-events: none; /* Emojis shouldn't interfere with clicks */
+            z-index: -1; /* Behind joke container but above body background */
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 1; /* FadeOut will handle opacity at the end */
+            }
+        }
+        
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            80% { opacity: 1; } /* Start fading out towards the end of fall */
+            100% { opacity: 0; }
+        }
+
+        /* For smaller screens */
+        @media (max-width: 600px) {
+            #joke-container {
+                width: 90%;
+                padding: 20px;
+            }
+            #joke-text {
+                font-size: 1.5em;
+            }
+            #new-joke-button {
+                font-size: 1em;
+                padding: 12px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="joke-container">
+        <div id="school-name">World Compass Academy Joke Time!</div>
+        <p id="joke-text">Click the button for a ROARsome joke from Coco!</p>
+        <button id="new-joke-button">Tell Me a Joke!</button>
+    </div>
+
+    <script>
+        // --- JOKE DATA ---
+        // IMPORTANT: To reach 500 jokes, you'll need to add many more to these arrays!
+        // I've provided a good starting set.
+
+        const dadJokes = [
+            "Why don't skeletons fight each other? They don't have the guts.",
+            "What do you call fake spaghetti? An impasta!",
+            "Why did the scarecrow win an award? Because he was outstanding in his field!",
+            "What concert costs just 45 cents? 50 Cent featuring Nickelback!",
+            "Why did the bicycle fall over? Because it was two-tired!",
+            "How does a penguin build its house? Igloos it together.",
+            "What do you call a fish with no eyes? Fsh!",
+            "Why can't you hear a pterodactyl go to the bathroom? Because the 'P' is silent.",
+            "What do you call a factory that makes okay products? A satisfactory.",
+            "Why did the math book look so sad? Because it had too many problems.",
+            "I'm reading a book about anti-gravity. It's impossible to put down!",
+            "What do you call a lazy kangaroo? Pouch potato.",
+            "Why don't eggs tell jokes? They'd crack each other up.",
+            "What's brown and sticky? A stick!",
+            "Why was the cookie sad? Because its mom was a wafer too long!",
+            "What did the ocean say to the beach? Nothing, it just waved.",
+            "Why are ghosts bad liars? Because you can see right through them.",
+            "What do you call a cheese that isn't yours? Nacho cheese!",
+            "What kind of tree fits in your hand? A palm tree!",
+            "How do you organize a space party? You planet.",
+			"Did you hear about the restaurant on the moon? I heard the food was good but it had no atmosphere.",
+            "Why don't scientists trust atoms? Because they make up everything!",
+            "What do you call a dog magician? A labracadabrador.",
+            "Why did the old man fall in a well? Because he couldn’t see that well!",
+            "What do you call a belt made out of watches? A waist of time.",
+            "Why was the baby strawberry crying? Because his parents were in a jam!",
+            "What do you call an alligator in a vest? An investigator.",
+            "Why did the golfer bring two pairs of pants? In case he got a hole in one.",
+            "What do you get when you cross a snowman and a dog? Frostbite.",
+            "Why can't a nose be 12 inches long? Because then it would be a foot.",
+            "What’s an astronaut’s favorite part of a computer? The space bar.",
+            "Why did the coffee file a police report? It got mugged.",
+            "How do you make a Kleenex dance? Put a little boogie in it!",
+            "What do you call a sad strawberry? A blueberry.",
+            "Why are pirates called pirates? Because they arrrr!",
+            "What kind of shoes do ninjas wear? Sneakers.",
+            "What time did the man go to the dentist? Tooth hurt-y.",
+            "Why did the tomato blush? Because it saw the salad dressing!",
+            "What do you call a cow with no legs? Ground beef.",
+            "Why are elevator jokes so good? They work on many levels.",
+            "What do you call a sleeping bull? A bulldozer.",
+            "What has ears but cannot hear? A cornfield.",
+            "Why don't some couples go to the gym? Because some relationships don't work out.",
+            "What’s brown and sounds like a bell? Dung!",
+            "What do you call a bear with no teeth? A gummy bear.",
+            "Why did the Invisible Man turn down the job offer? He couldn't see himself doing it.",
+            "How do you catch a squirrel? Climb a tree and act like a nut!",
+            "What did the grape say when it got stepped on? Nothing, it just let out a little wine.",
+            "Why did the picture go to jail? It was framed.",
+            "What do you call a pile of cats? A meowtain.",
+            "Why did the student eat his homework? Because the teacher said it was a piece of cake.",
+            "What do you call a man with a rubber toe? Roberto.",
+            "Why are fish so smart? Because they live in schools.",
+            "What's a pirate's favorite letter of the alphabet? You'd think it's R, but it's the C they love!",
+            "Why did the can crusher quit his job? It was soda pressing.",
+            "How do you make holy water? You boil the hell out of it.",
+            "What's orange and sounds like a parrot? A carrot.",
+            "What do you call a group of musical whales? An orca-stra.",
+            "Why did the fungi leave the party? There wasn't mushroom.",
+            "What do you call a boomerang that won't come back? A stick.",
+            "Why was the belt arrested? For holding up a pair of pants!",
+            "What do you call a dinosaur with an extensive vocabulary? A thesaurus.",
+            "How do you follow Will Smith in the snow? You follow the fresh prints.",
+            "Why did the psychic refuse to pay his exorcist? He said he'd seen it coming.",
+            "What do you call a snowman with a six-pack? An abdominal snowman.",
+            "Why did the bee get married? Because he found his honey.",
+            "What’s the best thing about Switzerland? I don’t know, but the flag is a big plus.",
+            "What do you call a cow that plays an instrument? A moo-sician.",
+            "Why did the clock go to the library? It wanted to check out the time.",
+            "What kind of car does an egg drive? A Yolkswagen.",
+            "Why was the broom late? It over-swept.",
+            "What do you call a short, psychic dwarf who has escaped from prison? A small medium at large.",
+            "Why do we tell actors to 'break a leg?' Because every play has a cast.",
+            "What did the left eye say to the right eye? Between you and me, something smells.",
+            "What do you call a lazy baby kangaroo? Pouch potato!",
+            "Why did the chewing gum cross the road? It was stuck to the chicken's foot.",
+            "What do you call a thieving alligator? A crook-o-dile.",
+            "Why couldn't the leopard play hide and seek? Because he was always spotted.",
+            "What kind of music do mummies listen to? Wrap music.",
+            "Why did the man put his money in the blender? He wanted to make liquid assets.",
+            "What’s a foot long and slippery? A slipper!",
+            "What do you call a fish with a crown? A kingfish.",
+            "Why did the singer bring a ladder to her concert? She wanted to reach the high notes.",
+            "What do you call a nosy pepper? Jalapeño business!",
+            "Why did the gardener plant a light bulb? He wanted to grow a power plant!",
+            "What do you call a funny mountain? Hill-arious.",
+            "Why did the banana go to the doctor? It wasn't peeling well.",
+            "What do you call a chicken staring at a lettuce? Chicken sees a salad.",
+            "What did the zero say to the eight? Nice belt!",
+            "Why did the computer go to the doctor? It had a virus.",
+            "What has four wheels and flies? A garbage truck.",
+            "Why was the math book sad? It had too many problems.",
+            "What do you call a pig that does karate? A pork chop.",
+            "Why did the baker stop making donuts? He got tired of the hole business.",
+            "What do you call a group of disorganized cats? A cat-tastrophe.",
+            "Why did the chicken join a band? Because it had the drumsticks.",
+            "What do you call a horse that lives next door? A neigh-bor.",
+            "Why did the scarecrow become a successful motivational speaker? He was outstanding in his field.",
+            "What's a vampire's favorite fruit? A neck-tarine.",
+            "Why did the student bring a ladder to school? To go to high school.",
+            "What do you call a droid that takes the long way around? R2-Detour.",
+            "Why did the bicycle stand up by itself? It was two tired.",
+            "What do you call an elephant that doesn’t matter? An irrelephant.",
+            "What is a pirate's favorite subject? Arrrrrrt!",
+            "Why did the chef get arrested? For beating an egg.",
+            "What do you call a sleeping dinosaur? A Dinosnore.",
+            "Why are teddy bears never hungry? They are always stuffed.",
+            "What do you call a dog that can tell time? A watchdog.",
+            "Why was the stadium so cold? It was full of fans.",
+            "What do you call a fly without wings? A walk.",
+            "Why did the man get fired from the calendar factory? He took a couple of days off.",
+            "What do you call a deer with no eyes? No eye-deer.",
+            "What do you call a deer with no eyes and no legs? Still no eye-deer.",
+            "Why was the photographer so bad at his job? He couldn't focus.",
+            "What do you call a wizard who is good at cooking? A saucier.",
+            "Why did the king go to the dentist? To get his teeth crowned.",
+            "What do you call a sad cup of coffee? Depresso.",
+            "Why did the barber win the race? He knew a shortcut.",
+            "What did the janitor say when he jumped out of the closet? Supplies!",
+            "Why don't oysters donate to charity? Because they are shellfish.",
+            "What do you call a fake noodle? An impasta.",
+            "Why was the little ink drop crying? Because its mother was in the pen and it didn't know how long the sentence would be.",
+            "What do you call a line of rabbits walking backwards? A receding hare-line.",
+            "Why did the football coach go to the bank? To get his quarter back."
+        ];
+
+        const catJokes = [
+			"What do you call a cat that's a beauty influencer? A glam-meowr puss.",
+            "Why did the cat bring a ladder to the bar? He heard the drinks were on the house!",
+            "What's a cat's favorite subject in school? Hiss-tory.",
+            "What do you call a cat who loves to bowl? An alley cat.",
+            "Why are cats so good at video games? Because they have nine lives!",
+            "What do you get if you cross a cat with a dark horse? Kitty Perry.",
+            "What's a cat's favorite kind of car? A Cat-illac.",
+            "Why was the cat sitting on the computer? To keep an eye on the mouse!",
+            "What do cats use to make coffee? A purr-colator.",
+            "What do you call a cat that can tell the future? A clairvoy-ant-cat.",
+            "Why did the cat join the Red Cross? She wanted to be a first-aid kit-ten!",
+            "What is a cat's favorite musical? 'Cats'ablanca.",
+            "What do you call a cat who is a police officer? Claw-enforcement.",
+            "Why don't cats play poker in the jungle? Too many cheetahs.",
+            "What's a cat's favorite breakfast? Mice Krispies.",
+            "How do you know if your cat is a good singer? By the meow-sic it makes.",
+            "What do you call a cat that likes to dig in the sand? Sandy Claws.",
+            "What's a cat's favorite button on the remote? Paws.",
+            "Why did the cat go to medical school? To become a purr-amedic.",
+            "What kind of cat works for the C.I.A.? A Siamese-cret agent.",
+            "What do you call a cat that's been caught by the police? A purr-petrator.",
+            "Why did the cat wear a fancy dress to the party? She wanted to look purr-fect.",
+            "What's a cat's favorite ice cream flavor? Mouse-carpone.",
+            "What do you call a cat who is an artist? A paw-casso.",
+            "Why did the cat get a ticket? For littering.",
+            "What's a cat's favorite type of literature? Hairy Paw-ter.",
+            "What do you call it when a cat wins a dog show? A cat-astrophe.",
+            "Why did the cat run away from the tree? It was afraid of the bark.",
+            "What do you call a cat that is very organized? A purr-fectionist.",
+            "What's a cat's favorite game show? The Price is Mice!",
+            "Why did the cat put oil on the mouse? Because he wanted it to squeak.",
+            "What do you call a lemon-loving cat? A sour puss.",
+            "What's a cat's favorite type of story? A fairy tail.",
+            "Why are cats such good comedians? They always land on their feet with a punchline.",
+            "What do you call a cat that can fix anything? A handyman-cat.",
+            "What's a cat's way of saying 'OMG'? 'Oh My Mouse!'",
+            "Why did the cat go to the library? To check out some mews-papers.",
+            "What's a cat's favorite type of dance? The meow-remba.",
+            "What do you call a cat magician? Meow-dini.",
+            "Why was the cat so good at chess? He was a grand-meow-ster.",
+            "What do you call a cat who loves the snow? A cool cat.",
+            "What's a cat's favorite day of the week? Caturday.",
+            "Why did the cat get an award? For purr-fect attendance.",
+            "What do you call a cat that can play the piano? A meow-sician.",
+            "Why did the cat study law? To become a paw-yer.",
+            "What's a cat's favorite vegetable? As-purr-agus.",
+            "What do you call a cat that's a great detective? Sherlock Paws.",
+            "Why did the cat sit next to the fire? It wanted to be a hot cat.",
+            "What's a cat's favorite dessert? Mice pudding.",
+            "What do you call a cat that tells jokes? A stand-up cat-median.",
+            "Why did the cat join the circus? To be an acro-cat.",
+            "What's a cat's favorite drink? Purr-ier.",
+            "What do you call a cat that loves to read? A literary kit-ten.",
+            "Why did the cat go to space? To visit the meow-ter limits.",
+            "What's a cat's favorite type of movie? A mews-ical.",
+            "What do you call a cat that's a chef? A culinary cat-spert.",
+            "Why did the cat get a promotion? Because of its great cat-titude.",
+            "What's a cat's favorite hobby? Paw-ttery.",
+            "What do you call a cat who is a gardener? A green-pawed feline.",
+            "Why did the cat cross the playground? To get to the other slide... and bat at the swings.",
+            "What's a cat's favorite instrument? The purr-cussion.",
+            "What do you call a group of singing cats? A meow-sical choir.",
+            "Why was the cat so happy? It was feline good.",
+            "What's a cat's favorite thing to wear? A fur coat, naturally!",
+            "What do you call a cat that's a good leader? The head hon-cat.",
+            "Why did the cat bring string to the party? In case things got tangled.",
+            "What's a cat's favorite superhero? Cat-tain America.",
+            "What do you call a cat who loves to swim? An aqua-cat (though rare!).",
+            "Why did the cat want to become a weather reporter? To predict purr-cipitation.",
+            "What's a cat's favorite type of tree? A cat-tail tree.",
+            "What do you call a cat that's afraid of everything? A scaredy-cat.",
+            "Why did the cat sit on the dictionary? To learn some new meow-nings.",
+            "What's a cat's favorite board game? Mice and Mystics.",
+            "What do you call a cat who is a champion sleeper? A nap-lete.",
+            "Why did the cat stare at the wall? It was practicing its meow-ditation.",
+            "What's a cat's favorite flower? A tiger lily.",
+            "What do you call a cat that can write? A paw-thor.",
+            "Why did the cat go to the vet? It had a cat-arrh.",
+            "What's a cat's favorite country? Purr-u.",
+            "What do you call a very wealthy cat? A milli-mew-naire.",
+            "Why did the cat start a band? To make some mewsic.",
+            "What's a cat's favorite type of chip? Purr-ingles.",
+            "What do you call a cat that loves to argue? A de-bat-er.",
+            "Why did the cat climb the bookshelf? To get a bird's-eye view... of the mouse.",
+            "What's a cat's favorite city? Paw-ris.",
+            "What do you call a cat who is a spy? A fur-tive agent.",
+            "Why did the cat go to the beach? To catch some rays and some fish!",
+            "What's a cat's favorite planet? Nep-tune (because it's blue like some cat toys).",
+            "What do you call a cat that's always on time? Punc-chew-al.",
+            "Why did the cat get a computer? To surf the mouse-wide web.",
+            "What's a cat's favorite TV show? The Great Catsby.",
+            "What do you call a cat that loves to bake? A whisk-er of dough.",
+            "Why did the cat refuse to share its toy? It was being a bit cat-ty.",
+            "What's a cat's favorite kind of story? One with a purr-fect ending.",
+            "What do you call a cat that's good with numbers? A cal-cu-lator.",
+            "Why did the cat sleep under the car? It wanted to wake up oily.",
+            "What's a cat's favorite art movement? Impurr-essionism.",
+            "What do you call a cat that tells secrets? A whisker-blower.",
+            "Why did the cat visit the astrologer? To get its horos-cat read.",
+            "What's a cat's favorite sport? Hairball.",
+            "What do you call a cat that can jump higher than a house? Any cat, houses can't jump!",
+            "Why did the cat look at the empty food bowl with disdain? It was a cat-titude problem.",
+            "What's a cat's favorite type of party? A fur-ball.",
+            "What do you call a cat that's really good at knitting? A purrl-er.",
+            "Why did the cat become a gardener? It had a green paw.",
+            "What's a cat's favorite holiday? Meow-loween.",
+            "What do you call a pile of cats? A meowtain!",
+            "Why are cats such bad poker players? They always have a fur ace up their sleeve!",
+            "What's a cat's favorite color? Purr-ple!",
+            "What do you call a cat that gets anything it wants? Purr-suasive.",
+            "Why did the cat sit on the computer? To keep an eye on the mouse!",
+            "What's a cat's favorite dessert? Chocolate mouse!",
+            "What do cats like to eat on a hot day? A mice-cream cone!",
+            "How do cats end a fight? They hiss and make up!",
+            "What is a cat's favorite magazine? Good Mousekeeping!",
+            "Why was the cat so small? Because it only drank condensed milk!",
+            "What do you call a cat who's a magician? A Meow-gician!",
+            "What's a cat's favorite song? Three Blind Mice!",
+            "What state has a lot of cats and dogs? Petsylvania!",
+            "If lights run on electricity and cars run on gas, what do cats run on? Their paws!",
+            "What do you call a cat wearing shoes? Puss in Boots!"
+        ];
+
+        const dailyJokes = [
+		    "What has keys but opens no locks? A piano.",
+            "What has a neck without a head, a body without legs? A bottle.",
+            "What is full of holes but still holds water? A sponge.",
+            "What question can you never answer yes to? 'Are you asleep yet?'",
+            "What is always coming but never arrives? Tomorrow.",
+            "What can you break, even if you never pick it up or touch it? A promise.",
+            "What goes up but never comes down? Your age.",
+            "What has a thumb and four fingers but is not alive? A glove.",
+            "What has one voice, but speaks in every language? An echo.",
+            "What has cities, but no houses; forests, but no trees; and water, but no fish? A map.",
+            "Why did the student bring a ladder to school? To go to high school!",
+            "What do you call a dinosaur that is sleeping? A dino-snore.",
+            "What do you call a bear with no teeth? A gummy bear.",
+            "Why did the teddy bear say no to dessert? Because she was stuffed.",
+            "What do you call a sad strawberry? A blueberry. (Oops, this was in your original, let's replace: What gets wetter the more it dries? A towel.)",
+            "Why did the an orange stop running in the race? Because it ran out of juice!",
+            "What animal can jump higher than a house? All of them, houses can't jump!",
+            "Why was the math book unhappy? Because it had too many problems.",
+            "What is a pirate's favorite letter of the alphabet? You might think it's R, but their first love is the C!",
+            "What do you call a lazy kangaroo? Pouch potato.",
+            "Why did the bicycle fall over? Because it was two-tired.",
+            "What time is it when an elephant sits on a fence? Time to fix the fence!",
+            "What do you call a boomerang that doesn’t come back? A stick.",
+            "Why did the cookie go to the doctor? Because it felt crummy.",
+            "What do you call a cheese that isn't yours? Nacho cheese!",
+            "What kind of tree fits in your hand? A palm tree.",
+            "How do you make a milkshake? Give a cow a pogo stick.",
+            "Why can't you give Elsa a balloon? Because she will let it go.",
+            "What do you call a snowman party? A snowball.",
+            "What has an end, but no beginning? A rainbow.",
+            "What do you call a dog magician? A labracadabrador.",
+            "Why did the scarecrow win an award? He was outstanding in his field.",
+            "What do you call fake spaghetti? An impasta.",
+            "What is brown and sticky? A stick.",
+            "Why don't skeletons fight each other? They don't have the guts.",
+            "What concert costs just 45 cents? 50 Cent featuring Nickelback.",
+            "What did the ocean say to the beach? Nothing, it just waved.",
+            "What has to be broken before you can use it? An egg. (Another original, replace: What is easy to get into, but hard to get out of? Trouble.)",
+            "Why did the scientist install a knocker on his door? He wanted to win the No-bell prize!",
+            "What do you call a fly without wings? A walk.",
+            "What do you call a belt made out of watches? A waist of time.",
+            "Why are ghosts such bad liars? Because you can see right through them.",
+            "What goes up and down but doesn’t move? A staircase.",
+            "What can you catch, but not throw? A cold.",
+            "What has words, but never speaks? A book.",
+            "Why did the girl throw butter out the window? She wanted to see a butterfly.",
+            "What is a vampire's favorite fruit? A neck-tarine.",
+            "What do you call a fish with no eyes? Fsh!",
+            "Why did the tomato turn red? Because it saw the salad dressing.",
+            "What do you call a sleeping piece of paper? A nap-kin.",
+            "How do you organize a space party? You planet.",
+            "What kind of key opens a banana? A monkey.",
+            "What do you call a bear that's stuck in the rain? A drizzly bear.",
+            "Why was the computer cold? It left its Windows open.",
+            "What do you call a line of rabbits hopping backwards? A receding hare-line.",
+            "Why did the music teacher need a ladder? To reach the high notes.",
+            "What do you call an alligator in a vest? An investigator.",
+            "Why did the student sit on his watch? He wanted to be on time.",
+            "What do you call a group of musical whales? An orca-stra.",
+            "What kind of music do planets like? Nep-tunes.",
+            "Why did the boy bring a flashlight to school? His teacher told him it was a bright class.",
+            "What do you call a cheese that likes to shoot hoops? Swish cheese.",
+            "Why was the broom late for school? It over-swept.",
+            "What has a face and two hands but no arms or legs? A clock.",
+            "What do you call a number that just can't stand still? A roamin' numeral.",
+            "Why did the kid cross the playground? To get to the other slide.",
+            "What do you get when you cross a vampire and a snowman? Frostbite. (Original, replace: What is black and white and read all over? A newspaper.)",
+            "Why did the chewing gum cross the road? It was stuck to the chicken's foot.",
+            "What do you call a dinosaur with a good vocabulary? A thesaurus.",
+            "Why did the soccer ball quit the team? It was tired of being kicked around.",
+            "What do you call a pig that knows karate? A pork chop.",
+            "What is a ninja's favorite type of shoes? Sneakers.",
+            "Why did the golfer wear two pairs of pants? In case he got a hole in one.",
+            "What do you call a sad coffee? Depresso.",
+            "Why did the skeleton go to the party alone? He had no body to go with.",
+            "What is a witch's favorite school subject? Spelling! (Original, replace: What can travel around the world while staying in a corner? A stamp.)",
+            "What fruit is a vampire's favorite? A blood orange.",
+            "What do you call a thieving monkey? A prime-ape.",
+            "Why did the artist break up with the mathematician? They had too many differences.",
+            "What do you call a teacher who doesn’t fart in public? A private tutor.",
+            "Why was the stadium so cool? It was full of fans.",
+            "What do you call a magical dog? A Labracadabrador.",
+            "Why are fish so smart? They live in schools.",
+            "What is a pirate's favorite exercise? The plank!",
+            "Why did the calendar factory hire a new person? They needed someone to take more days off.",
+            "What do you call a factory that sells good products? A satisfactory.",
+            "Why was the equal sign so humble? It knew it wasn’t greater or less than anyone else. (Original, replace: What do you call an old snowman? Water.)",
+            "What has to be broken before you can use it? An egg. (This one really likes to repeat! Replace: What is always in front of you but can’t be seen? The future.)",
+            "What has an eye, but cannot see? A needle. (And this one! Replace: What starts with a P, ends with an E, and has thousands of letters? The Post Office.)",
+            "Why did the phone wear glasses? It lost its contacts.",
+            "What do you call a camel with no humps? Humphrey.",
+            "Why did the student bring a pencil to bed? To draw the curtains!",
+            "What did the traffic light say to the car? Don't look! I'm about to change.",
+            "What do you call a cow with two legs? Lean beef.",
+            "What do you call a cow with no legs? Ground beef.",
+            "Why did the library books get scared? They heard the librarian was checking them out.",
+            "What do you call a funny mountain? Hill-arious.",
+            "Why did the banana go to the doctor? Because it wasn't peeling well.",
+            "What do you call a robot that takes the scenic route? R2-Detour.",
+            "Why did the baker stop making bread? He kneaded a break.",
+            "What do you call a dog that can tell time? A watchdog.",
+            "What do you call a pile of cats? A meowtain.",
+            "Why did the students like their math teacher? Because he was always fair and square.",
+            "What do you call a person who is afraid of Santa Claus? Claustrophobic.",
+            "What do you call a fish with a tie? So-fish-ticated.",
+            "What has an eye, but cannot see? A needle.",
+            "What has to be broken before you can use it? An egg.",
+            "What is always in front of you but can’t be seen? The future.",
+            "What has one head, one foot, and four legs? A bed.",
+            "Why did the student eat his homework? Because the teacher said it was a piece of cake!",
+            "What building has the most stories? The library.",
+            "What musical instrument is found in the bathroom? A tuba toothpaste.",
+            "Why was the equal sign so humble? Because he knew he wasn’t less than or greater than anyone else.",
+            "What do you call a sad strawberry? A blueberry.",
+            "What is a witch's favorite subject in school? Spelling!",
+            "What do you get when you cross a snowman and a vampire? Frostbite.",
+            "Why did the orange stop running? It ran out of juice!",
+            "How do you make a tissue dance? You put a little boogie in it!",
+            "What do you call a sleeping bull? A bulldozer!",
+            "What is a pirate's favorite letter? RRRR? You'd think so, but their first love is the C!"
+        ];
+
+        const spanishJokes = [
+            "¿Qué le dice un jaguar a otro jaguar? ¡Jaguar you!",
+            "Why was the math book sad in Spanish class? Porque tenía demasiados problemas.",
+            "¿Cómo se llama un boomerang que no vuelve? Un palo. (What do you call a boomerang that doesn't come back? A stick.)",
+            "What do you call a tired dog in Spanish? Un Cansado. (Cansado means tired, 'can' is dog in Latin root)",
+            "¿Cuál es el animal que es dos veces animal? El gato, porque es gato y araña. (Which animal is an animal twice? The cat, because it's a cat and it 'scratches' (araña can mean spider or 'scratches'))",
+            "What does a Spanish cow say? Múúúúú!",
+            "¿Qué hace una abeja en el gimnasio? ¡Zum-ba! (What does a bee do in the gym? Zumba!)",
+            "Why did the tortilla chip start dancing? Because they put on the salsa!",
+            "¿Qué dice el semáforo al coche? 'No me mires, ¡me estoy cambiando!' (What does the traffic light say to the car? 'Don't look at me, I'm changing!')",
+            "What is a Spanish vampire's favorite fruit? Naranja sangre. (Blood orange)",
+            "¿Por qué fue la niña al doctor con un lápiz en la oreja? Porque quería tener 'dibujo de oído'. (Why did the girl go to the doctor with a pencil in her ear? Because she wanted 'ear drawing' - a pun on 'buen oído' which means good hearing)",
+            "¿Qué le dijo un techo a otro techo? Techo de menos. (What did one roof say to another roof? I miss you - a pun on 'te echo de menos')",
+            "What do you call cheese that isn't yours in Spanish? Queso ajeno. (But the classic is Nacho Cheese!)",
+            "If you're sad and you speak Spanish, are you de-stressed or 'depressed' in Spanish? Deprimido.",
+            "Why did the student bring a ladder to Spanish class? To reach 'altas notas' (high grades/high notes)!"
+        ];
+
+        const schoolJokes = [ 
+            "Why did Coco the Mountain Lion bring a ladder to WCA? He heard the grades were high!",
+            "What's Coco's favorite subject at World Compass Academy? ROAR-t class!",
+            "Why is WCA like a good map? It always points you in the right direction!",
+            "What do WCA students and Castle Rock have in common? They both ROCK!",
+            "Why did Coco get a job at WCA? He wanted to be the 'mane' attraction!",
+            "What's Coco the Mountain Lion's favorite game at recess? Tag, you're it... I'm faster!",
+            "How does Coco help WCA students navigate their studies? With his excellent 'compass' sense!",
+            "Why are WCA students so smart? They're always 'exploring' new ideas!",
+            "What does Coco say when he learns something new? That's purr-fectly interesting!",
+            "Why did the student bring a compass to lunch at WCA? To find the 'point' of the sandwich!",
+            "What's Coco's favorite part of Castle Rock? The 'castle' part, of course!",
+            "What do you call Coco when he's solving a puzzle? A 'think-lion' outside the box!",
+            "Why is World Compass Academy the best school? Because it helps you find your 'true north'!",
+            "What kind of stories does Coco like? Ones with a good 'tail'!",
+            "Why was Coco so good at hide-and-seek in Castle Rock? He's a master of 'cam-eow-flage' among the rocks!"
+        ];
+
+        const popCultureJokes = [
+            "Why did the Creeper cross the road? To get to the other ssssside!",
+            "What's a Ghast's favorite country? The Nether-lands!",
+            "Why don't Endermen like eye contact? They're a little shy.",
+            "What's a Pokémon's favorite type of music? Rock and Raichu-ll!",
+            "Why did Pikachu cross the playground? To get to the other slide!",
+            "What do you call a sleepy Pokémon? A Snorlax!",
+            "Why did Mario and Luigi bring ladders to the party? Because it was a multi-level event!",
+            "What's Mario's favorite type of clothing? Denim, denim, denim.",
+            "How does Luigi answer the phone? Green-green!",
+            "Why did SpongeBob cross the road? To get to the Krusty Krab on the other side!",
+            "What's Squidward's favorite instrument? The clarinet, obviously, when no one is listening!",
+            "Why is Patrick so good at sleeping? He's a star-fish!",
+            "Why did the anime character bring a pencil to the fight? To draw their own conclusions!",
+            "What's a magical girl's favorite drink? Sparkle-ing water!",
+            "Why are shonen protagonists always hungry? They burn a lot of energy yelling!",
+            "What kind of car does a ninja drive? A Hooooonda... because they're stealthy!",
+            "Why did the chibi character get a tiny ladder? To reach the high shelves!"
+        ];
+
+        const allJokes = [
+            ...dadJokes,
+            ...catJokes,
+            ...dailyJokes,
+            ...spanishJokes,
+            ...schoolJokes,
+            ...popCultureJokes
+        ];
+
+        // --- EMOJI RAIN ---
+        const funnyEmojis = ['😂', '🤣', '😹', '🤪', '😜', '😎', '🥳', '😸', '🦁', '🐾', '🌟', '✨', '🗺️', '🧭', '🎮', '🎨', '📖', '✏️', '💡'];
+
+        function createFallingEmoji() {
+            const emoji = document.createElement('div');
+            emoji.classList.add('emoji');
+            emoji.textContent = funnyEmojis[Math.floor(Math.random() * funnyEmojis.length)];
+            
+            emoji.style.left = Math.random() * 100 + 'vw';
+            emoji.style.animationDuration = (Math.random() * 3 + 4) + 's'; 
+            emoji.style.fontSize = (Math.random() * 1.5 + 1) + 'rem'; 
+
+            document.body.appendChild(emoji);
+
+            setTimeout(() => {
+                emoji.remove();
+            }, parseFloat(emoji.style.animationDuration) * 1000 + 500); 
+        }
+
+        function triggerEmojiRain(count = 5) {
+            for (let i = 0; i < count; i++) {
+                setTimeout(createFallingEmoji, i * 150); 
+            }
+        }
+
+        // --- EVENT LISTENER ---
+        const jokeTextElement = document.getElementById('joke-text');
+        const newJokeButton = document.getElementById('new-joke-button');
+
+        newJokeButton.addEventListener('click', () => {
+            if (allJokes.length > 0) {
+                const randomIndex = Math.floor(Math.random() * allJokes.length);
+                jokeTextElement.textContent = allJokes[randomIndex];
+                triggerEmojiRain(Math.floor(Math.random() * 4) + 3); 
+            } else {
+                jokeTextElement.textContent = "Uh oh, Coco ran out of jokes! Please add more!";
+            }
+        });
+
+        console.log(`Total jokes loaded: ${allJokes.length}. Remember to add many more to reach your goal of 500!`);
+    </script>
+
+</body>
+</html>

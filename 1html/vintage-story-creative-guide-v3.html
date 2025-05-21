@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vintage Story - Creative Tools Guide V3</title>
+    <style>
+        /* Basic Reset & Font */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Verdana", "Arial", sans-serif;
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIoSURBVHhe7doxTgNBFIbRr10gISYgwgoiJCJChsRkCG2CiYgxcgJ7EBsCV2BWpGEPzGFACSKKx8Z0YOHKk3+f7H8z1y183Hw/NvN2v5v1/K8AAGAMRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYMANxssv8ddv/mHWft1x3/uGMAAaYEAARGGHAAA0YgREYYMANRoARGGHAAA0YgREYYNANwNDL0BFbH4wAAAABJRU5ErkJggg==');
+            background-repeat: repeat;
+        }
+
+        .app-container {
+            display: flex;
+            flex-grow: 1;
+            overflow: hidden;
+        }
+
+        /* Sidebar (Tool Selection) */
+        .sidebar {
+            width: 60px;
+            background-color: #2a2a2a;
+            padding-top: 10px;
+            border-right: 2px solid #444;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .tool-button {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 10px;
+            background-color: #3c3c3c;
+            border: 1px solid #555;
+            color: #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            transition: background-color 0.2s, border-color 0.2s;
+            border-radius: 3px;
+            user-select: none;
+        }
+        .tool-button:hover {
+            background-color: #4a4a4a;
+            border-color: #666;
+        }
+        .tool-button.active {
+            background-color: #5a7a9a;
+            border-color: #7a9ac0;
+            color: #fff;
+        }
+
+        /* Main Content Area Wrapper */
+        .main-area {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Tool-Specific Options Bar (Now inside toolDetailsContent) */
+        .tool-specific-options-bar {
+            background-color: #333333;
+            padding: 6px 10px;
+            border-bottom: 2px solid #444;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            gap: 5px; /* Reduced gap further for denser packing */
+            flex-wrap: nowrap; /* Prevent wrapping, force scroll */
+            overflow-x: auto;
+            overflow-y: hidden;
+            margin-bottom: 15px; /* Space before tool details */
+        }
+
+        .tool-specific-options-bar button,
+        .tool-specific-options-bar input,
+        .tool-specific-options-bar select,
+        .tool-specific-options-bar label,
+        .tool-specific-options-bar .text-display { /* For non-interactive text like "Files" */
+            background-color: #4a4a4a;
+            border: 1px solid #666;
+            color: #e0e0e0;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 0.8em; /* Even smaller for compact menus */
+            white-space: nowrap;
+            flex-shrink: 0; /* Prevent items from shrinking */
+        }
+        .tool-specific-options-bar .text-display { /* Purely textual display */
+             background-color: #3a3a3a;
+             border-color: #505050;
+        }
+        .tool-specific-options-bar input[type="number"] {
+            width: 50px; /* Compact number inputs */
+        }
+         .tool-specific-options-bar input[type="text"] {
+            width: 80px;
+         }
+        .tool-specific-options-bar input[type="checkbox"] {
+            margin-right: 3px;
+            vertical-align: middle;
+        }
+        .tool-specific-options-bar button:hover {
+            background-color: #5a5a5a;
+        }
+
+        .tool-specific-options-bar .option-group {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            padding: 2px 5px;
+            background-color: #3a3a3a;
+            border-radius: 3px;
+            border: 1px solid #505050;
+            flex-shrink: 0;
+        }
+         .tool-specific-options-bar .option-group label {
+            background: none;
+            border: none;
+            padding: 0;
+            font-size: 0.9em; /* Labels in groups slightly larger than base */
+         }
+        .tool-specific-options-bar .option-separator {
+            width: 1px;
+            height: 25px;
+            background-color: #555;
+            margin: 0 2px; /* Reduced margin */
+            flex-shrink: 0;
+        }
+        .tool-specific-options-bar .toggle-button.active { /* For buttons like "Constrain" */
+            background-color: #5a7a9a;
+            border-color: #7a9ac0;
+        }
+        .tool-specific-options-bar .small-button { /* For N+, N- style buttons */
+            padding: 4px 5px;
+            min-width: auto;
+        }
+
+        /* Tool Details Content */
+        .tool-details-content {
+            flex-grow: 1;
+            padding: 0px 20px 20px 20px; /* No top padding, options bar is there */
+            overflow-y: auto;
+            background-color: #252525;
+        }
+
+        /* Styles for Guide Hub / Meta Menu */
+        .guide-hub-section {
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #2d2d2d;
+            border-radius: 5px;
+            border: 1px solid #444;
+        }
+        .guide-hub-section h3 {
+            color: #87ceeb;
+            border-bottom: 1px solid #555;
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+        }
+        .guide-hub-section h4 {
+            color: #c0c0c0;
+            margin-top:15px;
+            margin-bottom:5px;
+        }
+        .guide-hub-section ul {
+            list-style-type: none; padding-left: 0;
+        }
+        .guide-hub-section li { margin-bottom: 8px; }
+        .guide-hub-section .menu-item-desc {
+            margin-left: 20px;
+            font-size: 0.9em;
+            color: #b0b0b0;
+        }
+        .guide-hub-section .menu-item-desc code { font-size: 0.95em; }
+
+        .tool-details-content h2 { /* For individual tool titles */
+            color: #87ceeb;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 5px;
+        }
+        .tool-details-content h3 { /* For sub-sections like "Controls" or "Menu Options Explained" */
+            color: #c0c0c0;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+        .tool-details-content p,
+        .tool-details-content ul.tool-controls-list { /* Specific for tool control lists */
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        .tool-details-content ul.tool-controls-list {
+            list-style-position: inside;
+            padding-left: 0; /* No extra indent for these lists */
+            list-style-type: none;
+        }
+         .tool-details-content ul.tool-controls-list li {
+            margin-bottom: 5px;
+            padding: 5px;
+            background-color: #2f2f2f;
+            border-radius: 3px;
+         }
+         .tool-details-content ul.tool-controls-list li strong { color: #ffcc66; } /* Highlight click action */
+
+        .tool-details-content code {
+            background-color: #333;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: "Courier New", Courier, monospace;
+            color: #f0f090;
+        }
+        .tool-details-content a {
+            color: #6caddf;
+            text-decoration: none;
+        }
+        .tool-details-content a:hover {
+            text-decoration: underline;
+        }
+        .tooltip-host { /* For elements that have a tooltip definition */
+            border-bottom: 1px dotted #999;
+            cursor: help;
+        }
+
+        /* Responsive considerations */
+        @media (max-width: 768px) {
+            .app-container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                flex-direction: row;
+                overflow-x: auto;
+                padding: 5px;
+                border-right: none;
+                border-bottom: 2px solid #444;
+            }
+            .tool-button {
+                margin-bottom: 0;
+                margin-right: 5px;
+                flex-shrink: 0;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar" id="toolSidebar">
+            <!-- Tools will be populated by JS -->
+        </aside>
+        <div class="main-area">
+            <main class="tool-details-content" id="toolDetailsContent">
+                <!-- Tool-specific options bar and details will be populated by JS -->
+                <h2>Welcome to the Vintage Story Creative Tools Guide V3!</h2>
+                <p>Select a tool from the sidebar on the left. The "📚 Guide Hub" (first icon) explains global menus and provides an overview of all tool-specific menus.</p>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        const VINTAGE_STORY_WIKI_BASE_URL = "https://wiki.vintagestory.at/index.php?title=";
+        let activeToolId = null;
+
+        // Helper function to create tooltips (could be expanded)
+        function createTooltip(text) {
+            return text ? `title="${text}"` : '';
+        }
+        function tt(text) { return text ? `title="${text}"` : ''; } // Shorter alias for template literals
+
+
+        const toolsData = [
+            {
+                id: 'guideHub',
+                name: 'Guide Hub / Menus Explained',
+                iconEmoji: '📚',
+                optionsHTML: () => `<div>Guide Hub: Select a section below to learn more.</div>`, // No specific options bar for the hub itself
+                detailsHTML: () => `
+                    <h2>Creative Mode Menus Explained</h2>
+                    <p>This guide helps you understand the various menus and options available in Vintage Story's Creative Mode and WorldEdit tools.</p>
+
+                    <section class="guide-hub-section" id="guideHub-globalHeaderBar">
+                        <h3>Global Header Bar (Undo/Redo & Constraints)</h3>
+                        <p>This bar is always visible at the very top of the screen in creative mode, providing quick access to undo/redo and global building constraints.</p>
+                        <ul>
+                            <li><strong>Step [Number]</strong>:
+                                <div class="menu-item-desc">Shows the current step in your edit history. Increases with each WorldEdit action. Click to potentially manage history (exact functionality may vary by WE version).</div>
+                            </li>
+                            <li><strong>RSP (Redo Step Point)</strong>:
+                                <div class="menu-item-desc">Allows you to redo actions that were undone. Likely clickable to redo the last undone step. Corresponds to <code>//redo</code>.</div>
+                            </li>
+                            <li><strong>SAL - (Undo Step Point)</strong>:
+                                <div class="menu-item-desc">Allows you to undo your last WorldEdit actions. Clickable to undo. Corresponds to <code>//undo</code>. The "-" might indicate it's ready to undo.</div>
+                            </li>
+                            <li><strong class="tooltip-host" ${tt("Toggles various building constraints. 'Off' means no special constraints are active.")}>Constrain: [off/on]</strong>:
+                                <div class="menu-item-desc">Toggles building constraints. When 'On', might restrict placement to certain surfaces, prevent overwriting, or enable snapping. Specific constraints depend on the active tool or server settings. Example: Tree tool might only place trees on grass when 'Constrain' is 'on'.</div>
+                            </li>
+                        </ul>
+                        <p><em>These options are fundamental for managing your building process and recovering from mistakes.</em></p>
+                    </section>
+
+                    <section class="guide-hub-section" id="guideHub-worldViewSettings">
+                        <h3>World & View Settings Panel (Right Sidebar)</h3>
+                        <p>This panel, typically on the far right of the screen, allows you to adjust various global game settings, primarily affecting your view and interaction with the world.</p>
+                        <h4>Controls</h4>
+                        <ul>
+                            <li><strong>Fly Mode: [On/Off]</strong>: <div class="menu-item-desc">Toggles flying. Standard creative mode flight.</div></li>
+                            <li><strong>First person hands: [On/Off]</strong>: <div class="menu-item-desc">Toggles visibility of your character's hands in first-person view.</div></li>
+                            <li><strong>Picking range: [Number]</strong>: <div class="menu-item-desc">Sets how far you can reach to interact with or break blocks (default: 100 in creative).</div></li>
+                            <li><strong>Movement Speed: [Number]</strong>: <div class="menu-item-desc">Adjusts your movement speed multiplier.</div></li>
+                            <li><strong>Movement-Axis Lock:</strong> <div class="menu-item-desc">[TODO: Clarify specific function, likely locks movement to cardinal axes].</div></li>
+                            <li><strong>Liquid Selectable: [On/Off]</strong>: <div class="menu-item-desc">Determines if liquids can be targeted by selection tools.</div></li>
+                            <li><strong>Server overload protection: [Checkbox]</strong>: <div class="menu-item-desc">If checked, attempts to prevent actions that might severely lag or crash the server.</div></li>
+                        </ul>
+                        <h4>Ambient</h4>
+                        <ul>
+                            <li><strong>Time of Day: [Slider]</strong>: <div class="menu-item-desc">Sets the current time, affecting daylight and moon phase.</div></li>
+                            <li><strong>Normal Fog Level: [Slider]</strong>: <div class="menu-item-desc">Adjusts the density of standard distance fog.</div></li>
+                            <li><strong>Flat Fog Level: [Slider]</strong>: <div class="menu-item-desc">Adjusts density of fog on flat planes (e.g., near water).</div></li>
+                            <li><strong>Flat Fog Vertical Pos: [Slider]</strong>: <div class="menu-item-desc">Sets the Y-level for flat fog.</div></li>
+                            <li><strong>Fog Red/Green/Blue: [Sliders]</strong>: <div class="menu-item-desc">Adjusts the color tint of the fog.</div></li>
+                            <li><strong>Cloud Y Position: [Slider]</strong>: <div class="menu-item-desc">Sets the altitude of clouds.</div></li>
+                            <li><strong>Rain: [Slider]</strong>: <div class="menu-item-desc">Controls rain intensity (from none to heavy).</div></li>
+                            <li><strong>Ambient Particles: [On/Off]</strong>: <div class="menu-item-desc">Toggles ambient particle effects (e.g., leaves falling).</div></li>
+                            <li><strong>Override default values: [Checkbox]</strong>: <div class="menu-item-desc">If checked, your custom ambient settings persist.</div></li>
+                        </ul>
+                        <h4>Weather pattern / Wind pattern</h4>
+                        <ul>
+                            <li><div class="menu-item-desc">[TODO: Detail these if more info is available - likely selects predefined weather/wind patterns or strengths.]</div></li>
+                        </ul>
+                    </section>
+
+                    <section class="guide-hub-section" id="guideHub-toolMenus">
+                        <h3>Tool-Specific Menus Overview</h3>
+                        <p>Each creative tool selected from the left toolbar has its own dedicated options bar. Click a tool name below to jump to its detailed section, or click the tool's icon in the sidebar.</p>
+                        <ul>
+                            ${toolsData.filter(t => t.id !== 'guideHub').map(tool => `<li><a href="#" onclick="selectToolAndScroll('${tool.id}', 'toolMenu-${tool.id}')">${tool.name} Menu</a> - <a href="#" onclick="selectToolFromMeta('${tool.id}')">Go to Full Tool Details</a></li>`).join('')}
+                        </ul>
+                    </section>
+                    <p><em>For detailed explanations of each tool's specific menu, please select the tool from the sidebar or use the links above.</em></p>
+                `
+            },
+            // ... ALL 15 TOOLS WILL GO HERE, MAPPED FROM SCREENSHOTS ...
+            // Example for one tool:
+            {
+                id: 'paintbrush',
+                name: 'Paint Brush',
+                iconEmoji: '🖌️',
+                optionsHTML: () => `
+                    <button ${tt("Mode of painting: Replace selected biome, Replace block, etc.")}>Mode: Replace Selected Bio</button>
+                    <button ${tt("Shape of the brush")}>Shape: Ball</button>
+                    <div class="option-group">
+                        <label ${tt("Size of brush on X-axis")}>SizeX:</label><input type="number" value="4" min="1">
+                    </div>
+                    <div class="option-group">
+                        <label ${tt("Size of brush on Y-axis")}>SizeY:</label><input type="number" value="4" min="1">
+                    </div>
+                    <div class="option-group">
+                        <label ${tt("Size of brush on Z-axis")}>SizeZ:</label><input type="number" value="4" min="1">
+                    </div>
+                    <div class="option-group">
+                        <label ${tt("Target Origin Mode: Center, Edge, etc.")}>TOM:</label><select><option>Center</option></select>
+                    </div>
+                    <div class="option-group">
+                        <label ${tt("Cutout on X-axis")}>CutoutX:</label><input type="number" value="0" min="0">
+                    </div>
+                    <div class="option-group">
+                        <label ${tt("Cutout on Y-axis")}>CutoutY:</label><input type="number" value="0" min="0">
+                    </div>
+                    <div class="option-group">
+                        <label ${tt("Cutout on Z-axis")}>CutoutZ:</label><input type="number" value="0" min="0">
+                    </div>
+                    <div class="option-group">
+                        <label ${tt("Placement percentage/density")}>Placement %:</label><input type="number" value="100" min="0" max="100">
+                    </div>
+                `,
+                detailsHTML: () => `
+                    <h2 id="toolMenu-paintbrush">Paint Brush Tool</h2>
+                    <p>Allows for painting blocks or biomes in various shapes and sizes.</p>
+                    <h3>Controls (from screenshot):</h3>
+                    <ul class="tool-controls-list">
+                        <li>Requires a block in hands.</li>
+                        <li>Brush for placing many blocks in various shapes.</li>
+                        <li><strong>Left click:</strong> No effect.</li>
+                        <li><strong>Right click:</strong> Places blocks in given shape of currently selected block in your hotbar.</li>
+                    </ul>
+                    <h3>Menu Options Explained:</h3>
+                    <ul>
+                        <li><strong>Mode: Replace Selected Bio / Replace Block / ...</strong>: Determines what the brush paints. "Replace Selected Bio" would change the biome ID of blocks. "Replace Block" would change the block type.</li>
+                        <li><strong>Shape: Ball / Cube / ...</strong>: The geometric form of the brush.</li>
+                        <li><strong>SizeX, SizeY, SizeZ</strong>: Dimensions of the brush.</li>
+                        <li><strong>TOM (Target Origin Mode): Center / Edge / ...</strong>: How the brush shape is aligned relative to the targeted block. 'Center' means the target block is the center of the brush.</li>
+                        <li><strong>CutoutX, CutoutY, CutoutZ</strong>: Defines a hollow core within the brush shape, useful for making shells or hollow structures. 0 means no cutout.</li>
+                        <li><strong>Placement %</strong>: Density of placement. 100% means all eligible blocks in the brush area are affected. Lower values create a sparse/dithered effect.</li>
+                    </ul>
+                     <p><a href="#" onclick="selectToolFromMeta('guideHub', 'guideHub-toolMenus')">Back to Tool Menus Overview in Guide Hub</a></p>
+                `
+            },
+            {
+                id: 'move',
+                name: 'Move Tool',
+                iconEmoji: '↔️',
+                optionsHTML: () => `
+                    <button ${tt("Move selection North")}>North</button>
+                    <button ${tt("Move selection South")}>South</button>
+                    <button ${tt("Move selection East")}>East</button>
+                    <button ${tt("Move selection West")}>West</button>
+                    <button ${tt("Move selection Up")}>Up</button>
+                    <button ${tt("Move selection Down")}>Down</button>
+                    <button ${tt("Move selection in the direction you are looking")}>Look</button>
+                    <div class="option-separator"></div>
+                    <button ${tt("Show a preview of the move operation")}>Preview</button>
+                    <button ${tt("Apply the move operation")}>Apply</button>
+                    <div class="option-separator"></div>
+                    <div class="option-group">
+                        <label ${tt("Origin point for previewing movement")}>Preview Origin Point:</label>
+                        <select><option>BottomCenter</option></select>
+                    </div>
+                    <button ${tt("Rotate selection 90 degrees clockwise before moving")}>Rot. 90 CW</button>
+                    <button ${tt("Rotate selection 90 degrees counter-clockwise before moving")}>Rot. 90 CCW</button>
+                `,
+                detailsHTML: () => `
+                    <h2 id="toolMenu-move">Move Tool</h2>
+                    <p>Moves the selected region of blocks to a new position.</p>
+                    <h3>Controls (from screenshot):</h3>
+                    <ul class="tool-controls-list">
+                        <li>Can be used with the magic wand item in your hands.</li>
+                        <li><strong>Left click:</strong> Move preview to given position.</li>
+                        <li><strong>Right click:</strong> Move the blocks to the current preview position.</li>
+                    </ul>
+                    <h3>Menu Options Explained:</h3>
+                    <ul>
+                        <li><strong>North, South, East, West, Up, Down, Look</strong>: These buttons likely move the selection by a predefined step (e.g., 1 block) in the specified direction. 'Look' moves it in the direction you are facing. These are for incremental adjustments of the *preview*.</li>
+                        <li><strong>Preview</strong>: Toggles a visual preview of where the selection will be moved.</li>
+                        <li><strong>Apply</strong>: Executes the move operation, making the change permanent.</li>
+                        <li><strong>Preview Origin Point: BottomCenter / ...</strong>: Determines the anchor point of the preview relative to your cursor or the existing selection.</li>
+                        <li><strong>Rot. 90 CW / CCW</strong>: Rotates the content of the selection (in clipboard/preview state) before it's moved and placed.</li>
+                    </ul>
+                     <p><a href="#" onclick="selectToolFromMeta('guideHub', 'guideHub-toolMenus')">Back to Tool Menus Overview in Guide Hub</a></p>
+                `
+            },
+            {
+                id: 'repeat',
+                name: 'Repeat Tool',
+                iconEmoji: '🔄',
+                optionsHTML: () => `
+                    <div class="option-group">
+                        <label ${tt("Mode of repetition")}>Mode:</label>
+                        <select><option>Repeat</option><option>Keep Current Sel</option></select>
+                    </div>
+                    <div class="option-separator"></div>
+                    <button ${tt("Repeat/stack selection North")}>North</button>
+                    <button ${tt("Repeat/stack selection South")}>South</button>
+                    <button ${tt("Repeat/stack selection East")}>East</button>
+                    <button ${tt("Repeat/stack selection West")}>West</button>
+                    <button ${tt("Repeat/stack selection Up")}>Up</button>
+                    <button ${tt("Repeat/stack selection Down")}>Down</button>
+                    <button ${tt("Repeat/stack selection in the direction you are looking")}>Look</button>
+                `,
+                detailsHTML: () => `
+                    <h2 id="toolMenu-repeat">Repeat Tool</h2>
+                    <p>Duplicates (stacks) the current selection multiple times.</p>
+                    <h3>Controls (from screenshot):</h3>
+                    <ul class="tool-controls-list">
+                        <li>Can be used with the magic wand item in your hands.</li>
+                        <li><strong>Left click:</strong> No effect.</li>
+                        <li><strong>Right click:</strong> Mirror/Repeat to given position. (Tooltip says "Mirror/Repeat", but tool is "Repeat")</li>
+                    </ul>
+                    <h3>Menu Options Explained:</h3>
+                    <ul>
+                        <li><strong>Mode: Repeat / Keep Current Sel</strong>:
+                            <ul>
+                                <li><code>Repeat</code>: Standard stacking operation. The number of repeats might be set elsewhere or by how many times you click 'Apply' (if an Apply button existed here).</li>
+                                <li><code>Keep Current Sel</code>: After repeating, the original selection area might remain selected, or the new stack becomes the selection.</li>
+                            </ul>
+                        </li>
+                        <li><strong>North, South, East, West, Up, Down, Look</strong>: These buttons likely define the direction and execute one stack operation of the selection. The number of blocks to offset per stack (i.e., size of selection) is implicit.</li>
+                    </ul>
+                    <p><em>The exact number of repetitions or offset distance per repeat isn't explicitly shown in this menu, suggesting it might use the selection's dimensions or a separate configuration.</em></p>
+                     <p><a href="#" onclick="selectToolFromMeta('guideHub', 'guideHub-toolMenus')">Back to Tool Menus Overview in Guide Hub</a></p>
+                `
+            },
+            {
+                id: 'selecttool', // Changed from 'select' to avoid conflict with <select>
+                name: 'Select Tool',
+                iconEmoji: '⬚',
+                optionsHTML: () => `
+                    <div class="option-group">
+                        <label ${tt("Selection mode for Magic Wand")}>Magicwand Mode:</label>
+                        <select><option>Manual</option><option>Magic</option></select>
+                    </div>
+                    <div class="option-separator"></div>
+                    <button class="small-button" ${tt("Expand selection North (N+)")}>N+</button>
+                    <button class="small-button" ${tt("Contract selection from South (N-)")}>N-</button>
+                    <button class="small-button" ${tt("Expand selection East (E+)")}>E+</button>
+                    <button class="small-button" ${tt("Contract selection from West (E-)")}>E-</button>
+                    <button class="small-button" ${tt("Expand selection South (S+)")}>S+</button>
+                    <button class="small-button" ${tt("Contract selection from North (S-)")}>S-</button>
+                    <button class="small-button" ${tt("Expand selection West (W+)")}>W+</button>
+                    <button class="small-button" ${tt("Contract selection from East (W-)")}>W-</button>
+                    <button class="small-button" ${tt("Expand selection Up (U+)")}>U+</button>
+                    <button class="small-button" ${tt("Contract selection from Down (U-)")}>U-</button>
+                    <button class="small-button" ${tt("Expand selection Down (D+)")}>D+</button>
+                    <button class="small-button" ${tt("Contract selection from Up (D-)")}>D-</button>
+                    <div class="option-separator"></div>
+                    <button class="small-button" ${tt("Expand selection in look direction (Look+)")}>Look+</button>
+                    <button class="small-button" ${tt("Contract selection opposite to look direction (Look-)")}>Look-</button>
+                `,
+                detailsHTML: () => `
+                    <h2 id="toolMenu-selecttool">Select Tool</h2>
+                    <p>Defines a region for WorldEdit operations. This menu provides advanced selection manipulation.</p>
+                    <h3>Controls (from screenshot):</h3>
+                    <ul class="tool-controls-list">
+                        <li>Can be used with the magic wand item in your hands.</li>
+                        <li><strong>Left click (manual mode):</strong> Select start position.</li>
+                        <li><strong>Right click (manual mode):</strong> Select end position.</li>
+                        <li><strong>Left click (magic mode):</strong> No effect.</li>
+                        <li><strong>Right click (magic mode):</strong> Grow selection at the aimed position until only edge blocks are found (by default soil and air).</li>
+                    </ul>
+                    <h3>Menu Options Explained:</h3>
+                    <ul>
+                        <li><strong>Magicwand Mode: Manual / Magic</strong>:
+                            <ul>
+                                <li><code>Manual</code>: Standard Pos1 (Left Click) / Pos2 (Right Click) selection.</li>
+                                <li><code>Magic</code>: A "magic" selection mode that likely expands from the clicked point based on block type continuity, useful for selecting contiguous areas of the same material or structures.</li>
+                            </ul>
+                        </li>
+                        <li><strong>N+, N-, E+, E-, S+, S-, W+, W-, U+, U-, D+, D-</strong>: These buttons expand (+) or contract (-) the selection by one block in the specified cardinal direction (North, East, South, West, Up, Down). For example, N+ expands North, N- contracts from North (equivalent to S+ on the other side if selection origin is fixed). This is for fine-tuning selection boundaries. These correspond to <code>//expand 1 [direction]</code> and <code>//contract 1 [direction]</code>.</li>
+                        <li><strong>Look+, Look-</strong>: Expands or contracts the selection along the direction you are currently looking.</li>
+                    </ul>
+                     <p><a href="#" onclick="selectToolFromMeta('guideHub', 'guideHub-toolMenus')">Back to Tool Menus Overview in Guide Hub</a></p>
+                `
+            },
+            {
+                id: 'airbrush',
+                name: 'Air Brush',
+                iconEmoji: '💨',
+                optionsHTML: () => `
+                    <div class="option-group">
+                        <label ${tt("Mode of operation")}>Mode:</label>
+                        <select><option>Add</option><option>Place only on sel</option></select>
+                    </div>
+                    <div class="option-group">
+                        <label ${tt("Radius of the brush effect")}>Radius:</label><input type="number" value="6" min="1">
+                    </div>
+                    <div class="option-group">
+                        <label ${tt("Percentage of blocks affected within radius")}>Quantity (in %):</label><input type="number" value="100" min="0" max="100">
+                    </div>
+                    <div class="option-separator"></div>
+                     <div class="option-group">
+                        <label ${tt("How blocks are placed/replaced")}>Place Mode:</label>
+                        <select><option>Replace blocks</option><option>Directional Apply</option><option>Any face</option></select>
+                    </div>
+                `,
+                detailsHTML: () => `
+                    <h2 id="toolMenu-airbrush">Air Brush Tool</h2>
+                    <p>Tool to sprinkle individual blocks across a surface, or remove them randomly.</p>
+                    <h3>Controls (from screenshot):</h3>
+                    <ul class="tool-controls-list">
+                        <li>Requires a block in hands.</li>
+                        <li>Tool to sprinkle individual blocks across a surface.</li>
+                        <li><strong>Left click:</strong> Randomly remove a bunch of blocks within the given radius, only works in place mode 'Replace block'.</li>
+                        <li><strong>Right click:</strong> Randomly place a bunch of blocks within the given radius.</li>
+                    </ul>
+                    <h3>Menu Options Explained:</h3>
+                    <ul>
+                        <li><strong>Mode: Add / Place only on sel</strong>:
+                            <ul>
+                                <li><code>Add</code>: Standard operation, places/removes blocks anywhere the brush hits.</li>
+                                <li><code>Place only on sel</code>: Brush only affects blocks that are already part of an existing WorldEdit selection.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Radius</strong>: The spherical area of effect for the brush.</li>
+                        <li><strong>Quantity (in %)</strong>: The density of blocks placed or removed. 100% means a higher chance of affecting each spot within the radius, lower values create a sparser effect.</li>
+                        <li><strong>Place Mode: Replace blocks / Directional Apply / Any face</strong>:
+                            <ul>
+                                <li><code>Replace blocks</code>: Directly replaces existing blocks with the new one (or air if removing).</li>
+                                <li><code>Directional Apply</code>: Blocks are placed relative to the face of the block hit (e.g., always on top).</li>
+                                <li><code>Any face</code>: Blocks can be placed on any valid face within the brush area.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                     <p><a href="#" onclick="selectToolFromMeta('guideHub', 'guideHub-toolMenus')">Back to Tool Menus Overview in Guide Hub</a></p>
+                `
+            },
+            {
+                id: 'line',
+                name: 'Line Tool',
+                iconEmoji: '📏',
+                optionsHTML: () => `
+                    <button ${tt("Set the starting point of the line")}>Line Start Point</button>
+                    <button ${tt("Create a continuous line strip (poly-line)")}>Line Strip</button>
+                    <div class="option-separator"></div>
+                    <div class="option-group">
+                        <label ${tt("Mode for placing blocks")}>Place Mode:</label>
+                        <select><option>Place Blocks</option><option>[G(?)assy]</option></select> 
+                        <!-- Text "Grassy" or similar is obscured -->
+                    </div>
+                `,
+                detailsHTML: () => `
+                    <h2 id="toolMenu-line">Line Tool</h2>
+                    <p>Tool for creating lines of blocks.</p>
+                    <h3>Controls (from screenshot):</h3>
+                    <ul class="tool-controls-list">
+                        <li>Requires a block in hands.</li>
+                        <li>Tool for creating lines of blocks.</li>
+                        <li><strong>Left click:</strong> Marks the select position as the start point of the line.</li>
+                        <li><strong>Right click:</strong> Draws the line from chosen start point to selected point.</li>
+                    </ul>
+                    <h3>Menu Options Explained:</h3>
+                    <ul>
+                        <li><strong>Line Start Point</strong>: Sets the first point for the line. Subsequent clicks (likely Right Click as per controls) will draw a line from this start point to the new point.</li>
+                        <li><strong>Line Strip</strong>: Enables drawing a sequence of connected lines (a poly-line). Each Right Click would add a new segment from the end of the previous one.</li>
+                        <li><strong>Place Mode: Place Blocks / [G(?)assy]</strong>:
+                            <ul>
+                                <li><code>Place Blocks</code>: Creates the line using the block currently in your hand/hotbar.</li>
+                                <li><code>[G(?)assy]</code>: The second option is obscured. It might be "Grassy Line" to create lines of grass, or relate to surface conformity. Needs clarification.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                     <p><a href="#" onclick="selectToolFromMeta('guideHub', 'guideHub-toolMenus')">Back to Tool Menus Overview in Guide Hub</a></p>
+                `
+            },
+            {
+                id: 'eraser',
+                name: 'Eraser Tool',
+                iconEmoji: '🧼',
+                optionsHTML: () => `
+                    <div class="option-group">
+                        <label ${tt("Mode of operation: Fill or Shape")}>Mode:</label>
+                        <select><option>Fill</option><option>Shape</option></select>
+                    </div>
+                    <div class="option-separator"></div>
+                    <button ${tt("Shape of the eraser")}>Shape: Ball</button> 
+                    <div class="option-group">
+                        <label ${tt("Size of eraser on X-axis")}>SizeX:</label><input type="number" value="4" min="1">
+                    </div>
+                    <div class="option-group">
+                        <label ${tt("Size of eraser on Y-axis")}>SizeY:</label><input type="number" value="4" min="1">
+                    </div>
+                    <div class="option-group">
+                        <label ${tt("Size of eraser on Z-axis")}>SizeZ:</label><input type="number" value="4" min="1">
+                    </div>
+                    <div class="option-group">
+                        <label ${tt("Target Origin Mode: Center, Edge, etc.")}>TOM:</label><select><option>Center</option></select>
+                    </div>
+                `,
+                detailsHTML: () => `
+                    <h2 id="toolMenu-eraser">Eraser Tool</h2>
+                    <p>Removes blocks in various shapes. Effectively a brush that paints with 'air'.</p>
+                    <h3>Controls (from screenshot):</h3>
+                    <ul class="tool-controls-list">
+                        <li>Requires a block or empty hands.</li>
+                        <li>Brush for remove many blocks in various shapes.</li>
+                        <li><strong>Left click:</strong> Removes blocks in given shape of currently selected block in your hotbar. [Note: This seems counterintuitive for an eraser if it uses a selected block; usually it would just remove to air. Perhaps "currently selected block" refers to a mask, or it's a typo and means "removes blocks to air".]</li>
+                        <li><strong>Right click:</strong> No effect.</li>
+                    </ul>
+                    <h3>Menu Options Explained:</h3>
+                    <ul>
+                        <li><strong>Mode: Fill / Shape</strong>:
+                            <ul>
+                                <li><code>Fill</code>: Might refer to flood-deleting an area of connected blocks.</li>
+                                <li><code>Shape</code>: Standard brush-like removal using the defined shape and size (Ball, Cube etc.).</li>
+                            </ul>
+                        </li>
+                        <li><strong>Shape: Ball / Cube / ...</strong>: The geometric form of the eraser.</li>
+                        <li><strong>SizeX, SizeY, SizeZ</strong>: Dimensions of the eraser.</li>
+                        <li><strong>TOM (Target Origin Mode): Center / ...</strong>: Alignment of the eraser shape relative to the targeted block.</li>
+                    </ul>
+                    <p><em>The menu is very similar to the [Paint Brush](#paintbrush) menu, but oriented towards removal.</em></p>
+                     <p><a href="#" onclick="selectToolFromMeta('guideHub', 'guideHub-toolMenus')">Back to Tool Menus Overview in Guide Hub</a></p>
+                `
+            },
+            {
+                id: 'floodfill',
+                name: 'Flood Fill',
+                iconEmoji: '💧',
+                optionsHTML: () => `
+                    <div class="option-group">
+                        <label ${tt("Maximum distance the fill will spread")}>Max Distance:</label><input type="number" value="32" min="1">
+                    </div>
+                    <label ${tt("Only fill if the area is enclosed (no leaks)")}><input type="checkbox" id="flood-enclosed"> Check enclosed</label>
+                    <div class="option-group">
+                        <label ${tt("Fill mode: 2D (flat surface) or 3D (volume)")}>Mode:</label>
+                        <select><option>Flat (2D)</option><option>Volume (3D)</option></select>
+                    </div>
+                    <div class="option-separator"></div>
+                    <label ${tt("Prevent water from being filled over or acting as boundary")}><input type="checkbox" id="flood-ignorewater"> Ignore water</label>
+                    <label ${tt("Prevent plants from being filled over or acting as boundary")}><input type="checkbox" id="flood-ignoreplants"> Ignore plants</label>
+                    <label ${tt("Prevent loose surface items (stones, sticks) from being affected")}><input type="checkbox" id="flood-ignoreloose"> Ignore loose surface items</label>
+                `,
+                detailsHTML: () => `
+                    <h2 id="toolMenu-floodfill">Flood Fill Tool</h2>
+                    <p>Tool for fills in 1 block deep basins (or volumes, depending on mode).</p>
+                    <h3>Controls (from screenshot):</h3>
+                    <ul class="tool-controls-list">
+                        <li>Requires a block in hands.</li>
+                        <li>Tool for fills in 1 block deep basins.</li>
+                        <li><strong>Left click:</strong> Tries to flood delete an area (replaces with air).</li>
+                        <li><strong>Right click:</strong> Try to flood fill using currently selected block in your hotbar.</li>
+                    </ul>
+                    <h3>Menu Options Explained:</h3>
+                    <ul>
+                        <li><strong>Max Distance</strong>: The maximum radius or extent the fill will spread.</li>
+                        <li><strong>Check enclosed</strong>: If checked, the fill operation will only proceed if the target area is fully enclosed by other blocks (preventing "leaks").</li>
+                        <li><strong>Mode: Flat (2D) / Volume (3D)</strong>:
+                            <ul>
+                                <li><code>Flat (2D)</code>: Fills a connected area on a single Y-level or surface.</li>
+                                <li><code>Volume (3D)</code>: Fills a connected 3-dimensional space.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Ignore water/plants/loose surface items</strong>: Checkboxes to prevent these specific block types/entities from being affected by the fill or acting as fill boundaries.</li>
+                    </ul>
+                     <p><a href="#" onclick="selectToolFromMeta('guideHub', 'guideHub-toolMenus')">Back to Tool Menus Overview in Guide Hub</a></p>
+                `
+            },
+            {
+                id: 'raiselower',
+                name: 'Raise/Lower',
+                iconEmoji: '⛰️',
+                optionsHTML: () => `
+                    <div class="option-group">
+                        <label ${tt("Mode of terrain modification")}>Mode:</label>
+                        <select><option>Uniform</option><option>[Other Modes?]</option></select>
+                    </div>
+                    <div class="option-group">
+                        <label ${tt("Depth/height of the modification per click")}>Depth:</label><input type="number" value="3" min="1">
+                    </div>
+                    <div class="option-group">
+                        <label ${tt("Radius of the affected area")}>Radius:</label><input type="number" value="4" min="1">
+                    </div>
+                    <div class="option-separator"></div>
+                    <div class="option-group">
+                        <label ${tt("Block to use when raising terrain (if applicable)")}>Block:</label>
+                        <input type="text" value="game:leaves-maple-branchy" style="width:180px;" ${tt("Example: game:leaves-maple-branchy")}>
+                    </div>
+                `,
+                detailsHTML: () => `
+                    <h2 id="toolMenu-raiselower">Raise/Lower Tool</h2>
+                    <p>Tool to raise/lower terrain.</p>
+                    <h3>Controls (from screenshot):</h3>
+                    <ul class="tool-controls-list">
+                        <li><strong>Left click:</strong> Lower Terrain.</li>
+                        <li><strong>Right click:</strong> Raise Terrain (will place the block you have currently selected in your hotbar).</li>
+                    </ul>
+                    <h3>Menu Options Explained:</h3>
+                    <ul>
+                        <li><strong>Mode: Uniform / ...</strong>: Defines how the terrain is modified.
+                            <ul>
+                                <li><code>Uniform</code>: Likely raises/lowers all blocks in the radius by the same amount (Depth).</li>
+                                <li><em>Other modes might include smoothing, averaging, etc.</em></li>
+                            </ul>
+                        </li>
+                        <li><strong>Depth</strong>: The amount (in blocks) by which the terrain is raised or lowered per operation.</li>
+                        <li><strong>Radius</strong>: The circular area of effect for the tool.</li>
+                        <li><strong>Block: [block ID]</strong>: The block type used when raising terrain. The screenshot shows an example "game:leaves-maple-branchy". This can be changed to any valid [Block ID]. This menu option likely overrides the hotbar block for raising if a value is set here.</li>
+                    </ul>
+                     <p><a href="#" onclick="selectToolFromMeta('guideHub', 'guideHub-toolMenus')">Back to Tool Menus Overview in Guide Hub</a></p>
+                `
+            },
+            {
+                id: 'growshrink',
+                name: 'Grow/Shrink Area',
+                iconEmoji: '🌱', // Changed from expand/contract to differentiate from selection grow/shrink
+                optionsHTML: () => `
+                    <div class="option-group">
+                        <label ${tt("Radius of the grow/shrink effect")}>Radius:</label><input type="number" value="10" min="1">
+                    </div>
+                    <div class="option-group">
+                        <label ${tt("Mode of operation")}>Mode:</label>
+                        <select><option>Any block</option><option>[Other Modes?]</option></select>
+                    </div>
+                    <div class="option-separator"></div>
+                    <div class="option-group">
+                        <label ${tt("Block type to use for growing, or to target for shrinking")}>Block:</label>
+                        <input type="text" value="game:planks-aged-horवेज" style="width:180px;" ${tt("Example: game:planks-aged-horवेज [Text Cut Off]")}>
+                        <!-- text is game:planks-aged-hor... then cut off, assuming something like horizontal -->
+                    </div>
+                `,
+                detailsHTML: () => `
+                    <h2 id="toolMenu-growshrink">Grow/Shrink Area Tool</h2>
+                    <p>Tool to grow or shrink an area in every direction. This seems to affect existing structures/blobs of blocks rather than a WorldEdit selection.</p>
+                    <h3>Controls (from screenshot):</h3>
+                    <ul class="tool-controls-list">
+                        <li><strong>Left click:</strong> Shrinks all shapes inside given radius.</li>
+                        <li><strong>Right click:</strong> Grows all shapes inside given radius.</li>
+                    </ul>
+                    <h3>Menu Options Explained:</h3>
+                    <ul>
+                        <li><strong>Radius</strong>: The area of influence for the grow/shrink operation.</li>
+                        <li><strong>Mode: Any block / ...</strong>:
+                            <ul>
+                                <li><code>Any block</code>: The operation will affect any blocks it finds.</li>
+                                <li><em>Other modes might specify particular block types or tags to target.</em></li>
+                            </ul>
+                        </li>
+                        <li><strong>Block: [block ID]</strong>:
+                            <ul>
+                                <li>When growing: The block type to add to the edges of existing shapes. (Example from screenshot: <code>game:planks-aged-hor...</code> likely 'horizontal planks').</li>
+                                <li>When shrinking: This might specify *only* to shrink shapes made of this block, or it might be ignored for shrinking.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p><em>This tool appears to be for morphological operations on existing block structures, like making veins of ore thicker or thinner.</em></p>
+                     <p><a href="#" onclick="selectToolFromMeta('guideHub', 'guideHub-toolMenus')">Back to Tool Menus Overview in Guide Hub</a></p>
+                `
+            },
+            {
+                id: 'erode',
+                name: 'Erode Tool',
+                iconEmoji: '🌬️',
+                optionsHTML: () => `
+                    <div class="option-group">
+                        <label ${tt("Radius of the erosion effect")}>Radius:</label><input type="number" value="10" min="1">
+                    </div>
+                    <div class="option-group">
+                        <label ${tt("Radius of the smoothing kernel")}>Kernel Radius:</label><input type="number" value="2" min="1">
+                    </div>
+                    <div class="option-group">
+                        <label ${tt("Number of erosion iterations per application")}>Amount of iterations:</label><input type="number" value="1" min="1">
+                    </div>
+                `,
+                detailsHTML: () => `
+                    <h2 id="toolMenu-erode">Erode Tool</h2>
+                    <p>Applies an erosion effect on the targeted area, typically for smoothing terrain or making it look more natural.</p>
+                    <h3>Controls (from screenshot):</h3>
+                    <ul class="tool-controls-list">
+                        <li>Requires magic wand item in your hands.</li>
+                        <li>Applies an erosion effect on the targeted area.</li>
+                        <li><strong>Sc [Scroll Wheel Click?]:</strong> [No effect listed, might be alternative activation]</li>
+                        <li><strong>Left click:</strong> No effect.</li>
+                        <li><strong>Right click:</strong> Erode an area by averaging the height of the terrain.</li>
+                    </ul>
+                    <h3>Menu Options Explained:</h3>
+                    <ul>
+                        <li><strong>Radius</strong>: The overall area of effect for the erosion brush.</li>
+                        <li><strong>Kernel Radius</strong>: The size of the local neighborhood used for averaging heights. A larger kernel means smoother, more generalized erosion. A smaller kernel gives finer, more detailed erosion.</li>
+                        <li><strong>Amount of iterations</strong>: How many times the erosion/smoothing algorithm is applied per click. More iterations lead to a stronger effect.</li>
+                    </ul>
+                     <p><a href="#" onclick="selectToolFromMeta('guideHub', 'guideHub-toolMenus')">Back to Tool Menus Overview in Guide Hub</a></p>
+                `
+            },
+            {
+                id: 'import',
+                name: 'Import Schematic',
+                iconEmoji: '📥',
+                optionsHTML: () => `
+                    <span class="text-display" ${tt("Load schematic from files or clipboard")}>Files:</span>
+                    <input type="text" placeholder="filename.vsschem" style="width:150px;" ${tt("Enter filename or path of schematic")}>
+                    <span class="text-display">or</span>
+                    <button ${tt("Load schematic from system clipboard (if supported by WE version)")}>From Clipboard</button>
+                    <div class="option-separator"></div>
+                    <button ${tt("Rotate schematic 90 degrees clockwise")}>Rot. 90 CW</button>
+                    <button ${tt("Rotate schematic 90 degrees counter-clockwise")}>Rot. 90 CCW</button>
+                    <div class="option-separator"></div>
+                    <button ${tt("Nudge schematic preview North")}>North</button>
+                    <button ${tt("Nudge schematic preview South")}>South</button>
+                    <button ${tt("Nudge schematic preview East")}>East</button>
+                    <button ${tt("Nudge schematic preview West")}>West</button>
+                    <button ${tt("Nudge schematic preview Up")}>Up</button>
+                    <button ${tt("Nudge schematic preview Down")}>Down</button>
+                    <button ${tt("Nudge schematic preview in look direction")}>Look</button>
+                    <div class="option-separator"></div>
+                    <div class="option-group">
+                        <label ${tt("Origin point for placing the schematic")}>Paste Origin Point:</label>
+                        <select><option>BottomCenter</option></select>
+                    </div>
+                    <div class="option-group">
+                        <label ${tt("How to handle existing blocks at destination")}>Replace Mode:</label>
+                        <select><option>By replaceable value</option><option>All</option><option>None</option></select>
+                    </div>
+                    <label ${tt("Paste Air Blocks (PaC): If checked, air from schematic replaces blocks")}><input type="checkbox" id="import-pac"> PaC</label>
+                    <label ${tt("Paste Air when Pasting (PaP): Alternative/additional air pasting logic")}><input type="checkbox" id="import-pap"> PaP</label>
+                    <button ${tt("Place the schematic in the world")}>Place</button>
+                `,
+                detailsHTML: () => `
+                    <h2 id="toolMenu-import">Import Schematic Tool</h2>
+                    <p>For importing external block schematics. When active you can also drag and drop schematics into the game to import them.</p>
+                    <h3>Controls (from screenshot):</h3>
+                    <ul class="tool-controls-list">
+                        <li>Requires magic wand item in your hands.</li>
+                        <li><strong>Sc [Scroll Wheel Click?]:</strong> Move preview to selected position.</li>
+                        <li><strong>Left click:</strong> Move preview to selected position. [Duplicate of Sc?]</li>
+                        <li><strong>Right click:</strong> Place the schematic at the selected Sc position. [Typo? Should be selected preview position]</li>
+                    </ul>
+                    <h3>Menu Options Explained:</h3>
+                    <ul>
+                        <li><strong>Files: [input] or From Clipboard</strong>: Load a schematic. Enter filename (e.g., <code>myhouse.vsschem</code>) or load from system clipboard.</li>
+                        <li><strong>Rot. 90 CW/CCW</strong>: Rotate the loaded schematic before placement.</li>
+                        <li><strong>North, South, East, West, Up, Down, Look</strong>: Nudge the preview of the schematic by small increments.</li>
+                        <li><strong>Paste Origin Point: BottomCenter / ...</strong>: Anchor point for placing the schematic relative to the preview position.</li>
+                        <li><strong>Replace Mode: By replaceable value / All / None</strong>:
+                            <ul>
+                                <li><code>By replaceable value</code>: Only replaces blocks marked as "replaceable" (e.g. air, water, plants).</li>
+                                <li><code>All</code>: Replaces all blocks at the destination.</li>
+                                <li><code>None</code>: Places no blocks where existing non-air blocks are (places additively).</li>
+                            </ul>
+                        </li>
+                        <li><strong>PaC (Paste Air Blocks / Clipboard Air)</strong>: If checked, air blocks from the schematic *will* replace existing solid blocks. If unchecked, air from schematic is ignored. (Equivalent to <code>//paste</code> vs <code>//paste -a</code>)</li>
+                        <li><strong>PaP (Paste Air when Pasting / Placement Air)</strong>: [TODO: Clarify specific difference from PaC. May relate to how WorldEdit handles the clipboard vs. actual placement regarding air].</li>
+                        <li><strong>Place</strong>: Finalizes the schematic placement.</li>
+                    </ul>
+                     <p><a href="#" onclick="selectToolFromMeta('guideHub', 'guideHub-toolMenus')">Back to Tool Menus Overview in Guide Hub</a></p>
+                `
+            },
+            {
+                id: 'treegen', // Renamed from 'tree' to distinguish
+                name: 'TreeGen Tool',
+                iconEmoji: '🌳',
+                optionsHTML: () => `
+                    <div class="option-group">
+                        <label ${tt("Minimum size multiplier for generated trees")}>Min. Size:</label><input type="number" value="0.7" step="0.1" min="0.1">
+                    </div>
+                    <div class="option-group">
+                        <label ${tt("Maximum size multiplier for generated trees")}>Max. Size:</label><input type="number" value="1.3" step="0.1" min="0.1">
+                    </div>
+                    <div class="option-group">
+                        <label ${tt("Type of tree to generate")}>Tree variant:</label>
+                        <select style="width:100px;">
+                            <option>oak</option><option>pine</option><option>birch</option><option>acacia</option>
+                            <option>maple</option><option>walnut</option><option>purpleheart</option><option>ebony</option>
+                            <option>kapok</option><option>larch</option><option>redwood</option>
+                        </select>
+                    </div>
+                `,
+                detailsHTML: () => `
+                    <h2 id="toolMenu-treegen">TreeGen Tool</h2>
+                    <p>Places trees using the inbuilt tree generator.</p>
+                    <h3>Controls (from screenshot):</h3>
+                    <ul class="tool-controls-list">
+                        <li>Requires magic wand item in your hands.</li>
+                        <li><strong>Sc [Scroll Wheel Click?]:</strong> Place trees using the inbuilt tree generator.</li>
+                        <li><strong>Left click:</strong> No effect.</li>
+                        <li><strong>Right click:</strong> Places a tree at a given selected position.</li>
+                    </ul>
+                    <h3>Menu Options Explained:</h3>
+                    <ul>
+                        <li><strong>Min. Size / Max. Size</strong>: Controls the random size variation for generated trees. 1.0 is standard.</li>
+                        <li><strong>Tree variant</strong>: Selects the species of tree to generate (e.g., Oak, Pine).</li>
+                    </ul>
+                    <p><em>This tool uses the Global Header Bar's "Constrain" option. If "Constrain: on", trees might only be placeable on valid surfaces like grass.</em></p>
+                     <p><a href="#" onclick="selectToolFromMeta('guideHub', 'guideHub-toolMenus')">Back to Tool Menus Overview in Guide Hub</a></p>
+                `
+            },
+            {
+                id: 'chiselbrush',
+                name: 'ChiselBrush Tool',
+                iconEmoji: '⚒️', // Different from Paint Brush icon
+                 optionsHTML: () => ` <!-- Identical to PaintBrush menu as per screenshot -->
+                    <button ${tt("Mode of painting: Replace selected biome, Replace block, etc.")}>Mode: Replace Selected Bio</button>
+                    <button ${tt("Shape of the brush")}>Shape: Ball</button>
+                    <div class="option-group">
+                        <label ${tt("Size of brush on X-axis")}>SizeX:</label><input type="number" value="4" min="1">
+                    </div>
+                    <div class="option-group">
+                        <label ${tt("Size of brush on Y-axis")}>SizeY:</label><input type="number" value="4" min="1">
+                    </div>
+                    <div class="option-group">
+                        <label ${tt("Size of brush on Z-axis")}>SizeZ:</label><input type="number" value="4" min="1">
+                    </div>
+                    <div class="option-group">
+                        <label ${tt("Target Origin Mode: Center, Edge, etc.")}>TOM:</label><select><option>Center</option></select>
+                    </div>
+                    <div class="option-group">
+                        <label ${tt("Cutout on X-axis")}>CutoutX:</label><input type="number" value="0" min="0">
+                    </div>
+                    <div class="option-group">
+                        <label ${tt("Cutout on Y-axis")}>CutoutY:</label><input type="number" value="0" min="0">
+                    </div>
+                    <div class="option-group">
+                        <label ${tt("Cutout on Z-axis")}>CutoutZ:</label><input type="number" value="0" min="0">
+                    </div>
+                    <div class="option-group">
+                        <label ${tt("Placement percentage/density")}>Placement %:</label><input type="number" value="100" min="0" max="100">
+                    </div>
+                `,
+                detailsHTML: () => `
+                    <h2 id="toolMenu-chiselbrush">ChiselBrush Tool</h2>
+                    <p>Various operations you can run on chiseled blocks. The menu interface is identical to the [Paint Brush](#paintbrush) tool, suggesting it's a specialized version or mode utilizing the same parameters.</p>
+                    <h3>Controls (from screenshot):</h3>
+                    <ul class="tool-controls-list">
+                        <li>[Screenshot shows "erode tool selected" in log, but ChiselBrush tool selected in sidebar. Assuming ChiselBrush controls are similar to PaintBrush if it uses same interface.]</li>
+                        <li><strong>Left click:</strong> [Likely no effect or specific to ChiselBrush mode]</li>
+                        <li><strong>Right click:</strong> [Applies ChiselBrush operation using current settings]</li>
+                    </ul>
+                    <h3>Menu Options Explained:</h3>
+                    <p>This tool uses the same option bar as the <a href="#" onclick="selectToolFromMeta('paintbrush')">Paint Brush Tool</a>. Refer to its section for option details. The "Mode" (e.g., Replace Selected Bio) would determine how it interacts with chiseled blocks specifically.</p>
+                     <p><a href="#" onclick="selectToolFromMeta('guideHub', 'guideHub-toolMenus')">Back to Tool Menus Overview in Guide Hub</a></p>
+                `
+            },
+            {
+                id: 'chiselvanilla', // To distinguish from chiselbrush
+                name: 'Chisel (Vanilla)',
+                iconEmoji: '🛠️', // Standard chisel
+                optionsHTML: () => `<div>Vanilla Chisel: No specific top options bar. Use 'F' key in-game to cycle modes. Material from hotbar/offhand.</div>`,
+                detailsHTML: `
+                    <h2 id="toolMenu-chiselvanilla">Chisel Tool (Vanilla In-Game Tool)</h2>
+                    <p>The standard Chisel is a powerful vanilla tool for micro-detailing [Blocks]. It allows you to remove small voxels from a block or add voxels of a different material to it.</p>
+                    <p><strong>This tool does not use the top creative mode options bar.</strong> Its modes and materials are handled through in-game interactions:</p>
+                    <h3>Primary Controls (In-Game):</h3>
+                    <ul class="tool-controls-list">
+                        <li><strong>Hold Chisel:</strong> Select the Chisel in your hotbar.</li>
+                        <li><strong>Select Material Block (Optional):</strong> Place a compatible block (e.g., stone, wood) in your off-hand or active hotbar slot to add that material. If no material is selected, chiseling removes voxels.</li>
+                        <li><strong>Aim at a Block Face.</strong></li>
+                        <li><strong>'F' Key (Default):</strong> Cycles through different chiseling modes (e.g., Stair, Slab, 2/4/8 Voxels, Copy, Delete).</li>
+                        <li><strong>Left Click:</strong> Removes voxels according to the selected mode and highlighted area.</li>
+                        <li><strong>Right Click:</strong> Adds voxels of the selected material (if any) according to the mode and area.</li>
+                        <li><strong>Shift + Scroll Wheel:</strong> Changes detailed chisel selection patterns within some modes.</li>
+                    </ul>
+                    <p>The Chisel is essential for creating intricate details, custom slopes, and mixing materials within a single block space. It's a core creative building mechanic, separate from WorldEdit tools.</p>
+                     <p><a href="#" onclick="selectToolFromMeta('guideHub', 'guideHub-toolMenus')">Back to Tool Menus Overview in Guide Hub</a></p>
+                `
+            }
+        ];
+
+        const toolSidebar = document.getElementById('toolSidebar');
+        const toolDetailsContent = document.getElementById('toolDetailsContent');
+
+        function processWikiLinks(htmlContent) {
+            const wikiLinkRegex = /\[([^\]]+)\]/g;
+            return htmlContent.replace(wikiLinkRegex, (match, term) => {
+                const wikiTerm = term.replace(/\s+/g, '_');
+                return `<a href="${VINTAGE_STORY_WIKI_BASE_URL}${encodeURIComponent(wikiTerm)}" target="_blank" title="Go to VS Wiki for ${term}">${term}</a>`;
+            });
+        }
+
+        function displayToolInfo(toolId, scrollToAnchor = null) {
+            const tool = toolsData.find(t => t.id === toolId);
+            if (!tool) {
+                toolDetailsContent.innerHTML = '<h2>Error</h2><p>Tool data could not be loaded.</p>';
+                return;
+            }
+
+            activeToolId = toolId;
+
+            document.querySelectorAll('.tool-button').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.toolId === toolId);
+            });
+            
+            let optionsBarHTML = '';
+            if (typeof tool.optionsHTML === 'function') {
+                optionsBarHTML = `<div class="tool-specific-options-bar">${tool.optionsHTML()}</div>`;
+            }
+
+            let detailsHTMLContent = '';
+            if(typeof tool.detailsHTML === 'function') {
+                detailsHTMLContent = processWikiLinks(tool.detailsHTML());
+            } else if (tool.details) { // Fallback for older structure if any
+                 detailsHTMLContent = processWikiLinks(tool.details);
+            }
+
+            toolDetailsContent.innerHTML = optionsBarHTML + detailsHTMLContent;
+
+            if (scrollToAnchor) {
+                const anchorElement = document.getElementById(scrollToAnchor);
+                if (anchorElement) {
+                    anchorElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    toolDetailsContent.scrollTop = 0; // Scroll to top if anchor not found
+                }
+            } else {
+                 toolDetailsContent.scrollTop = 0; // Scroll to top
+            }
+        }
+        
+        //Exposed globally for onclick handlers from Guide Hub
+        window.selectToolFromMeta = function(toolId, anchorId = null) {
+            displayToolInfo(toolId, anchorId);
+        }
+
+        window.selectToolAndScroll = function(toolId, anchorId) {
+             // First, make sure the Guide Hub is active to find the anchor
+            if (activeToolId !== 'guideHub') {
+                displayToolInfo('guideHub', anchorId);
+            } else { // If guide hub is already active, just scroll
+                 const anchorElement = document.getElementById(anchorId);
+                if (anchorElement) {
+                    anchorElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        }
+
+
+        function populateSidebar() {
+            toolsData.forEach(tool => {
+                const button = document.createElement('button');
+                button.className = 'tool-button';
+                if (tool.iconEmoji) {
+                    button.textContent = tool.iconEmoji;
+                } else {
+                    button.textContent = tool.name.substring(0, 1);
+                }
+                button.dataset.toolId = tool.id;
+                button.title = tool.name;
+                button.addEventListener('click', () => displayToolInfo(tool.id));
+                toolSidebar.appendChild(button);
+            });
+        }
+
+        // Initialize
+        populateSidebar();
+        // Display welcome message or first tool by default
+        // To show Guide Hub by default: displayToolInfo('guideHub');
+    </script>
+</body>
+</html>

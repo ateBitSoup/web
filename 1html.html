@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1 HTML 2 Rule Them All</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.png" alt="ateBitSoup Logo">
+                <span>ateBitSoup</span>
+            </a>
+            <nav class="main-nav">
+                <button class="nav-toggle" aria-label="toggle navigation">
+                    <i class="fas fa-bars"></i> <!-- Hamburger Icon -->
+                </button>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="1html.html" class="active">1HTML</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>With these 1 HTML files, we can rule the EARTH</h1>
+            <p>A dynamic list of HTML files from my 'web' repository. Titles and keywords are extracted from each file. Use the controls below to search and sort.</p>
+
+            <div class="lister-controls">
+                <div class="search-control">
+                    <label for="search-input">Search by Title/Keyword:</label>
+                    <input type="text" id="search-input" placeholder="e.g., animation, form, project name...">
+                </div>
+                <div class="sort-control">
+                    <label for="sort-select">Sort by:</label>
+                    <select id="sort-select">
+                        <option value="title-asc">Title (A-Z)</option>
+                        <option value="title-desc">Title (Z-A)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="html-file-list-container">
+                <p class="loading-message">Loading HTML files... This may take a moment as details are fetched for each of the 6 files.</p>
+                <!-- The list of HTML files will be dynamically injected here by JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© <span id="current-year"></span> ateBitSoup. All rights reserved.</p>
+            <p>
+                <a href="https://github.com/ateBitSoup" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/1html-lister.js"></script>
+</body>
+</html>
