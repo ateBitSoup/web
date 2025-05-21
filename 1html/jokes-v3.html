@@ -1,11 +1,22 @@
 <!DOCTYPE html>
-<!-- Version 3.0 - User-controlled Punchline Reveal & Static SVG-->
+<!-- Version 3.1 - User-controlled Punchline Reveal & Static SVG. Logo Integration. -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>World Compass Academy Daily Jokes</title>
     <style>
+        :root {
+            --wca-blue: #127db7;
+            --wca-green: #8dcb8c;
+            --wca-text-dark: #333333;
+            --wca-accent-red: #e74c3c;
+            --wca-button-blue: #3498db;
+            --wca-button-blue-hover: #2980b9;
+            --wca-button-green: #2ecc71;
+            --wca-button-green-hover: #27ae60;
+        }
+
         body {
             font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial Rounded MT Bold', sans-serif;
             display: flex;
@@ -15,44 +26,59 @@
             min-height: 100vh;
             margin: 0;
             background-color: #f0f8ff; /* AliceBlue */
-            color: #333;
+            color: var(--wca-text-dark);
             text-align: center;
-            overflow: hidden;
-            position: relative;
+            overflow: hidden; /* For falling items */
+            position: relative; /* For falling items */
         }
 
         #joke-area {
             display: flex;
-            flex-direction: column; /* Stack joke container and image vertically */
+            flex-direction: column;
             align-items: center;
-            gap: 20px; /* Space between joke container and static image */
+            gap: 15px; /* Reduced gap slightly */
+            padding: 10px; /* Add some padding to joke-area */
+            width: 95%; /* Ensure joke-area doesn't touch screen edges */
+            max-width: 750px; /* Max width for the whole joke area */
         }
 
         #joke-container {
             background-color: #fff;
-            padding: 30px 40px;
+            padding: 20px 30px; /* Adjusted padding */
             border-radius: 15px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            width: 80%;
-            max-width: 700px;
-            min-height: 200px;
+            width: 100%; /* Take full width of joke-area */
+            min-height: 220px; /* Adjusted min-height */
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            border: 5px solid #127db7; /* WCA Blue */
+            border: 5px solid var(--wca-blue);
         }
 
-        #school-name {
-            font-size: 1.5em;
-            color: #8dcb8c; /* WCA Green */
+        #logo-container {
+            width: 300px; /* Initial width, can be fine-tuned */
+            max-width: 80%; /* Ensure it doesn't get too big on small joke containers */
+            height: auto; /* Maintain aspect ratio */
+            margin: 0 auto 10px auto; /* Center horizontally, space below */
+        }
+
+        #logo-container svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        #school-name { /* This will now primarily be "Joke Time!" */
+            font-size: 1.8em; /* Made slightly larger for "Joke Time!" */
+            color: var(--wca-green);
             margin-bottom: 15px;
             font-weight: bold;
         }
 
         #joke-display {
             width: 100%;
-            margin-bottom: 20px; /* Space before buttons */
+            margin-bottom: 20px;
         }
 
         #joke-setup-text {
@@ -63,24 +89,32 @@
             line-height: 1.4;
         }
 
+        .translation { /* For Spanish joke translations */
+            display: block;
+            font-size: 0.8em;
+            color: #555;
+            font-style: italic;
+            margin-top: 5px;
+        }
+
         #joke-punchline-text {
             font-size: 1.8em;
             font-weight: bold;
             margin-top: 10px;
             min-height: 50px;
-            color: #e74c3c;
+            color: var(--wca-accent-red);
             line-height: 1.4;
-            /* display: none; Initially hidden, controlled by JS */
         }
 
         .button-container {
             display: flex;
-            gap: 15px; /* Space between buttons */
+            gap: 15px;
             justify-content: center;
+            flex-wrap: wrap; /* Allow buttons to wrap on small screens */
         }
 
         .joke-button {
-            background-color: #3498db;
+            background-color: var(--wca-button-blue);
             color: white;
             border: none;
             padding: 12px 25px;
@@ -92,7 +126,7 @@
         }
 
         .joke-button:hover {
-            background-color: #2980b9;
+            background-color: var(--wca-button-blue-hover);
         }
 
         .joke-button:active {
@@ -100,23 +134,22 @@
         }
 
         .joke-button:disabled {
-            background-color: #bdc3c7; /* Silver */
+            background-color: #bdc3c7;
             cursor: not-allowed;
         }
 
         #reveal-punchline-button {
-            background-color: #2ecc71; /* Emerald */
+            background-color: var(--wca-button-green);
         }
         #reveal-punchline-button:hover {
-            background-color: #27ae60; /* Nephritis */
+            background-color: var(--wca-button-green-hover);
         }
 
-
         #static-svg-display {
-            width: 100px; /* Adjust size as needed */
-            height: 100px; /* Adjust size as needed */
-            margin-top: 10px; /* Space below joke container */
-            border: none; /* Explicitly set to none */
+            width: 100px;
+            height: 100px;
+            /* margin-top: 10px; // This is handled by gap in #joke-area now */
+            border: none;
             padding: 5px;
             display: flex;
             align-items: center;
@@ -126,7 +159,6 @@
             width: 100%;
             height: 100%;
         }
-
 
         .falling-item {
             position: absolute;
@@ -156,18 +188,29 @@
             100% { opacity: 0; }
         }
 
-        @media (max-width: 768px) { /* Adjusted breakpoint */
+        @media (max-width: 768px) {
             #joke-area {
-                width: 95%;
+                gap: 10px;
             }
             #joke-container {
-                width: 100%; /* Make container take full width of joke-area */
-                padding: 20px;
+                padding: 15px 20px;
             }
-            #joke-setup-text { font-size: 1.5em; }
-            #joke-punchline-text { font-size: 1.6em; }
-            .joke-button { font-size: 1em; padding: 10px 20px; }
-            #static-svg-display { width: 80px; height: 80px; }
+            #logo-container {
+                width: 200px; /* Smaller logo on smaller screens */
+            }
+            #school-name { font-size: 1.5em; }
+            #joke-setup-text { font-size: 1.4em; }
+            #joke-punchline-text { font-size: 1.5em; }
+            .joke-button { font-size: 1em; padding: 10px 18px; }
+            #static-svg-display { width: 70px; height: 70px; }
+        }
+        @media (max-width: 480px) {
+            #logo-container {
+                width: 150px;
+            }
+             #school-name { font-size: 1.3em; }
+            #joke-setup-text { font-size: 1.2em; }
+            #joke-punchline-text { font-size: 1.3em; }
         }
     </style>
 </head>
@@ -175,7 +218,10 @@
 
     <div id="joke-area">
         <div id="joke-container">
-            <div id="school-name">World Compass Academy Joke Time!</div>
+            <div id="logo-container">
+                <!-- Main School Logo SVG will be loaded here by JavaScript -->
+            </div>
+            <div id="school-name">Joke Time!</div> {/* Text updated */}
             <div id="joke-display">
                 <p id="joke-setup-text">Press "Get Joke" for a ROARsome joke from Coco!</p>
                 <p id="joke-punchline-text"></p>
@@ -186,7 +232,7 @@
             </div>
         </div>
         <div id="static-svg-display">
-            <!-- Static SVG will be loaded here -->
+            <!-- Decorative Static SVG will be loaded here -->
         </div>
     </div>
 
@@ -196,8 +242,12 @@
         const newJokeButton = document.getElementById('new-joke-button');
         const revealPunchlineButton = document.getElementById('reveal-punchline-button');
         const staticSvgDisplay = document.getElementById('static-svg-display');
+        const logoContainer = document.getElementById('logo-container'); // Get the logo container
 
-        let currentSelectedJoke = null; // To store the current joke object
+        let currentSelectedJoke = null;
+
+        // --- SCHOOL LOGO SVG (REPLACE WITH YOUR ACTUAL LOGO SVG STRING) ---
+        const schoolLogoSvg = '<svg viewBox="0 0 450 150" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>World Compass Academy Logo</title><path d="M75 25 A50 50 0 1 1 75 125" stroke="#007ABF" stroke-width="12" fill="none" transform="rotate(-15 65 75)"/><path d="M65 105 Q60 80 65 55 C65 55 62 50 58 52" fill="#6A4028" stroke="#50301E" stroke-width="1"/><path d="M58 52 Q40 45 50 25 Q60 48 58 52 Z" fill="#8BC34A" stroke="#558B2F" stroke-width="0.5"/><path d="M58 52 Q35 60 45 35 Q60 52 58 52 Z" fill="#AED581" stroke="#558B2F" stroke-width="0.5"/><path d="M58 52 Q45 70 55 45 Q65 55 58 52 Z" fill="#9CCC65" stroke="#558B2F" stroke-width="0.5"/><text x="115" y="68" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="bold" fill="#333333">WORLD</text><text x="115" y="105" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="bold" fill="#333333">COMPASS</text><text x="305" y="105" font-family="Comic Sans MS, Brush Script MT, cursive" font-size="30" fill="#8BC34A" font-style="italic">Academy</text></svg>';
 
         const dadJokes = [
 			{ setup: "Why don't skeletons fight each other?", punchline: "They don't have the guts." },
@@ -988,8 +1038,6 @@
 
 			// --- Simple Yarn Ball (Bonus, often associated with cats) ---
 			'<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Yarn Ball</title><circle cx="50" cy="50" r="35" fill="#1E90FF" stroke="#0000CD" stroke-width="3"/><path d="M30 30 Q50 20 70 30 Q80 50 70 70 Q50 80 30 70 Q20 50 30 30 Z M40 35 Q25 50 40 65 Q50 75 60 65 Q75 50 60 35 Q50 25 40 35" fill="none" stroke="#B0E0E6" stroke-width="2.5" stroke-linecap="round"/><line x1="75" y1="65" x2="90" y2="80" stroke="#B0E0E6" stroke-width="2.5" stroke-linecap="round"/></svg>',
-			// WCA LOGO
-			'<svg viewBox="0 0 450 150" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>World Compass Academy Logo</title><path d="M75 25 A50 50 0 1 1 75 125" stroke="#007ABF" stroke-width="12" fill="none" transform="rotate(-15 65 75)"/><path d="M65 105 Q60 80 65 55 C65 55 62 50 58 52" fill="#6A4028" stroke="#50301E" stroke-width="1"/><path d="M58 52 Q40 45 50 25 Q60 48 58 52 Z" fill="#8BC34A" stroke="#558B2F" stroke-width="0.5"/><path d="M58 52 Q35 60 45 35 Q60 52 58 52 Z" fill="#AED581" stroke="#558B2F" stroke-width="0.5"/><path d="M58 52 Q45 70 55 45 Q65 55 58 52 Z" fill="#9CCC65" stroke="#558B2F" stroke-width="0.5"/><text x="115" y="68" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="bold" fill="#333333">WORLD</text><text x="115" y="105" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="bold" fill="#333333">COMPASS</text><text x="305" y="105" font-family="Comic Sans MS, Brush Script MT, cursive" font-size="30" fill="#8BC34A" font-style="italic">Academy</text></svg>'
 			// Add more valid SVG strings here if you have them
         ];
 
@@ -998,13 +1046,18 @@
             ...funnySvgs.map(svgString => ({ type: 'svg', value: svgString }))
         ];
 
-        // --- STATIC SVG DISPLAY ---
+        // --- STATIC DECORATIVE SVG DISPLAY ---
         function loadRandomStaticSvg() {
-            if (funnySvgs.length > 0) {
-                const randomIndex = Math.floor(Math.random() * funnySvgs.length);
-                staticSvgDisplay.innerHTML = funnySvgs[randomIndex];
-            } else {
-                staticSvgDisplay.innerHTML = '<p style="font-size:0.8em; color:#777;">(No SVGs available)</p>';
+            // Filter out the main school logo if it's also in funnySvgs to avoid duplication here
+            const decorativeSvgs = funnySvgs.filter(svg => svg !== schoolLogoSvg);
+            if (decorativeSvgs.length > 0) {
+                const randomIndex = Math.floor(Math.random() * decorativeSvgs.length);
+                staticSvgDisplay.innerHTML = decorativeSvgs[randomIndex];
+            } else if (funnySvgs.length > 0) { // Fallback if only logo is in funnySvgs
+                 staticSvgDisplay.innerHTML = funnySvgs[0];
+            }
+            else {
+                staticSvgDisplay.innerHTML = '<p style="font-size:0.8em; color:#777;">(Fun image here!)</p>';
             }
         }
 
@@ -1019,12 +1072,17 @@
 
             if (randomItem.type === 'emoji') {
                 itemContainer.textContent = randomItem.value;
+                itemContainer.style.fontSize = (Math.random() * 1.5 + 1.2) + 'rem';
             } else if (randomItem.type === 'svg') {
                 itemContainer.innerHTML = randomItem.value;
+                // Size for SVG containers (SVG inside will scale to 100%)
+                const size = (Math.random() * 30 + 30); // SVGs might need different base size, e.g., 30px to 60px
+                itemContainer.style.width = size + 'px';
+                itemContainer.style.height = size + 'px';
             }
             
             itemContainer.style.left = Math.random() * 100 + 'vw';
-            itemContainer.style.fontSize = (Math.random() * 1.5 + 1.2) + 'rem';
+            // itemContainer.style.fontSize = (Math.random() * 1.5 + 1.2) + 'rem'; // Moved sizing for emojis
 
             const animationDuration = (Math.random() * 3 + 4);
             itemContainer.style.animationDuration = animationDuration + 's, ' + animationDuration + 's';
@@ -1035,9 +1093,9 @@
             }, animationDuration * 1000 + 500);
         }
 
-        function triggerItemRain(count = 7) { // Slightly more for reveal
+        function triggerItemRain(count = 7) {
             for (let i = 0; i < count; i++) {
-                setTimeout(createFallingItem, i * 120); // Slightly faster stagger
+                setTimeout(createFallingItem, i * 120);
             }
         }
 
@@ -1047,32 +1105,40 @@
                 const randomIndex = Math.floor(Math.random() * allJokes.length);
                 currentSelectedJoke = allJokes[randomIndex];
 
-                jokeSetupElement.textContent = currentSelectedJoke.setup;
-                jokePunchlineElement.textContent = ''; // Clear previous punchline
-                jokePunchlineElement.style.display = 'none'; // Ensure it's hidden
+                let setupHTML = currentSelectedJoke.setup;
+                if (currentSelectedJoke.hasOwnProperty('setup_en') && currentSelectedJoke.setup_en && currentSelectedJoke.setup_en !== currentSelectedJoke.setup) {
+                    setupHTML += `<br><span class="translation">(${currentSelectedJoke.setup_en})</span>`;
+                }
+                jokeSetupElement.innerHTML = setupHTML;
 
-                revealPunchlineButton.style.display = 'inline-block'; // Show reveal button
+                jokePunchlineElement.innerHTML = ''; // Use innerHTML for consistency
+                jokePunchlineElement.style.display = 'none';
+
+                revealPunchlineButton.style.display = 'inline-block';
                 revealPunchlineButton.disabled = false;
-                newJokeButton.textContent = 'Next Joke'; // Optional: change text
-                // newJokeButton.disabled = true; // Optional: disable until punchline revealed
+                newJokeButton.textContent = 'Next Joke';
             } else {
                 jokeSetupElement.textContent = "Oh no! Coco is out of jokes for now.";
-                jokePunchlineElement.textContent = "Please ask your teacher to add more!";
+                jokePunchlineElement.innerHTML = "<span class='translation'>Please ask your teacher to add more!</span>";
+                jokePunchlineElement.style.display = 'block';
                 revealPunchlineButton.style.display = 'none';
                 newJokeButton.textContent = 'Get Joke';
             }
-            loadRandomStaticSvg(); // Load a new static SVG with each new joke setup
+            loadRandomStaticSvg();
         }
 
         function revealCurrentPunchline() {
             if (currentSelectedJoke && currentSelectedJoke.punchline) {
-                jokePunchlineElement.textContent = currentSelectedJoke.punchline;
+                let punchlineHTML = currentSelectedJoke.punchline;
+                if (currentSelectedJoke.hasOwnProperty('punchline_en') && currentSelectedJoke.punchline_en && currentSelectedJoke.punchline_en !== currentSelectedJoke.punchline) {
+                    punchlineHTML += `<br><span class="translation">(${currentSelectedJoke.punchline_en})</span>`;
+                }
+                jokePunchlineElement.innerHTML = punchlineHTML;
                 jokePunchlineElement.style.display = 'block';
                 triggerItemRain();
 
-                revealPunchlineButton.style.display = 'none'; // Hide after reveal
-                // newJokeButton.disabled = false; // Re-enable new joke button
-                newJokeButton.textContent = 'Get Joke'; // Revert text
+                revealPunchlineButton.style.display = 'none';
+                newJokeButton.textContent = 'Get Joke';
             }
         }
 
@@ -1082,15 +1148,19 @@
 
         // --- INITIAL PAGE SETUP ---
         function initializePage() {
-            jokePunchlineElement.textContent = '';
+            if (logoContainer && schoolLogoSvg) { // Load the main school logo
+                logoContainer.innerHTML = schoolLogoSvg;
+            }
+
+            jokePunchlineElement.innerHTML = '';
             jokePunchlineElement.style.display = 'none';
             revealPunchlineButton.style.display = 'none';
             if (allJokes.length === 0) {
-                jokeSetupElement.textContent = "Press 'Get Joke' when ready for laughs (Needs jokes added)!";
+                jokeSetupElement.innerHTML = "Press 'Get Joke' when ready for laughs! <br><span class='translation'>(Needs jokes added by your teacher)</span>";
             }
-            loadRandomStaticSvg(); // Load an initial static SVG
-            console.log(`V3.0: Total jokes loaded: ${allJokes.length}`);
-            console.log(`V3.0: Total falling items available: ${allFallingItems.length}`);
+            loadRandomStaticSvg(); // Load an initial decorative static SVG
+            console.log(`V3.X: Total jokes loaded: ${allJokes.length}`);
+            console.log(`V3.X: Total falling items available: ${allFallingItems.length}`);
         }
 
         initializePage();
