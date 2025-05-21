@@ -218,16 +218,17 @@ main p {
 
 /* === Image Styling (NEW SECTION) === */
 .centered-image-container {
-    text-align: center; /* Centers inline or inline-block children */
-    margin-top: 2rem;   /* Add some space above the image */
-    margin-bottom: 2rem;/* Add some space below the image */
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
 .responsive-original-size {
-    /* display: inline-block; /* img is inline-block by default, but can be explicit */
-    max-width: 30%;      /* Ensures image scales down if wider than container */
-    height: 30%;         /* Maintains aspect ratio when scaling */
-    border: none;         /* Explicitly no border */
+    display: inline-block; /* Helps with text-align: center */
+    max-width: 100%;      /* Image won't exceed its original size, or its container if smaller */
+    width: 30%;           /* Image will be 30% of the width of .centered-image-container */
+    height: auto;         /* MAINTAIN ASPECT RATIO */
+    border: none;
 }
 
 
