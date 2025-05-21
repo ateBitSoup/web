@@ -1,24 +1,28 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Configuration ---
+    // These should be correct for your setup where 'web' is a repository
+    // serving a GitHub Pages project site at atebitsoup.github.io/web/
     const GITHUB_USER = 'ateBitSoup';
-    const SOURCE_REPO = 'web';        // Repository where the '1html' folder exists
-    const SOURCE_FOLDER_PATH = '1html'; // Path to the folder within SOURCE_REPO
-    const SOURCE_BRANCH = 'main';     // Default branch of SOURCE_REPO (e.g., 'main' or 'master')
+    const SOURCE_REPO = 'web';        // The name of your repository (e.g., 'web')
+    const SOURCE_FOLDER_PATH = '1html'; // The folder inside SOURCE_REPO containing HTML files
+    const SOURCE_BRANCH = 'main';     // The default branch of SOURCE_REPO (e.g., 'main' or 'master')
 
     // --- DOM Elements ---
     const listContainer = document.getElementById('html-file-list-container');
     const searchInput = document.getElementById('search-input');
     const sortSelect = document.getElementById('sort-select');
-    const loadingMessageElement = listContainer.querySelector('.loading-message');
+    // Dynamically select loading message element as it might be re-created
+    let loadingMessageElement;
 
-    let allHtmlFilesData = []; // Holds [{ name, path, title, keywords, viewUrl, rawContent }]
+
+    let allHtmlFilesData = []; // Holds [{ name, path, title, keywords, viewUrl }]
 
     // --- Helper: Fetch raw content of a single file ---
     async function fetchFileRawContent(downloadUrl) {
         try {
             const response = await fetch(downloadUrl);
             if (!response.ok) {
-                console.warn(`Failed to fetch content for ${downloadUrl}: ${response.status}`);
+                console.warn(`Failed to fetch content for ${downloadUrl}: ${response.status} ${response.statusText}`);
                 return null;
             }
             return await response.text();
@@ -30,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Helper: Parse HTML string for title and keywords ---
     function parseHtmlMeta(htmlString, fileName) {
-        let title = fileName; // Default to filename if title not found
+        let title = fileName.replace(/\.html$/i, ''); // Default to filename (without .html) if title not found
         let keywords = [];
 
         if (htmlString) {
@@ -48,8 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     const content = keywordsMeta.getAttribute('content');
                     if (content) {
                         keywords = content.split(',')
-                                        .map(k => k.trim().toLowerCase()) // Standardize to lowercase
-                                        .filter(k => k) // Remove empty keywords
+                                        .map(k => k.trim().toLowerCase())
+                                        .filter(k => k)
                                         .slice(0, 3); // Max 3 keywords
                     }
                 }
@@ -62,25 +66,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Main function to load, process, and store file data ---
     async function loadAndProcessFiles() {
+        // Ensure loading message element is present or create it
+        if (listContainer && !listContainer.querySelector('.loading-message') && allHtmlFilesData.length === 0) {
+            const p = document.createElement('p');
+            p.className = 'loading-message';
+            p.textContent = 'Initializing...';
+            listContainer.innerHTML = ''; // Clear container before adding loading message
+            listContainer.appendChild(p);
+        }
+        loadingMessageElement = listContainer.querySelector('.loading-message');
+
         if (!listContainer || !loadingMessageElement) {
-            console.error("Required DOM elements for lister not found.");
+            console.error("Required DOM elements for lister not found (listContainer or loadingMessageElement).");
+            if (listContainer && !loadingMessageElement) listContainer.innerHTML = "<p class='error-message'>Error: Loading message element missing. Cannot proceed.</p>";
             return;
         }
         loadingMessageElement.textContent = 'Fetching file list from GitHub...';
         loadingMessageElement.style.display = 'block';
+        loadingMessageElement.classList.remove('error-message', 'info-message');
 
         const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${SOURCE_REPO}/contents/${SOURCE_FOLDER_PATH}?ref=${SOURCE_BRANCH}`;
 
         try {
             const response = await fetch(apiUrl);
             if (!response.ok) {
-                throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
+                let errorDetail = `GitHub API error: ${response.status} ${response.statusText}`;
+                if (response.status === 404) {
+                    errorDetail += ` (Could not find path: github.com/${GITHUB_USER}/${SOURCE_REPO}/tree/${SOURCE_BRANCH}/${SOURCE_FOLDER_PATH})`;
+                } else if (response.status === 403) {
+                     errorDetail += ` (API rate limit likely exceeded, or forbidden access. Check console for 'x-ratelimit-remaining' header.)`;
+                }
+                throw new Error(errorDetail);
             }
             const files = await response.json();
+
+            // Check if the response is an array (expected for a directory)
+            if (!Array.isArray(files)) {
+                let errorDetail = "Unexpected API response. Expected an array of files.";
+                if (files.message) { // GitHub often includes a message for errors not caught by status
+                    errorDetail += ` GitHub Message: ${files.message}`;
+                }
+                console.error("Raw API response:", files);
+                throw new Error(errorDetail);
+            }
+            
             const htmlFiles = files.filter(file => file.type === 'file' && file.name.toLowerCase().endsWith('.html'));
 
             if (htmlFiles.length === 0) {
-                loadingMessageElement.textContent = 'No HTML files found in the specified repository folder.';
+                loadingMessageElement.textContent = `No HTML files found in 'github.com/${GITHUB_USER}/${SOURCE_REPO}/${SOURCE_FOLDER_PATH}' on branch '${SOURCE_BRANCH}'.`;
+                loadingMessageElement.classList.add('info-message');
                 return;
             }
 
@@ -91,60 +125,87 @@ document.addEventListener('DOMContentLoaded', () => {
                 const rawContent = await fetchFileRawContent(file.download_url);
                 const { title, keywords } = parseHtmlMeta(rawContent, file.name);
 
-                // URL to view the rendered HTML page (using raw.githack.com)
-                // This service renders raw files from GitHub.
-                const viewUrl = `https://raw.githack.com/${GITHUB_USER}/${SOURCE_REPO}/${SOURCE_BRANCH}/${file.path}`;
-                
-                // Alternative: If 'web' repo is ALSO a GitHub Pages site:
-                // const viewUrl = `https://${GITHUB_USER}.github.io/${SOURCE_REPO}/${file.path}`;
+                // Correct viewUrl for GitHub Pages project site:
+                // file.path from the API is relative to the root of the SOURCE_REPO.
+                // e.g., if SOURCE_FOLDER_PATH is "1html", file.path will be "1html/your-file.html"
+                // This is directly usable as a relative link on the GitHub Pages site.
+                const viewUrl = file.path;
 
                 filesProcessedCount++;
-                loadingMessageElement.textContent = `Fetching details... (${filesProcessedCount}/${htmlFiles.length})`;
+                // Update loading message, ensuring it's still in the DOM
+                const currentLoadingMsg = listContainer.querySelector('.loading-message');
+                if (currentLoadingMsg) {
+                    currentLoadingMsg.textContent = `Fetching details... (${filesProcessedCount}/${htmlFiles.length})`;
+                }
+
 
                 return {
-                    name: file.name,
-                    path: file.path,
+                    name: file.name, // e.g., "your-file.html"
+                    path: file.path, // e.g., "1html/your-file.html"
                     title: title,
                     keywords: keywords,
-                    viewUrl: viewUrl,
-                    // rawContent: rawContent // Optionally store if needed later, but can consume memory
+                    viewUrl: viewUrl, // e.g., "1html/your-file.html"
                 };
             });
 
             allHtmlFilesData = await Promise.all(fileDataPromises);
-            loadingMessageElement.style.display = 'none';
-            applyFiltersAndSort(); // Render the initial list
+            // Hide loading message only if it's still the one we expect
+            const finalLoadingMsg = listContainer.querySelector('.loading-message');
+            if (finalLoadingMsg && finalLoadingMsg.textContent.startsWith("Fetching details")) {
+                 finalLoadingMsg.style.display = 'none';
+            }
+            applyFiltersAndSort();
 
         } catch (error) {
             console.error('Error loading or processing files:', error);
-            loadingMessageElement.textContent = `Error: ${error.message}. Check console for details.`;
-            loadingMessageElement.classList.add('error-message');
+            const errorDisplay = listContainer.querySelector('.loading-message') || listContainer; // Fallback to listContainer
+            errorDisplay.textContent = `Error: ${error.message}. Check console for details. Verify repository settings, paths, and API rate limits.`;
+            errorDisplay.classList.add('error-message');
+            errorDisplay.style.display = 'block';
         }
     }
 
     // --- Render the list of files into the DOM ---
     function renderFileList(filesToRender) {
-        listContainer.innerHTML = ''; // Clear previous list or loading message
-
-        if (filesToRender.length === 0) {
-            const p = document.createElement('p');
-            p.textContent = 'No files match your current search or filter criteria.';
-            p.className = 'info-message'; // Style this class in CSS
-            listContainer.appendChild(p);
-            return;
+        // Clear only if not showing an error/loading message already handled by loadAndProcessFiles
+        const existingMessage = listContainer.querySelector('.loading-message, .info-message, .error-message');
+        if (!existingMessage || (existingMessage && !existingMessage.textContent.startsWith("Error:"))) {
+            listContainer.innerHTML = '';
         }
 
+
+        if (filesToRender.length === 0 && (!existingMessage || !existingMessage.textContent.startsWith("Error:"))) {
+            // Don't overwrite a loading/error message if there are no files due to ongoing load or error
+            if (!listContainer.querySelector('.loading-message') && !listContainer.querySelector('.error-message')) {
+                const p = document.createElement('p');
+                p.textContent = 'No files match your current search or filter criteria.';
+                p.className = 'info-message';
+                listContainer.appendChild(p);
+            }
+            return;
+        } else if (filesToRender.length === 0) {
+            return; // An error or loading message is already being shown
+        }
+
+
+        // If an error/loading message was present and we have files, clear it
+        if (existingMessage) {
+            listContainer.innerHTML = '';
+        }
+
+
         const ul = document.createElement('ul');
-        ul.className = 'html-file-items'; // For styling
+        ul.className = 'html-file-items';
 
         filesToRender.forEach(fileData => {
             const li = document.createElement('li');
-            li.className = 'html-file-item'; // For styling
+            li.className = 'html-file-item';
 
             const titleLink = document.createElement('a');
+            // viewUrl is already correctly relative, e.g., "1html/your-file.html"
             titleLink.href = fileData.viewUrl;
             titleLink.textContent = fileData.title;
-            titleLink.target = '_blank'; // Open in new tab
+            titleLink.target = '_blank';
             titleLink.rel = 'noopener noreferrer';
             titleLink.className = 'file-title-link';
 
@@ -158,7 +219,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Optional: Display original filename if different from title
-            if (fileData.title.toLowerCase() !== fileData.name.toLowerCase().replace('.html', '')) {
+            const titleWithoutExtension = fileData.title.toLowerCase();
+            const nameWithoutExtension = fileData.name.toLowerCase().replace(/\.html$/i, '');
+            if (titleWithoutExtension !== nameWithoutExtension) {
                 const originalNameP = document.createElement('p');
                 originalNameP.className = 'file-original-name';
                 originalNameP.textContent = `(File: ${fileData.name})`;
@@ -171,19 +234,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Sort and Filter Logic ---
     function applyFiltersAndSort() {
-        let filteredFiles = [...allHtmlFilesData]; // Start with a fresh copy of all data
+        let filteredFiles = [...allHtmlFilesData];
 
-        // Filter by search term
         const searchTerm = searchInput.value.toLowerCase().trim();
         if (searchTerm) {
             filteredFiles = filteredFiles.filter(file =>
                 file.title.toLowerCase().includes(searchTerm) ||
                 file.name.toLowerCase().includes(searchTerm) ||
-                file.keywords.some(k => k.includes(searchTerm))
+                file.keywords.some(k => k.toLowerCase().includes(searchTerm))
             );
         }
 
-        // Sort files
         const sortBy = sortSelect.value;
         switch (sortBy) {
             case 'title-asc':
