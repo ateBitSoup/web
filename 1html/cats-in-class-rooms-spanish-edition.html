@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Ser un Estudiante Genial con Gatitos!</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #FFF5E1; /* Warm Light Beige */
+            color: #4A3B31; /* Dark Brown for text */
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border: 3px solid #E48F45; /* Warm Orange Border */
+        }
+
+        h1, h2 {
+            text-align: center;
+            text-shadow: 1px 1px 2px #FADADD; /* Light pink shadow */
+        }
+
+        h1 {
+            font-size: 2.8em;
+            color: #D24545; /* Festive Red */
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 2em;
+            color: #3A8891; /* Teal/Accent Blue */
+            margin-top: 35px;
+            border-bottom: 3px dashed #FFC700; /* Gold Yellow */
+            padding-bottom: 8px;
+        }
+
+        p, li {
+            font-size: 1.15em;
+            margin-bottom: 12px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        li {
+            padding-left: 40px;
+            position: relative;
+            margin-bottom: 18px;
+            background-color: #FEFBF3; /* Very light cream for list items */
+            padding: 10px 10px 10px 40px;
+            border-radius: 8px;
+            border-left: 5px solid #FFC700; /* Gold Yellow */
+        }
+
+        li::before {
+            content: "🐾";
+            position: absolute;
+            left: 10px; /* Adjusted for padding */
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.8em;
+            color: #E48F45; /* Warm Orange */
+        }
+
+        .cat-icon {
+            font-size: 1.3em;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        .tip {
+            background-color: #FFEBB7; /* Light Gold/Yellow */
+            border-left: 6px solid #D24545; /* Festive Red */
+            padding: 18px;
+            margin: 25px 0;
+            border-radius: 10px;
+        }
+
+        .tip strong {
+            color: #A73121; /* Darker Red for emphasis */
+        }
+
+        .tiny-cat {
+            position: fixed;
+            font-size: 25px; /* Slightly larger default cats */
+            opacity: 0.75;
+            user-select: none;
+            pointer-events: none;
+            animation: floatCat 12s infinite ease-in-out;
+            z-index: -1;
+        }
+
+        @keyframes floatCat {
+            0%, 100% { transform: translateY(0) translateX(0) rotate(0deg) scale(1); }
+            25% { transform: translateY(-15px) translateX(15px) rotate(8deg) scale(1.1); }
+            50% { transform: translateY(5px) translateX(-10px) rotate(-5deg) scale(0.9); }
+            75% { transform: translateY(-10px) translateX(10px) rotate(3deg) scale(1.05); }
+        }
+
+        .cat-art {
+            font-size: 4.5em;
+            text-align: center;
+            margin: 25px 0;
+            animation: wiggle 2.5s infinite ease-in-out;
+            color: #3A8891; /* Teal */
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        .cat-svg {
+            width: 1em;
+            height: 1em;
+            fill: currentColor;
+            vertical-align: -0.15em;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px; /* Space between buttons */
+            margin: 30px auto;
+        }
+
+        .action-buttons button {
+            padding: 12px 25px;
+            background-color: #FFC700; /* Gold Yellow */
+            color: #4A3B31; /* Dark Brown */
+            border: 2px solid #E48F45; /* Warm Orange */
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .action-buttons button:hover {
+            background-color: #E48F45; /* Warm Orange */
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="floating-cat-zone"></div>
+
+    <div class="container">
+        <h1 id="pageTitle">
+            <svg viewBox="0 0 100 100" class="cat-svg" style="width:1.3em; height:1.3em; vertical-align: -0.2em; color: #D24545;">
+                <path d="M50,10 C70,10 90,30 90,50 C90,70 70,90 50,90 C30,90 10,70 10,50 C10,30 30,10 50,10 Z M40,20 Q50,5 60,20 M30,40 Q20,50 30,60 M70,40 Q80,50 70,60 M40,70 Q50,80 60,70 M50,50m-5,0a5,5 0 1,0 10,0a5,5 0 1,0 -10,0"/>
+            </svg>
+            <span data-key="mainTitle">How to Be a Super Student: Cat Edition!</span>
+            <svg viewBox="0 0 100 100" class="cat-svg" style="width:1.3em; height:1.3em; vertical-align: -0.2em; color: #D24545;">
+                <path d="M50,10 C70,10 90,30 90,50 C90,70 70,90 50,90 C30,90 10,70 10,50 C10,30 30,10 50,10 Z M40,20 Q50,5 60,20 M30,40 Q20,50 30,60 M70,40 Q80,50 70,60 M40,70 Q50,80 60,70 M50,50m-5,0a5,5 0 1,0 10,0a5,5 0 1,0 -10,0"/>
+            </svg>
+        </h1>
+
+        <p data-key="introParagraph">Hey future awesome humans! School is like a giant playground of knowledge, and you're the cool cats exploring it. Let's learn how to be the best student cats we can be!</p>
+
+        <div class="cat-art" data-key="catArt1">>^..^<</div>
+
+        <h2 data-key="h2GoodStudent">
+            <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm2.71 12.71c-.18.18-.44.29-.71.29s-.53-.11-.71-.29L12 13.41l-1.29 1.3c-.18.18-.44.29-.71.29s-.53-.11-.71-.29c-.39-.39-.39-1.02 0-1.41l1.29-1.3-1.29-1.3c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l1.29 1.3 1.29-1.3c.39-.39 1.02-.39 1.41 0 .39.39.39 1.02 0 1.41l-1.29 1.3 1.29 1.3c.39.39.39 1.02 0 1.41zM9.5 9c.83 0 1.5.67 1.5 1.5S10.33 12 9.5 12 8 11.33 8 10.5 8.67 9 9.5 9zm5 0c.83 0 1.5.67 1.5 1.5S15.33 12 14.5 12s-1.5-.67-1.5-1.5.67-9 1.5-9z"/></svg>
+            Being a Good Student: The Curious Kitten Method!
+        </h2>
+        <ul>
+            <li data-key="liCurious">
+                <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                <strong>Be Curious like a Kitten Exploring a New Box:</strong> Ask questions! If something doesn't make sense, meow (raise your hand) and ask. Teachers love curious kittens!
+            </li>
+            <li data-key="liFocus">
+                <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-1-5h2v2h-2zm0-8h2v6h-2z"/></svg>
+                <strong>Focus like a Cat Stalking a Feather Toy:</strong> When the teacher is talking, or you're doing work, try to laser-focus. Put away distractions (like that imaginary ball of yarn!).
+            </li>
+            <li data-key="liPractice">
+                <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>
+                <strong>Practice Makes Purr-fect:</strong> Homework and studying are like practicing your pounce. The more you do it, the better you get!
+            </li>
+            <li data-key="liTidy">
+                <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M14.06 9.94L12.94 11.06 12 10.12V14h-1V6.12L9.06 7.94 7.94 6.82 11.5 3.27l3.56 3.55-1 1.12zM3 19h18v-2H3v2z"/></svg>
+                <strong>Keep Your Backpack Tidy like a Cat Grooms Itself:</strong> An organized desk and backpack means you can find what you need, like a cat always knowing where its favorite nap spot is.
+            </li>
+            <li data-key="liNap">
+                <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M11.68 3.05C11.43 3 11.17 3 10.91 3c-2.95 0-5.49 1.83-6.56 4.44C4.12 8.05 4 8.67 4 9.31V17c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-7.69c0-.64-.12-1.26-.35-1.87-1.07-2.61-3.61-4.44-6.56-4.44-.26 0-.52 0-.77.05L11.68 3.05zM12 5c1.38 0 2.63.56 3.54 1.46C16.44 7.37 17 8.62 17 10v1H7v-1c0-1.38.56-2.63 1.46-3.54C9.37 5.56 10.62 5 12 5z"/></svg>
+                <strong>Nap Time is Brain Time:</strong> Get enough sleep! A well-rested cat is a smart cat. Your brain needs rest to learn and remember.
+            </li>
+        </ul>
+
+        <div class="tip">
+            <strong data-key="tip1Title">CATNIP OF WISDOM:</strong>
+            <p data-key="tip1Text">Being a "good student" doesn't mean being perfect. It means trying your best, like a kitten trying to climb the curtains for the 10th time. Keep trying!</p>
+        </div>
+
+        <h2 data-key="h2Instructions">
+            <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M12 1a9 9 0 0 0-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 0 0-9-9z"/></svg>
+            Following Instructions: The "Listen to the Treat Bag" Technique!
+        </h2>
+        <ul>
+            <li data-key="liPerkEars">
+                <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                <strong>Perk Up Your Ears like a Cat Hearing the Treat Bag:</strong> When your teacher gives instructions, listen carefully. Pretend they're about to give you your favorite snack!
+            </li>
+            <li data-key="liUnderstand">
+                <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v2h-2zm0 4h2v6h-2z"/></svg>
+                <strong>Understand the "Meow-ssage":</strong> If you're not sure what to do, ask for clarification. It's better than guessing and ending up in the wrong cat tree.
+            </li>
+            <li data-key="liFollowLaser">
+                <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7H3l5-5 5 5H8v3zm11 2h-3v3h-4v-3H7v3H4l5 5 5-5h-3v-3z"/></svg>
+                <strong>Follow the Laser Pointer of Knowledge:</strong> Do what's asked, step by step. Just like a cat follows that amazing red dot!
+            </li>
+            <li data-key="liPatience">
+                <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8zm-1-13h2v6h-2zm0-4h2v2h-2z"/></svg>
+                <strong>Patience, Young Padawan-Cat:</strong> Sometimes instructions have many parts. Be patient and work through them. Even the most tangled yarn ball can be unraveled!
+            </li>
+        </ul>
+
+        <div class="tip">
+            <strong data-key="tip2Title">CATNIP OF WISDOM:</strong>
+            <p data-key="tip2Text">Following instructions helps everyone! It's like when all the cats in the house know the feeding routine – less chaos, more happy purrs (and good grades)!</p>
+        </div>
+
+        <h2 data-key="h2Opportunities">
+            <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+            Using Opportunities: Pounce on Them Like a Cat on a Sunbeam!
+        </h2>
+        <ul>
+            <li data-key="liTryNew">
+                <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2c4.411 0 8-3.589 8-8s-3.589-8-8-8-8 3.589-8 8 3.589 8 8 8zm-1-13h2v6h-2V7zm0 8h2v2h-2v-2z"/></svg>
+                <strong>Try New Things:</strong> School offers so much – clubs, sports, new subjects! Be brave like a cat exploring a new room. You might discover a hidden talent (or a comfy new nap spot).
+            </li>
+            <li data-key="liJoinClowder">
+                <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                <strong>Join the "Clowder" (That's a Cat Group!):</strong> Participate in group projects, join a club, or help a classmate. Teamwork makes the dream work (and is more fun than chasing your own tail).
+            </li>
+            <li data-key="liAskHelp">
+                <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18zM18 14H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+                <strong>Don't Be a Scaredy-Cat to Ask for Help:</strong> If you're stuck, teachers, counselors, and even friends are there to help! It's like asking for a boost to reach that high shelf.
+            </li>
+            <li data-key="liUseResources">
+                <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+                <strong>Use School Resources:</strong> The library, computers, after-school programs – these are all tools to help you succeed, like a cat using a scratching post instead of the sofa!
+            </li>
+        </ul>
+
+        <div class="cat-art" data-key="catArt2">=＾● ⋏ ●＾=</div>
+
+        <p data-key="concludingParagraph">Remember, school is your adventure. Be curious, listen well, and grab every opportunity with both paws! You've got this, cool cats!</p>
+
+        <div class="action-buttons">
+            <button id="translate-button" data-key="translateButton">Translate to Spanish</button>
+            <button id="more-cats-button" data-key="moreCatsButton">More Tiny Cats, Please!</button>
+        </div>
+    </div>
+
+    <script>
+        const catEmojis = ["😺", "😸", "😹", "😻", "😼", "😽", "🙀", "😿", "😾", "🐈", "🦁", "🐅", "🐆"]; // Added more cat types
+        const floatingCatZone = document.getElementById('floating-cat-zone');
+        const moreCatsButton = document.getElementById('more-cats-button');
+        const translateButton = document.getElementById('translate-button');
+        
+        let catCount = 0;
+        const maxCats = 150; // Increased max cats
+
+        function createTinyCat() {
+            if (catCount >= maxCats) return;
+
+            const catSpan = document.createElement('span');
+            catSpan.classList.add('tiny-cat');
+            catSpan.textContent = catEmojis[Math.floor(Math.random() * catEmojis.length)];
+            
+            catSpan.style.left = Math.random() * 97 + 'vw';
+            catSpan.style.top = Math.random() * 97 + 'vh';
+            catSpan.style.fontSize = (Math.random() * 20 + 15) + 'px'; // 15px to 35px
+            catSpan.style.animationDelay = (Math.random() * 6) + 's';
+            catSpan.style.animationDuration = (Math.random() * 10 + 8) + 's'; // 8s to 18s duration
+
+            floatingCatZone.appendChild(catSpan);
+            catCount++;
+
+            setTimeout(() => {
+                if (catSpan.parentElement) {
+                    catSpan.parentElement.removeChild(catSpan);
+                    catCount--;
+                }
+            }, 20000 + Math.random() * 5000); // Remove after 20-25 seconds
+        }
+
+        // Initial cats - MOAR!
+        for (let i = 0; i < 35; i++) { // Increased initial cats
+            createTinyCat();
+        }
+
+        moreCatsButton.addEventListener('click', () => {
+            for (let i = 0; i < 15; i++) { // Add more on click
+                createTinyCat();
+            }
+        });
+
+        setInterval(() => {
+            if (catCount < 50) { 
+                 createTinyCat();
+            }
+        }, 2500); // Add cats a bit faster
+
+
+        // Translations
+        const translations = {
+            mainTitle: {
+                en: "How to Be a Super Student: Cat Edition!",
+                es: "¡Cómo Ser un Súper Estudiante: Edición Gatuna!"
+            },
+            introParagraph: {
+                en: "Hey future awesome humans! School is like a giant playground of knowledge, and you're the cool cats exploring it. Let's learn how to be the best student cats we can be!",
+                es: "¡Hola futuros humanos geniales! La escuela es como un patio de recreo gigante de conocimiento, y ustedes son los gatos geniales que lo exploran. ¡Aprendamos a ser los mejores gatos estudiantes que podamos ser!"
+            },
+            catArt1: { en: ">^..^<", es: ">^..^< (¡Miau!)" },
+            h2GoodStudent: {
+                en: "Being a Good Student: The Curious Kitten Method!",
+                es: "Ser un Buen Estudiante: ¡El Método del Gatito Curioso!"
+            },
+            liCurious: {
+                en: `
+                    <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                    <strong>Be Curious like a Kitten Exploring a New Box:</strong> Ask questions! If something doesn't make sense, meow (raise your hand) and ask. Teachers love curious kittens!
+                `,
+                es: `
+                    <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                    <strong>Sé Curioso como un Gatito Explorando una Caja Nueva:</strong> ¡Haz preguntas! Si algo no tiene sentido, maúlla (levanta la mano) y pregunta. ¡Los maestros aman a los gatitos curiosos!
+                `
+            },
+            liFocus: {
+                en: `
+                    <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-1-5h2v2h-2zm0-8h2v6h-2z"/></svg>
+                    <strong>Focus like a Cat Stalking a Feather Toy:</strong> When the teacher is talking, or you're doing work, try to laser-focus. Put away distractions (like that imaginary ball of yarn!).
+                `,
+                es: `
+                    <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-1-5h2v2h-2zm0-8h2v6h-2z"/></svg>
+                    <strong>Concéntrate como un Gato Acechando un Juguete de Plumas:</strong> Cuando el maestro habla, o estás haciendo tu trabajo, intenta enfocarte al máximo. ¡Guarda las distracciones (como esa bola de estambre imaginaria!).
+                `
+            },
+            liPractice: {
+                en: `
+                    <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>
+                    <strong>Practice Makes Purr-fect:</strong> Homework and studying are like practicing your pounce. The more you do it, the better you get!
+                `,
+                es: `
+                    <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>
+                    <strong>La Práctica Hace al Maestro (o al Gato Saltarín):</strong> La tarea y estudiar son como practicar tu salto. ¡Mientras más lo haces, mejor te vuelves!
+                `
+            },
+            liTidy: {
+                en: `
+                    <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M14.06 9.94L12.94 11.06 12 10.12V14h-1V6.12L9.06 7.94 7.94 6.82 11.5 3.27l3.56 3.55-1 1.12zM3 19h18v-2H3v2z"/></svg>
+                    <strong>Keep Your Backpack Tidy like a Cat Grooms Itself:</strong> An organized desk and backpack means you can find what you need, like a cat always knowing where its favorite nap spot is.
+                `,
+                es: `
+                    <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M14.06 9.94L12.94 11.06 12 10.12V14h-1V6.12L9.06 7.94 7.94 6.82 11.5 3.27l3.56 3.55-1 1.12zM3 19h18v-2H3v2z"/></svg>
+                    <strong>Mantén tu Mochila Ordenada como un Gato se Acicala:</strong> Un escritorio y mochila organizados significan que puedes encontrar lo que necesitas, como un gato siempre sabe dónde está su lugar favorito para la siesta.
+                `
+            },
+            liNap: {
+                en: `
+                    <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M11.68 3.05C11.43 3 11.17 3 10.91 3c-2.95 0-5.49 1.83-6.56 4.44C4.12 8.05 4 8.67 4 9.31V17c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-7.69c0-.64-.12-1.26-.35-1.87-1.07-2.61-3.61-4.44-6.56-4.44-.26 0-.52 0-.77.05L11.68 3.05zM12 5c1.38 0 2.63.56 3.54 1.46C16.44 7.37 17 8.62 17 10v1H7v-1c0-1.38.56-2.63 1.46-3.54C9.37 5.56 10.62 5 12 5z"/></svg>
+                    <strong>Nap Time is Brain Time:</strong> Get enough sleep! A well-rested cat is a smart cat. Your brain needs rest to learn and remember.
+                `,
+                es: `
+                    <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M11.68 3.05C11.43 3 11.17 3 10.91 3c-2.95 0-5.49 1.83-6.56 4.44C4.12 8.05 4 8.67 4 9.31V17c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-7.69c0-.64-.12-1.26-.35-1.87-1.07-2.61-3.61-4.44-6.56-4.44-.26 0-.52 0-.77.05L11.68 3.05zM12 5c1.38 0 2.63.56 3.54 1.46C16.44 7.37 17 8.62 17 10v1H7v-1c0-1.38.56-2.63 1.46-3.54C9.37 5.56 10.62 5 12 5z"/></svg>
+                    <strong>La Siesta es Tiempo para el Cerebro:</strong> ¡Duerme lo suficiente! Un gato bien descansado es un gato inteligente. Tu cerebro necesita descanso para aprender y recordar.
+                `
+            },
+            tip1Title: {
+                en: "CATNIP OF WISDOM:",
+                es: "CONSEJO GATUNO DE SABIDURÍA:"
+            },
+            tip1Text: {
+                en: "Being a \"good student\" doesn't mean being perfect. It means trying your best, like a kitten trying to climb the curtains for the 10th time. Keep trying!",
+                es: "Ser un \"buen estudiante\" no significa ser perfecto. Significa esforzarte al máximo, como un gatito intentando trepar las cortinas por décima vez. ¡Sigue intentándolo!"
+            },
+            h2Instructions: {
+                en: "Following Instructions: The \"Listen to the Treat Bag\" Technique!",
+                es: "Seguir Instrucciones: ¡La Técnica de \"Escuchar la Bolsa de Premios\"!"
+            },
+            liPerkEars: {
+                en: `
+                    <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                    <strong>Perk Up Your Ears like a Cat Hearing the Treat Bag:</strong> When your teacher gives instructions, listen carefully. Pretend they're about to give you your favorite snack!
+                `,
+                es: `
+                    <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                    <strong>Agudiza tus Oídos como un Gato Escuchando la Bolsa de Premios:</strong> Cuando tu maestro dé instrucciones, escucha con atención. ¡Imagina que está a punto de darte tu snack favorito!
+                `
+            },
+            liUnderstand: {
+                en: `
+                    <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v2h-2zm0 4h2v6h-2z"/></svg>
+                    <strong>Understand the "Meow-ssage":</strong> If you're not sure what to do, ask for clarification. It's better than guessing and ending up in the wrong cat tree.
+                `,
+                es: `
+                    <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v2h-2zm0 4h2v6h-2z"/></svg>
+                    <strong>Entiende el "Miau-nsaje":</strong> Si no estás seguro de qué hacer, pide una aclaración. Es mejor que adivinar y terminar en el árbol para gatos equivocado.
+                `
+            },
+            liFollowLaser: {
+                en: `
+                    <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7H3l5-5 5 5H8v3zm11 2h-3v3h-4v-3H7v3H4l5 5 5-5h-3v-3z"/></svg>
+                    <strong>Follow the Laser Pointer of Knowledge:</strong> Do what's asked, step by step. Just like a cat follows that amazing red dot!
+                `,
+                es: `
+                    <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7H3l5-5 5 5H8v3zm11 2h-3v3h-4v-3H7v3H4l5 5 5-5h-3v-3z"/></svg>
+                    <strong>Sigue el Puntero Láser del Conocimiento:</strong> Haz lo que se te pide, paso a paso. ¡Igual que un gato sigue ese increíble punto rojo!
+                `
+            },
+             liPatience: {
+                en: `
+                    <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8zm-1-13h2v6h-2zm0-4h2v2h-2z"/></svg>
+                    <strong>Patience, Young Padawan-Cat:</strong> Sometimes instructions have many parts. Be patient and work through them. Even the most tangled yarn ball can be unraveled!
+                `,
+                es: `
+                    <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8zm-1-13h2v6h-2zm0-4h2v2h-2z"/></svg>
+                    <strong>Paciencia, Joven Gato-Padawan:</strong> A veces las instrucciones tienen muchas partes. Sé paciente y síguelas. ¡Incluso la bola de estambre más enredada se puede desenredar!
+                `
+            },
+            tip2Title: {
+                en: "CATNIP OF WISDOM:",
+                es: "CONSEJO GATUNO DE SABIDURÍA:"
+            },
+            tip2Text: {
+                en: "Following instructions helps everyone! It's like when all the cats in the house know the feeding routine – less chaos, more happy purrs (and good grades)!",
+                es: "¡Seguir instrucciones ayuda a todos! Es como cuando todos los gatos de la casa conocen la rutina de alimentación: ¡menos caos, más ronroneos felices (y buenas calificaciones)!"
+            },
+            h2Opportunities: {
+                en: "Using Opportunities: Pounce on Them Like a Cat on a Sunbeam!",
+                es: "Aprovechar Oportunidades: ¡Lánzate a Ellas como un Gato a un Rayo de Sol!"
+            },
+            liTryNew: {
+                en: `
+                    <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2c4.411 0 8-3.589 8-8s-3.589-8-8-8-8 3.589-8 8 3.589 8 8 8zm-1-13h2v6h-2V7zm0 8h2v2h-2v-2z"/></svg>
+                    <strong>Try New Things:</strong> School offers so much – clubs, sports, new subjects! Be brave like a cat exploring a new room. You might discover a hidden talent (or a comfy new nap spot).
+                `,
+                es: `
+                    <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2c4.411 0 8-3.589 8-8s-3.589-8-8-8-8 3.589-8 8 3.589 8 8 8zm-1-13h2v6h-2V7zm0 8h2v2h-2v-2z"/></svg>
+                    <strong>Prueba Cosas Nuevas:</strong> La escuela ofrece tanto: ¡clubes, deportes, nuevas materias! Sé valiente como un gato explorando una habitación nueva. Podrías descubrir un talento oculto (o un nuevo y cómodo lugar para la siesta).
+                `
+            },
+            liJoinClowder: {
+                en: `
+                    <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                    <strong>Join the "Clowder" (That's a Cat Group!):</strong> Participate in group projects, join a club, or help a classmate. Teamwork makes the dream work (and is more fun than chasing your own tail).
+                `,
+                es: `
+                    <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                    <strong>Únete a la "Pandilla" (¡Eso es un Grupo de Gatos!):</strong> Participa en proyectos grupales, únete a un club o ayuda a un compañero. El trabajo en equipo hace que los sueños se cumplan (y es más divertido que perseguir tu propia cola).
+                `
+            },
+            liAskHelp: {
+                en: `
+                    <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18zM18 14H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+                    <strong>Don't Be a Scaredy-Cat to Ask for Help:</strong> If you're stuck, teachers, counselors, and even friends are there to help! It's like asking for a boost to reach that high shelf.
+                `,
+                es: `
+                    <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18zM18 14H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+                    <strong>No Seas un Gato Asustadizo para Pedir Ayuda:</strong> Si estás atascado, ¡los maestros, consejeros e incluso amigos están ahí para ayudar! Es como pedir un empujoncito para alcanzar ese estante alto.
+                `
+            },
+            liUseResources: {
+                en: `
+                    <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+                    <strong>Use School Resources:</strong> The library, computers, after-school programs – these are all tools to help you succeed, like a cat using a scratching post instead of the sofa!
+                `,
+                es: `
+                    <svg viewBox="0 0 24 24" class="cat-svg cat-icon"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+                    <strong>Usa los Recursos de la Escuela:</strong> La biblioteca, las computadoras, los programas después de clases: ¡todas son herramientas para ayudarte a tener éxito, como un gato usando un rascador en lugar del sofá!
+                `
+            },
+            catArt2: { en: "=＾● ⋏ ●＾=", es: "=＾● ⋏ ●＾= (¡Olé!)" },
+            concludingParagraph: {
+                en: "Remember, school is your adventure. Be curious, listen well, and grab every opportunity with both paws! You've got this, cool cats!",
+                es: "Recuerda, la escuela es tu aventura. ¡Sé curioso, escucha bien y agarra cada oportunidad con ambas patas! ¡Ustedes pueden, gatos geniales!"
+            },
+            translateButton: {
+                en: "Translate to Spanish",
+                es: "Translate to English"
+            },
+            moreCatsButton: {
+                en: "More Tiny Cats, Please!",
+                es: "¡Más Gatitos, Por Favor!"
+            }
+        };
+
+        let currentLang = 'en';
+
+        function applyTranslations() {
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (translations[key] && translations[key][currentLang]) {
+                    // For list items, we replace the whole innerHTML to keep SVGs and strong tags
+                    if (element.tagName === 'LI' || key.startsWith('li')) {
+                         // Preserve the ::before paw print by not overwriting the entire LI's innerHTML,
+                         // but rather a child span or by carefully constructing the string.
+                         // For simplicity here, we'll assume the structure inside <li> is consistent
+                         // or we set innerHTML which might require re-styling if not handled carefully.
+                         // A better way for LIs would be to have a specific span for translatable text.
+                         // For now, we use innerHTML directly as SVGs are part of the string.
+                        element.innerHTML = translations[key][currentLang];
+                    } else {
+                        element.textContent = translations[key][currentLang];
+                    }
+                }
+            });
+            // Update HTML lang attribute
+            document.documentElement.lang = currentLang;
+        }
+
+
+        translateButton.addEventListener('click', () => {
+            currentLang = (currentLang === 'en') ? 'es' : 'en';
+            applyTranslations();
+        });
+
+        // Initial application of text (in case default is not EN or for consistency)
+        applyTranslations(); // This will set text based on `currentLang` which is 'en' initially.
+
+    </script>
+</body>
+</html>
