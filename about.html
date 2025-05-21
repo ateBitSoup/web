@@ -1,0 +1,90 @@
+<!-- about.html - v1.0 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+        File: about.html
+        Version: 1.0
+        Author: ateBitSoup
+        Description: About page for the ateBitSoup project, detailing its purpose.
+        Last Modified: 5/21/2025
+    -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - ateBitSoup</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+     <!-- Favicons and Touch Icons (icons in assets/images/) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <!-- Web App Manifest (site.webmanifest is in the root of the 'web' repo) -->
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#2c3e50">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.png" alt="ateBitSoup Logo">
+                <span>ateBitSoup</span>
+            </a>
+            <nav class="main-nav">
+                <button class="nav-toggle" aria-label="toggle navigation">
+                    <i class="fas fa-bars"></i> <!-- Hamburger Icon -->
+                </button>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="1html.html">1HTML</a></li>
+                    <li><a href="about.html" class="active">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="about-container full-width-container">
+            <div class="about-content-wrapper">
+                <div class="about-text">
+                    <h1>ateBitSoup</h1>
+                    <p>Welcome to ateBitSoup, a digital workshop where curiosity meets code! This little corner of the web is a testament to the joy of building, experimenting, and sharing in the ever-evolving landscape of technology. Think of it as a digital cauldron, constantly bubbling with new ideas and an assortment of handcrafted HTML, CSS, and JavaScript concoctions.</p>
+                    <p>The core philosophy here is simple: create, learn, iterate, and share. Each project, big or small, from the dynamic <a href="1html.html">1HTML Demos</a> to other snippets you might stumble upon, is a step in a continuous journey of discovery. We believe in the power of static sites supercharged with clever client-side scripting – proving that 'simple' can be incredibly potent and wonderfully accessible.</p>
+                    <p>This isn't just a portfolio; it's an open invitation to explore, to see how bits and bytes can be artfully (and sometimes whimsically) arranged. It’s about crafting experiences that are hopefully useful, occasionally delightful, and always built with a passion for elegant solutions. So, have a look around, and perhaps find a spark of inspiration or a handy piece of code!</p>
+                </div>
+                <div class="about-logo">
+                    <img src="assets/images/logo_full.png" alt="ateBitSoup Full Logo">
+                </div>
+            </div>
+        </div>
+
+        <div class="social-media-container container"> <!-- Using .container for centered content -->
+            <h2>Connect & Explore Further</h2>
+            <div class="social-icons">
+                <!-- Placeholder for social media icons/links -->
+                <!-- Example:
+                <a href="https://github.com/ateBitSoup" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="your-linkedin-url" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                -->
+                <p><em>Social media links coming soon!</em></p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© <span id="current-year"></span> ateBitSoup. All rights reserved.</p>
+            <p>
+                <a href="https://github.com/ateBitSoup" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

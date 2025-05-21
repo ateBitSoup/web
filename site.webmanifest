@@ -1,0 +1,29 @@
+{
+    "name": "ateBitSoup's Digital Playground",
+    "short_name": "ateBitSoup",
+    "description": "A collection of coding adventures, HTML experiments, and more by ateBitSoup.",
+    "icons": [
+        {
+            "src": "assets/images/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "assets/images/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "assets/images/apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "theme_color": "#2c3e50",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "scope": "./",
+    "start_url": "./index.html",
+    "orientation": "portrait-primary"
+}

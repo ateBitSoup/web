@@ -1,3 +1,12 @@
+/*
+    File: 1html-lister.js
+    Version: 1.1
+    Author: ateBitSoup
+    Description: Script to dynamically fetch, parse, and list HTML files
+                 from a specified GitHub repository folder (1html/ within 'web' repo).
+                 Includes search and sort functionality.
+    Last Modified: Last Modified: 5/21/2025
+*/
 document.addEventListener('DOMContentLoaded', () => {
     // --- Configuration ---
     // These should be correct for your setup where 'web' is a repository

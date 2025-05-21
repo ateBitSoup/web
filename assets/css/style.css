@@ -1,3 +1,12 @@
+/*
+    File: style.css
+    Version: 1.2
+    Author: ateBitSoup
+    Description: Main stylesheet for the ateBitSoup project showcase.
+                 Includes general layout, header, navigation, footer,
+                 image styling, 1html lister styles, and about page styles.
+    Last Modified: 5/21/2025
+*/
 /* === CSS Variables (Global or at :root) === */
 :root {
     --primary-color: #3498db;    /* A pleasant blue */
@@ -500,5 +509,142 @@ footer a:hover, footer a:focus {
     }
     .page-subtitle-special {
         font-size: 0.9rem; /* Even smaller on very small screens */
+    }
+}
+/* === About Page Specific Styles === */
+.full-width-container {
+    width: 100%;
+    max-width: 100%; /* Override default .container max-width if this class is on it */
+    padding-left: 0;  /* Override default .container padding */
+    padding-right: 0; /* Override default .container padding */
+    /* Add any background or other full-width styles here if needed */
+}
+
+.about-container {
+    /* You might want a subtle background for this full-width section */
+    /* background-color: #f9f9f9; */
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.about-content-wrapper {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+    align-items: flex-start; /* Align items to the top */
+    gap: 2rem; /* Space between text and logo columns */
+    width: 90%; /* Standard content width */
+    max-width: var(--container-max-width); /* Standard max content width */
+    margin: 0 auto; /* Center the wrapper */
+}
+
+.about-text {
+    flex: 2; /* Text takes up more space, e.g., 2/3 */
+    min-width: 300px; /* Ensure text column has a minimum width before wrapping/shrinking */
+}
+
+.about-text h1 {
+    /* Styles for the H1 specifically on the about page if different from main h1 */
+    /* color: var(--secondary-color); */ /* Already inherited */
+    /* font-size: 2.8rem; */ /* Adjust if needed */
+    margin-bottom: 1rem;
+    /* text-align: left; /* Override if your general main h1 is centered */
+}
+
+.about-text p {
+    /* Styles for paragraphs specifically on the about page */
+    font-size: 1.1rem; /* Consistent with other p tags */
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+}
+
+.about-logo {
+    flex: 1; /* Logo takes up less space, e.g., 1/3 */
+    text-align: center; /* Center the image within its flex item */
+    min-width: 250px; /* Minimum width for the logo column */
+    display: flex; /* To help center the image if it's smaller than the column */
+    justify-content: center;
+    align-items: center;
+}
+
+.about-logo img {
+    max-width: 100%; /* Make logo responsive within its column */
+    height: auto;
+    border-radius: 8px; /* Optional: slight rounding for the logo image */
+    /* box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Optional: subtle shadow */
+}
+
+.social-media-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    text-align: center;
+    border-top: 1px solid var(--light-gray); /* Optional separator */
+    margin-top: 2rem; /* Space above this section */
+}
+
+.social-media-container h2 {
+    margin-bottom: 1.5rem;
+    color: var(--secondary-color);
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem; /* Space between icons */
+}
+
+.social-icons a {
+    color: var(--secondary-color); /* Or your preferred icon color */
+    font-size: 2rem; /* Size of the icons */
+    transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.social-icons a:hover,
+.social-icons a:focus {
+    color: var(--primary-color);
+    transform: scale(1.1); /* Slight zoom on hover */
+    text-decoration: none; /* Remove underline from icon links */
+}
+
+.social-icons p em { /* Style for the "coming soon" message */
+    font-size: 1rem;
+    color: #777;
+}
+
+
+/* ... (Footer styles) ... */
+/* ... (Lister styles if they come after Footer) ... */
+
+/* === Mobile-First Adjustments (Media Queries) === */
+@media (max-width: 768px) {
+    /* ... (your existing mobile styles) ... */
+
+    .about-content-wrapper {
+        flex-direction: column; /* Stack text and logo vertically */
+        align-items: center; /* Center items when stacked */
+    }
+
+    .about-text {
+        flex-basis: 100%; /* Take full width when stacked */
+        text-align: center; /* Center text content on mobile */
+        /* padding-right: 0; */ /* Reset padding if any was added for desktop */
+    }
+    .about-text h1 {
+        text-align: center;
+    }
+
+    .about-logo {
+        flex-basis: 100%; /* Take full width when stacked */
+        margin-top: 1.5rem; /* Add some space above the logo when stacked */
+        /* max-width: 70%; /* Optionally constrain logo size further on mobile */
+        /* margin-left: auto; */
+        /* margin-right: auto; */
+    }
+
+    .social-icons {
+        gap: 1rem; /* Smaller gap on mobile */
+    }
+    .social-icons a {
+        font-size: 1.8rem; /* Slightly smaller icons */
     }
 }

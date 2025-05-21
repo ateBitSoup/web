@@ -1,3 +1,11 @@
+/*
+    File: main.js
+    Version: 1.0
+    Author: ateBitSoup
+    Description: General JavaScript for site-wide functionality,
+                 including mobile menu toggle and dynamic footer year.
+    Last Modified: 5/21/2025
+*/
 document.addEventListener('DOMContentLoaded', () => {
     // Mobile Menu Toggle
     const navToggle = document.querySelector('.nav-toggle');
