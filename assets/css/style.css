@@ -1,5 +1,3 @@
---- START OF FILE assets/css/style.css (Updated) ---
-
 /* === CSS Variables (Global or at :root) === */
 :root {
     --primary-color: #3498db;    /* A pleasant blue */
@@ -227,7 +225,7 @@ main p {
 
 .responsive-original-size {
     /* display: inline-block; /* img is inline-block by default, but can be explicit */
-    max-width: 100%;      /* Ensures image scales down if wider than container */
+    max-width: 50%;      /* Ensures image scales down if wider than container */
     height: auto;         /* Maintains aspect ratio when scaling */
     border: none;         /* Explicitly no border */
     /* No width or height set here, so it uses its original dimensions unless scaled by max-width */
