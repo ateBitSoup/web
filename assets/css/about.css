@@ -1,0 +1,149 @@
+/*
+    File: about.css
+    Version: 1.0
+    Author: ateBitSoup
+    Description: Styles specific to the about.html page.
+    Last Modified: 05/21/2025
+*/
+
+/* About Page Specific Styles */
+.full-width-container { /* This might be a utility class, if so, keep in style.css */
+    width: 100%;
+    max-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.about-container { /* Specific wrapper for about page's full-width section */
+    /* background-color: #f9f9f9; /* Optional */
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.about-content-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start; /* Changed from center to flex-start for better text align */
+    gap: 2rem;
+    width: 90%; /* Uses global .container width */
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+}
+
+.about-text {
+    flex: 2;
+    min-width: 300px; /* Or ~60% */
+}
+
+.about-text h1 { /* Specific H1 for about page text column */
+    color: var(--secondary-color); /* Inherits from global main h1 */
+    font-size: 2.8rem; /* Larger for this page */
+    margin-bottom: 1rem; /* Overrides global main h1 */
+    text-align: left; /* Specific for this layout */
+    line-height: 1.2; /* Inherits from global main h1 */
+}
+
+.about-text p { /* Specific p for about page text column */
+    font-size: 1.1rem; /* Inherits from global main p */
+    line-height: 1.7;  /* Specific line height */
+    margin-bottom: 1.2rem; /* Specific margin */
+}
+
+.about-logo {
+    flex: 1;
+    min-width: 250px; /* Or ~30% */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-logo img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px; /* Optional */
+}
+
+.social-media-container {
+    /* This is within a .container from HTML, so it's already centered */
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    text-align: center;
+    border-top: 1px solid var(--light-gray);
+    margin-top: 2rem;
+}
+
+.social-media-container h2 { /* This targets the h2 within this specific container */
+    margin-bottom: 1.5rem;
+    color: var(--secondary-color); /* Inherits from global main h2 */
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.social-icons a {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+.social-icons a:hover,
+.social-icons a:focus {
+    transform: scale(1.1);
+    opacity: 0.8;
+}
+
+.social-icons a i { /* Font Awesome icons */
+    color: var(--secondary-color);
+    font-size: 2rem;
+}
+.social-icons a:hover i,
+.social-icons a:focus i {
+    color: var(--primary-color);
+}
+
+.social-icon-img { /* Custom image icons */
+    height: 32px;
+    width: auto;
+    vertical-align: middle;
+}
+
+/* Mobile adjustments specific to about.css */
+@media (max-width: 768px) {
+    .about-content-wrapper {
+        flex-direction: column;
+        align-items: center; /* Center items when stacked */
+    }
+    .about-text {
+        flex-basis: 100%;
+        text-align: center; /* Center text on mobile */
+    }
+    .about-text h1 {
+        font-size: 2.2rem; /* Adjust from global main h1 mobile */
+        text-align: center; /* Ensure it's centered on mobile */
+    }
+    .about-logo {
+        flex-basis: 100%;
+        margin-top: 1.5rem;
+    }
+
+    .social-icons {
+        gap: 1rem;
+    }
+    .social-icons a i {
+        font-size: 1.8rem;
+    }
+    .social-icon-img {
+        height: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-text h1 {
+        font-size: 2rem; /* Adjust from global main h1 mobile */
+    }
+}

@@ -1,0 +1,107 @@
+/*
+    File: index.css
+    Version: 1.1
+    Author: ateBitSoup
+    Description: Styles specific to the index.html (homepage).
+    Last Modified: [Current Date]
+*/
+
+/* Index Page Specific Styles */
+.construction-notice {
+    background-color: #fffbe6;
+    color: #8a6d3b;
+    border: 1px dashed #ffeeba;
+    border-left: 5px solid #ffc107;
+    padding: 1rem 1.5rem;
+    margin: 1.5rem auto; /* Centers the notice block */
+    border-radius: 8px;
+    max-width: 700px;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column; /* Overall stacking: main line then patience text */
+    align-items: center;   /* Center the stacked items horizontally */
+    text-align: center;    /* Ensure text inside is centered */
+    gap: 0.5rem;           /* Space between the main line and patience text */
+}
+
+.construction-main-line {
+    display: flex;         /* Arrange icons and main text in a row */
+    align-items: center;   /* Vertically align items in this row */
+    justify-content: center;/* Center items in this row if there's extra space */
+    gap: 0.75rem;          /* Space between icons and text in this row */
+    width: 100%;           /* Ensure this line takes full width to center its content */
+}
+
+.construction-notice p { /* General style for p tags in notice, if not more specific */
+    margin-bottom: 0; /* Remove default p margin */
+}
+
+.construction-notice .main-notice-text { /* Style for "Heads up!" text */
+    font-size: 1rem;
+    line-height: 1.5;
+    font-weight: 500;
+    color: #8a6d3b; /* Explicitly set color */
+}
+
+.construction-notice .patience-text {
+    font-style: italic;
+    color: #a1887f;
+    font-weight: 400;
+    font-size: 0.9em; /* Relative to parent (notice or body) font size */
+    /* No margin-top needed as parent flex gap handles it */
+}
+
+.construction-icon {
+    font-size: 1.5rem;
+    color: #8a6d3b;
+    flex-shrink: 0; /* Prevent icons from shrinking */
+}
+
+/* General image styling for spiderkitten on index.html */
+.centered-image-container {
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.responsive-original-size {
+    display: inline-block;
+    max-width: 100%;
+    width: 30%;
+    height: auto;
+    border: none;
+}
+
+/* Mobile adjustments specific to index.css */
+@media (max-width: 768px) {
+    .construction-notice {
+        padding: 0.75rem 1rem;
+        gap: 0.3rem; /* Slightly reduce gap */
+    }
+    .construction-main-line {
+        gap: 0.5rem; /* Reduce gap for main line icons/text */
+        /* Optional: Allow main line to wrap if screen is very narrow
+           and icons + text are too long. Might need text-align:center on p then.
+        flex-wrap: wrap;
+        */
+    }
+    .construction-notice .main-notice-text {
+        font-size: 0.9rem;
+    }
+    .construction-notice .patience-text {
+        font-size: 0.8em;
+    }
+    .construction-icon {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .construction-notice .patience-text {
+        font-size: 0.75em;
+    }
+    .construction-main-line {
+        /* For very small screens, you might want icons above/below main text */
+        /* flex-direction: column; */
+    }
+}

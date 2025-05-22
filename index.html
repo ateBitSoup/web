@@ -1,10 +1,10 @@
-<!-- index.html - v1.2 -->
+<!-- index.html - v1.5 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <!--
         File: index.html
-        Version: 1.2
+        Version: 1.5
         Author: ateBitSoup
         Description: Main landing page for the ateBitSoup project showcase.
         Last Modified: 5/21/2025
@@ -12,7 +12,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ateBitSoup</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css"> <!-- Global styles -->
+    <link rel="stylesheet" href="assets/css/index.css"> <!-- Index-specific styles -->
      <!-- Favicons and Touch Icons (icons in assets/images/) -->
     <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
@@ -53,15 +54,14 @@
 			<h1>Welcome to ateBitSoup!</h1>
 
 			<div class="construction-notice">
-			<div class="icons-wrapper top">
-				<span class="construction-icon">🚧</span>
+				<div class="construction-main-line"> <!-- NEW WRAPPER -->
+					<span class="construction-icon">🚧</span>
+					<p class="main-notice-text">Heads up! Under Construction!</p> <!-- New class -->
+					<span class="construction-icon">🚧</span>
+				</div>
+				<p class="patience-text">Your patience is appreciated</p>
 			</div>
-			<p>Heads up! Under Construction!</p>
-			<p class="patience-text">Your patience is appreciated</p>
-			<div class="icons-wrapper bottom">
-				<span class="construction-icon">🚧</span>
-			</div>
-		</div>
+
 			<p>Check out the <a href="1html.html">1HTML Demos</a> for a taste of what static sites can do when they're feeling feisty.</p>
 		</div>
 
