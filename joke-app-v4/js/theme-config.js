@@ -1,0 +1,1587 @@
+// js/theme-config.js
+// Omitting certian PITA holidays to calculate. WIP
+// --- SCHOOL LOGO SVG ---
+const schoolLogoSvg = '<svg viewBox="0 0 450 150" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>World Compass Academy Logo</title><path d="M75 25 A50 50 0 1 1 75 125" stroke="#007ABF" stroke-width="12" fill="none" transform="rotate(-15 65 75)"/><path d="M65 105 Q60 80 65 55 C65 55 62 50 58 52" fill="#6A4028" stroke="#50301E" stroke-width="1"/><path d="M58 52 Q40 45 50 25 Q60 48 58 52 Z" fill="#8BC34A" stroke="#558B2F" stroke-width="0.5"/><path d="M58 52 Q35 60 45 35 Q60 52 58 52 Z" fill="#AED581" stroke="#558B2F" stroke-width="0.5"/><path d="M58 52 Q45 70 55 45 Q65 55 58 52 Z" fill="#9CCC65" stroke="#558B2F" stroke-width="0.5"/><text x="160" y="60" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="bold" fill="#333333">WORLD</text><text x="130" y="105" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="bold" fill="#333333">COMPASS</text><text x="280" y="135" font-family="Comic Sans MS, Brush Script MT, cursive" font-size="30" fill="#8BC34A" font-style="italic">Academy</text></svg>';
+
+// --- JOKE DATA ---
+const dadJokes = [
+    { setup: "Why don't skeletons fight each other?", punchline: "They don't have the guts." },
+    { setup: "What do you call fake spaghetti?", punchline: "An impasta!" },
+    { setup: "Why did the scarecrow win an award?", punchline: "Because he was outstanding in his field!" },
+    { setup: "What concert costs just 45 cents?", punchline: "50 Cent featuring Nickelback!" },
+    { setup: "Why did the bicycle fall over?", punchline: "Because it was two-tired!" },
+    { setup: "How does a penguin build its house?", punchline: "Igloos it together." },
+    { setup: "What do you call a fish with no eyes?", punchline: "Fsh!" },
+    { setup: "Why can't you hear a pterodactyl go to the bathroom?", punchline: "Because the 'P' is silent." },
+    { setup: "What do you call a factory that makes okay products?", punchline: "A satisfactory." },
+    { setup: "Why did the math book look so sad?", punchline: "Because it had too many problems." },
+    { setup: "I'm reading a book about anti-gravity.", punchline: "It's impossible to put down!" },
+    { setup: "What do you call a lazy kangaroo?", punchline: "Pouch potato." },
+    { setup: "Why don't eggs tell jokes?", punchline: "They'd crack each other up." },
+    { setup: "What's brown and sticky?", punchline: "A stick!" },
+    { setup: "Why was the cookie sad?", punchline: "Because its mom was a wafer too long!" },
+    { setup: "What did the ocean say to the beach?", punchline: "Nothing, it just waved." },
+    { setup: "Why are ghosts bad liars?", punchline: "Because you can see right through them." },
+    { setup: "What do you call a cheese that isn't yours?", punchline: "Nacho cheese!" },
+    { setup: "What kind of tree fits in your hand?", punchline: "A palm tree!" },
+    { setup: "How do you organize a space party?", punchline: "You planet." },
+    { setup: "Did you hear about the restaurant on the moon?", punchline: "I heard the food was good but it had no atmosphere." },
+    { setup: "Why don't scientists trust atoms?", punchline: "Because they make up everything!" },
+    { setup: "What do you call a dog magician?", punchline: "A labracadabrador." },
+    { setup: "Why did the old man fall in a well?", punchline: "Because he couldn’t see that well!" },
+    { setup: "What do you call a belt made out of watches?", punchline: "A waist of time." },
+    { setup: "Why was the baby strawberry crying?", punchline: "Because his parents were in a jam!" },
+    { setup: "What do you call an alligator in a vest?", punchline: "An investigator." },
+    { setup: "Why did the golfer bring two pairs of pants?", punchline: "In case he got a hole in one." },
+    { setup: "What do you get when you cross a snowman and a dog?", punchline: "Frostbite." },
+    { setup: "Why can't a nose be 12 inches long?", punchline: "Because then it would be a foot." },
+    { setup: "What’s an astronaut’s favorite part of a computer?", punchline: "The space bar." },
+    { setup: "Why did the coffee file a police report?", punchline: "It got mugged." },
+    { setup: "How do you make a Kleenex dance?", punchline: "Put a little boogie in it!" },
+    { setup: "What do you call a sad strawberry?", punchline: "A blueberry." },
+    { setup: "Why are pirates called pirates?", punchline: "Because they arrrr!" },
+    { setup: "What kind of shoes do ninjas wear?", punchline: "Sneakers." },
+    { setup: "What time did the man go to the dentist?", punchline: "Tooth hurt-y." },
+    { setup: "Why did the tomato blush?", punchline: "Because it saw the salad dressing!" },
+    { setup: "What do you call a cow with no legs?", punchline: "Ground beef." },
+    { setup: "Why are elevator jokes so good?", punchline: "They work on many levels." },
+    { setup: "What do you call a sleeping bull?", punchline: "A bulldozer." },
+    { setup: "What has ears but cannot hear?", punchline: "A cornfield." },
+    { setup: "Why don't some couples go to the gym?", punchline: "Because some relationships don't work out." },
+    { setup: "What’s brown and sounds like a bell?", punchline: "Dung!" },
+    { setup: "What do you call a bear with no teeth?", punchline: "A gummy bear." },
+    { setup: "Why did the Invisible Man turn down the job offer?", punchline: "He couldn't see himself doing it." },
+    { setup: "How do you catch a squirrel?", punchline: "Climb a tree and act like a nut!" },
+    { setup: "What did the grape say when it got stepped on?", punchline: "Nothing, it just let out a little wine." },
+    { setup: "Why did the picture go to jail?", punchline: "It was framed." },
+    { setup: "What do you call a pile of cats?", punchline: "A meowtain." },
+    { setup: "Why did the student eat his homework?", punchline: "Because the teacher said it was a piece of cake." },
+    { setup: "What do you call a man with a rubber toe?", punchline: "Roberto." },
+    { setup: "Why are fish so smart?", punchline: "Because they live in schools." },
+    { setup: "What's a pirate's favorite letter of the alphabet?", punchline: "You'd think it's R, but it's the C they love!" },
+    { setup: "Why did the can crusher quit his job?", punchline: "It was soda pressing." },
+    { setup: "How do you make holy water?", punchline: "You boil the hell out of it." },
+    { setup: "What's orange and sounds like a parrot?", punchline: "A carrot." },
+    { setup: "What do you call a group of musical whales?", punchline: "An orca-stra." },
+    { setup: "Why did the fungi leave the party?", punchline: "There wasn't mushroom." },
+    { setup: "What do you call a boomerang that won't come back?", punchline: "A stick." },
+    { setup: "Why was the belt arrested?", punchline: "For holding up a pair of pants!" },
+    { setup: "What do you call a dinosaur with an extensive vocabulary?", punchline: "A thesaurus." },
+    { setup: "How do you follow Will Smith in the snow?", punchline: "You follow the fresh prints." },
+    { setup: "Why did the psychic refuse to pay his exorcist?", punchline: "He said he'd seen it coming." },
+    { setup: "What do you call a snowman with a six-pack?", punchline: "An abdominal snowman." },
+    { setup: "Why did the bee get married?", punchline: "Because he found his honey." },
+    { setup: "What’s the best thing about Switzerland?", punchline: "I don’t know, but the flag is a big plus." },
+    { setup: "What do you call a cow that plays an instrument?", punchline: "A moo-sician." },
+    { setup: "Why did the clock go to the library?", punchline: "It wanted to check out the time." },
+    { setup: "What kind of car does an egg drive?", punchline: "A Yolkswagen." },
+    { setup: "Why was the broom late?", punchline: "It over-swept." },
+    { setup: "What do you call a short, psychic dwarf who has escaped from prison?", punchline: "A small medium at large." },
+    { setup: "Why do we tell actors to 'break a leg?'", punchline: "Because every play has a cast." },
+    { setup: "What did the left eye say to the right eye?", punchline: "Between you and me, something smells." },
+    { setup: "What do you call a lazy baby kangaroo?", punchline: "Pouch potato!" },
+    { setup: "Why did the chewing gum cross the road?", punchline: "It was stuck to the chicken's foot." },
+    { setup: "What do you call a thieving alligator?", punchline: "A crook-o-dile." },
+    { setup: "Why couldn't the leopard play hide and seek?", punchline: "Because he was always spotted." },
+    { setup: "What kind of music do mummies listen to?", punchline: "Wrap music." },
+    { setup: "Why did the man put his money in the blender?", punchline: "He wanted to make liquid assets." },
+    { setup: "What’s a foot long and slippery?", punchline: "A slipper!" },
+    { setup: "What do you call a fish with a crown?", punchline: "A kingfish." },
+    { setup: "Why did the singer bring a ladder to her concert?", punchline: "She wanted to reach the high notes." },
+    { setup: "What do you call a nosy pepper?", punchline: "Jalapeño business!" },
+    { setup: "Why did the gardener plant a light bulb?", punchline: "He wanted to grow a power plant!" },
+    { setup: "What do you call a funny mountain?", punchline: "Hill-arious." },
+    { setup: "Why did the banana go to the doctor?", punchline: "It wasn't peeling well." },
+    { setup: "What do you call a chicken staring at a lettuce?", punchline: "Chicken sees a salad." },
+    { setup: "What did the zero say to the eight?", punchline: "Nice belt!" },
+    { setup: "Why did the computer go to the doctor?", punchline: "It had a virus." },
+    { setup: "What has four wheels and flies?", punchline: "A garbage truck." },
+    { setup: "Why was the math book sad?", punchline: "It had too many problems." },
+    { setup: "What do you call a pig that does karate?", punchline: "A pork chop." },
+    { setup: "Why did the baker stop making donuts?", punchline: "He got tired of the hole business." },
+    { setup: "What do you call a group of disorganized cats?", punchline: "A cat-tastrophe." },
+    { setup: "Why did the chicken join a band?", punchline: "Because it had the drumsticks." },
+    { setup: "What do you call a horse that lives next door?", punchline: "A neigh-bor." },
+    { setup: "Why did the scarecrow become a successful motivational speaker?", punchline: "He was outstanding in his field." },
+    { setup: "What's a vampire's favorite fruit?", punchline: "A neck-tarine." },
+    { setup: "Why did the student bring a ladder to school?", punchline: "To go to high school." },
+    { setup: "What do you call a droid that takes the long way around?", punchline: "R2-Detour." },
+    { setup: "Why did the bicycle stand up by itself?", punchline: "It was two tired." },
+    { setup: "What do you call an elephant that doesn’t matter?", punchline: "An irrelephant." },
+    { setup: "What is a pirate's favorite subject?", punchline: "Arrrrrrt!" },
+    { setup: "Why did the chef get arrested?", punchline: "For beating an egg." },
+    { setup: "What do you call a sleeping dinosaur?", punchline: "A Dinosnore." },
+    { setup: "Why are teddy bears never hungry?", punchline: "They are always stuffed." },
+    { setup: "What do you call a dog that can tell time?", punchline: "A watchdog." },
+    { setup: "Why was the stadium so cold?", punchline: "It was full of fans." },
+    { setup: "What do you call a fly without wings?", punchline: "A walk." },
+    { setup: "Why did the man get fired from the calendar factory?", punchline: "He took a couple of days off." },
+    { setup: "What do you call a deer with no eyes?", punchline: "No eye-deer." },
+    { setup: "What do you call a deer with no eyes and no legs?", punchline: "Still no eye-deer." },
+    { setup: "Why was the photographer so bad at his job?", punchline: "He couldn't focus." },
+    { setup: "What do you call a wizard who is good at cooking?", punchline: "A saucier." },
+    { setup: "Why did the king go to the dentist?", punchline: "To get his teeth crowned." },
+    { setup: "What do you call a sad cup of coffee?", punchline: "Depresso." },
+    { setup: "Why did the barber win the race?", punchline: "He knew a shortcut." },
+    { setup: "What did the janitor say when he jumped out of the closet?", punchline: "Supplies!" },
+    { setup: "Why don't oysters donate to charity?", punchline: "Because they are shellfish." },
+    { setup: "What do you call a fake noodle?", punchline: "An impasta." },
+    { setup: "Why was the little ink drop crying?", punchline: "Because its mother was in the pen and it didn't know how long the sentence would be." },
+    { setup: "What do you call a line of rabbits walking backwards?", punchline: "A receding hare-line." },
+    { setup: "Why did the football coach go to the bank?", punchline: "To get his quarter back." },
+    { setup: "How much did the pirate pay for his corn?", punchline: "A buck an ear!" },
+    { setup: "What's a pirate's favorite kind of fish?", punchline: "A swordfish, of course!" },
+    { setup: "Why don't pirates shower before they walk the plank?", punchline: "Because they'll just wash up on shore later!" },
+    { setup: "What does a pirate say when his wooden leg gets stuck in the freezer?", punchline: "Shiver me timbers!" },
+    { setup: "What's a pirate's least favorite vegetable?", punchline: "A leek!" },
+    { setup: "How do pirates know they are pirates?", punchline: "They think, therefore they ARRRR!" },
+    { setup: "What did the pirate wear on Halloween?", punchline: "A pumpkin patch!" },
+    { setup: "Why did the pirate go to the Apple store?", punchline: "He needed a new iPatch!" },
+    { setup: "What's a pirate's favorite movie rating?", punchline: "PG-ARRRRR-13!" },
+    { setup: "Why couldn't the little kid see the pirate movie?", punchline: "Because it was rated ARRRR!" },
+    { setup: "What's a pirate's favorite type of sock?", punchline: "Arrrrgyle!" },
+    { setup: "How do you make a pirate furious?", punchline: "Take away the 'P'!" },
+    { setup: "What did the pirate say on his 80th birthday?", punchline: "Aye, matey!" },
+    { setup: "Why are pirates so good at singing?", punchline: "They can hit the high C's!" },
+    { setup: "What does a pirate use to call his mateys?", punchline: "An Aye-Phone!" },
+    { setup: "Where do pirates keep their cookies?", punchline: "In a Jarrrrr!" },
+    { setup: "What's a pirate's favorite fast food restaurant?", punchline: "Arrrrbys!" },
+    { setup: "Why did the pirate break up with his girlfriend?", punchline: "She had a terrible arrrrgument with him." },
+    { setup: "What's a pirate's favorite part of a song?", punchline: "The hook!" },
+    { setup: "What did the pirate captain say to his new recruit?", punchline: "Welcome aboarrrrd!" },
+    { setup: "Why did the pirate bring a ladder to the bar?", punchline: "He heard the drinks were on the house!" },
+    { setup: "What do you call a pirate with two eyes and two legs?", punchline: "A beginner." },
+    { setup: "What does a pirate put on his toast?", punchline: "Jolly Roger Jellies!" },
+    { setup: "Why did the pirate cross the ocean?", punchline: "To get to the other tide!" },
+    { setup: "What's a pirate's favorite type of story?", punchline: "A tale of the high C's!" },
+    { setup: "What kind of grades did the pirate get in school?", punchline: "High C's!" },
+    { setup: "Why was the pirate always looking for his treasure with a computer?", punchline: "He was looking for the X-marks-the-spot.com!" },
+    { setup: "What does a pirate wear when it's cold?", punchline: "A long-john silver!" },
+    { setup: "How do pirates prefer to communicate?", punchline: "Aye to aye!" },
+    { setup: "What happened when Bluebeard fell into the Red Sea?", punchline: "He became Maroonbeard!" },
+    { setup: "Why did the teacher wear sunglasses to school?", punchline: "Because her students were so bright!" },
+    { setup: "What's a teacher's favorite nation?", punchline: "Expla-nation!" },
+    { setup: "Why was the math teacher always so positive?", punchline: "She knew all the angles!" },
+    { setup: "What do you call a teacher who doesn’t fart in public?", punchline: "A private tutor!" },
+    { setup: "Why did the music teacher need a ladder?", punchline: "To reach the high notes!" },
+    { setup: "What's a teacher's favorite type of tree?", punchline: "Geome-tree!" },
+    { setup: "Why did the teacher bring a ruler to bed?", punchline: "To see how long she slept!" },
+    { setup: "What did the student say when the teacher asked for their homework?", punchline: "'My dog ate it... then he asked for seconds!'" },
+    { setup: "Why did the teacher jump into the pool?", punchline: "She wanted to test the water!" },
+    { setup: "What's a history teacher's favorite fruit?", punchline: "Dates!" },
+    { setup: "Why was the English teacher so good at baseball?", punchline: "She knew all the rules of proper nouns and proper slides!" },
+    { setup: "What did the pencil say to the teacher?", punchline: "'You always make a good point!'" },
+    { setup: "Why did the students like the geography teacher?", punchline: "Because she was down-to-earth!" },
+    { setup: "What's a teacher's favorite command on the computer?", punchline: "Ctrl + S (Save the students!)" },
+    { setup: "Why did the teacher give the student a C+ in art class?", punchline: "Because they could only draw 'C's and plus signs!" },
+    { setup: "What did the science teacher say when her experiment exploded?", punchline: "'Well, that was an uplifting experience!'" },
+    { setup: "Why don't teachers ever get lost?", punchline: "They always know the 'class' route!" },
+    { setup: "What subject does a witch teacher teach?", punchline: "Spelling!" },
+    { setup: "Why was the teacher like a good dictionary?", punchline: "She always had the right words." },
+    { setup: "What did the teacher say to the student who was late every day?", punchline: "'You'll be 'tardy' for your own success!'" },
+    { setup: "Why did the teacher bring a map to the cafeteria?", punchline: "To find the 'lunch' lines!" },
+    { setup: "Why did the teacher write on the window?", punchline: "Because she wanted her lesson to be very clear!" },
+    { setup: "What's a teacher's favorite kind of story?", punchline: "One with a good 'class'-ic ending!" },
+    { setup: "Why did the teacher always carry a red pen?", punchline: "In case she needed to 'draw blood' from a tough problem!" },
+    { setup: "What did the student say to the teacher who was good at gardening?", punchline: "'You really know how to make ideas 'grow'!''" },
+    { setup: "Why was the teacher always calm during tests?", punchline: "She had a lot of 'test'-osterone... I mean, patience!" },
+    { setup: "What do you call a teacher who loves the beach?", punchline: "Sandy Claus-room!" },
+    { setup: "Why did the teacher get an award?", punchline: "For having a lot of 'class'!" },
+    { setup: "What does a teacher use to get to school on a snowy day?", punchline: "An 'ice'-icle!" }
+];
+
+const catJokes = [
+    { setup: "What do you call a cat that's a beauty influencer?", punchline: "A glam-meowr puss." },
+    { setup: "Why did the cat bring a ladder to the bar?", punchline: "He heard the drinks were on the house!" },
+    { setup: "What's a cat's favorite subject in school?", punchline: "Hiss-tory." },
+    { setup: "What do you call a cat who loves to bowl?", punchline: "An alley cat." },
+    { setup: "Why are cats so good at video games?", punchline: "Because they have nine lives!" },
+    { setup: "What do you get if you cross a cat with a dark horse?", punchline: "Kitty Perry." },
+    { setup: "What's a cat's favorite kind of car?", punchline: "A Cat-illac." },
+    { setup: "Why was the cat sitting on the computer?", punchline: "To keep an eye on the mouse!" },
+    { setup: "What do cats use to make coffee?", punchline: "A purr-colator." },
+    { setup: "What do you call a cat that can tell the future?", punchline: "A clairvoy-ant-cat." },
+    { setup: "Why did the cat join the Red Cross?", punchline: "She wanted to be a first-aid kit-ten!" },
+    { setup: "What is a cat's favorite musical?", punchline: "'Cats'ablanca." },
+    { setup: "What do you call a cat who is a police officer?", punchline: "Claw-enforcement." },
+    { setup: "Why don't cats play poker in the jungle?", punchline: "Too many cheetahs." },
+    { setup: "What's a cat's favorite breakfast?", punchline: "Mice Krispies." },
+    { setup: "How do you know if your cat is a good singer?", punchline: "By the meow-sic it makes." },
+    { setup: "What do you call a cat that likes to dig in the sand?", punchline: "Sandy Claws." },
+    { setup: "What's a cat's favorite button on the remote?", punchline: "Paws." },
+    { setup: "Why did the cat go to medical school?", punchline: "To become a purr-amedic." },
+    { setup: "What kind of cat works for the C.I.A.?", punchline: "A Siamese-cret agent." },
+    { setup: "What do you call a cat that's been caught by the police?", punchline: "A purr-petrator." },
+    { setup: "Why did the cat wear a fancy dress to the party?", punchline: "She wanted to look purr-fect." },
+    { setup: "What's a cat's favorite ice cream flavor?", punchline: "Mouse-carpone." },
+    { setup: "What do you call a cat who is an artist?", punchline: "A paw-casso." },
+    { setup: "Why did the cat get a ticket?", punchline: "For littering." },
+    { setup: "What's a cat's favorite type of literature?", punchline: "Hairy Paw-ter." },
+    { setup: "What do you call it when a cat wins a dog show?", punchline: "A cat-astrophe." },
+    { setup: "Why did the cat run away from the tree?", punchline: "It was afraid of the bark." },
+    { setup: "What do you call a cat that is very organized?", punchline: "A purr-fectionist." },
+    { setup: "What's a cat's favorite game show?", punchline: "The Price is Mice!" },
+    { setup: "Why did the cat put oil on the mouse?", punchline: "Because he wanted it to squeak." },
+    { setup: "What do you call a lemon-loving cat?", punchline: "A sour puss." },
+    { setup: "What's a cat's favorite type of story?", punchline: "A fairy tail." },
+    { setup: "Why are cats such good comedians?", punchline: "They always land on their feet with a punchline." },
+    { setup: "What do you call a cat that can fix anything?", punchline: "A handyman-cat." },
+    { setup: "What's a cat's way of saying 'OMG'?", punchline: "'Oh My Mouse!'" },
+    { setup: "Why did the cat go to the library?", punchline: "To check out some mews-papers." },
+    { setup: "What's a cat's favorite type of dance?", punchline: "The meow-remba." },
+    { setup: "What do you call a cat magician?", punchline: "Meow-dini." },
+    { setup: "Why was the cat so good at chess?", punchline: "He was a grand-meow-ster." },
+    { setup: "What do you call a cat who loves the snow?", punchline: "A cool cat." },
+    { setup: "What's a cat's favorite day of the week?", punchline: "Caturday." },
+    { setup: "Why did the cat get an award?", punchline: "For purr-fect attendance." },
+    { setup: "What do you call a cat that can play the piano?", punchline: "A meow-sician." },
+    { setup: "Why did the cat study law?", punchline: "To become a paw-yer." },
+    { setup: "What's a cat's favorite vegetable?", punchline: "As-purr-agus." },
+    { setup: "What do you call a cat that's a great detective?", punchline: "Sherlock Paws." },
+    { setup: "Why did the cat sit next to the fire?", punchline: "It wanted to be a hot cat." },
+    { setup: "What's a cat's favorite dessert?", punchline: "Mice pudding." },
+    { setup: "What do you call a cat that tells jokes?", punchline: "A stand-up cat-median." },
+    { setup: "Why did the cat join the circus?", punchline: "To be an acro-cat." },
+    { setup: "What's a cat's favorite drink?", punchline: "Purr-ier." },
+    { setup: "What do you call a cat that loves to read?", punchline: "A literary kit-ten." },
+    { setup: "Why did the cat go to space?", punchline: "To visit the meow-ter limits." },
+    { setup: "What's a cat's favorite type of movie?", punchline: "A mews-ical." },
+    { setup: "What do you call a cat that's a chef?", punchline: "A culinary cat-spert." },
+    { setup: "Why did the cat get a promotion?", punchline: "Because of its great cat-titude." },
+    { setup: "What's a cat's favorite hobby?", punchline: "Paw-ttery." },
+    { setup: "What do you call a cat who is a gardener?", punchline: "A green-pawed feline." },
+    { setup: "Why did the cat cross the playground?", punchline: "To get to the other slide... and bat at the swings." },
+    { setup: "What's a cat's favorite instrument?", punchline: "The purr-cussion." },
+    { setup: "What do you call a group of singing cats?", punchline: "A meow-sical choir." },
+    { setup: "Why was the cat so happy?", punchline: "It was feline good." },
+    { setup: "What's a cat's favorite thing to wear?", punchline: "A fur coat, naturally!" },
+    { setup: "What do you call a cat that's a good leader?", punchline: "The head hon-cat." },
+    { setup: "Why did the cat bring string to the party?", punchline: "In case things got tangled." },
+    { setup: "What's a cat's favorite superhero?", punchline: "Cat-tain America." },
+    { setup: "What do you call a cat who loves to swim?", punchline: "An aqua-cat (though rare!)." },
+    { setup: "Why did the cat want to become a weather reporter?", punchline: "To predict purr-cipitation." },
+    { setup: "What's a cat's favorite type of tree?", punchline: "A cat-tail tree." },
+    { setup: "What do you call a cat that's afraid of everything?", punchline: "A scaredy-cat." },
+    { setup: "Why did the cat sit on the dictionary?", punchline: "To learn some new meow-nings." },
+    { setup: "What's a cat's favorite board game?", punchline: "Mice and Mystics." },
+    { setup: "What do you call a cat who is a champion sleeper?", punchline: "A nap-lete." },
+    { setup: "Why did the cat stare at the wall?", punchline: "It was practicing its meow-ditation." },
+    { setup: "What's a cat's favorite flower?", punchline: "A tiger lily." },
+    { setup: "What do you call a cat that can write?", punchline: "A paw-thor." },
+    { setup: "Why did the cat go to the vet?", punchline: "It had a cat-arrh." },
+    { setup: "What's a cat's favorite country?", punchline: "Purr-u." },
+    { setup: "What do you call a very wealthy cat?", punchline: "A milli-mew-naire." },
+    { setup: "Why did the cat start a band?", punchline: "To make some mewsic." },
+    { setup: "What's a cat's favorite type of chip?", punchline: "Purr-ingles." },
+    { setup: "What do you call a cat that loves to argue?", punchline: "A de-bat-er." },
+    { setup: "Why did the cat climb the bookshelf?", punchline: "To get a bird's-eye view... of the mouse." },
+    { setup: "What's a cat's favorite city?", punchline: "Paw-ris." },
+    { setup: "What do you call a cat who is a spy?", punchline: "A fur-tive agent." },
+    { setup: "Why did the cat go to the beach?", punchline: "To catch some rays and some fish!" },
+    { setup: "What's a cat's favorite planet?", punchline: "Nep-tune (because it's blue like some cat toys)." },
+    { setup: "What do you call a cat that's always on time?", punchline: "Punc-chew-al." },
+    { setup: "Why did the cat get a computer?", punchline: "To surf the mouse-wide web." },
+    { setup: "What's a cat's favorite TV show?", punchline: "The Great Catsby." },
+    { setup: "What do you call a cat that loves to bake?", punchline: "A whisk-er of dough." },
+    { setup: "Why did the cat refuse to share its toy?", punchline: "It was being a bit cat-ty." },
+    { setup: "What's a cat's favorite kind of story?", punchline: "One with a purr-fect ending." },
+    { setup: "What do you call a cat that's good with numbers?", punchline: "A cal-cu-lator." },
+    { setup: "Why did the cat sleep under the car?", punchline: "It wanted to wake up oily." },
+    { setup: "What's a cat's favorite art movement?", punchline: "Impurr-essionism." },
+    { setup: "What do you call a cat that tells secrets?", punchline: "A whisker-blower." },
+    { setup: "Why did the cat visit the astrologer?", punchline: "To get its horos-cat read." },
+    { setup: "What's a cat's favorite sport?", punchline: "Hairball." },
+    { setup: "What do you call a cat that can jump higher than a house?", punchline: "Any cat, houses can't jump!" },
+    { setup: "Why did the cat look at the empty food bowl with disdain?", punchline: "It was a cat-titude problem." },
+    { setup: "What's a cat's favorite type of party?", punchline: "A fur-ball." },
+    { setup: "What do you call a cat that's really good at knitting?", punchline: "A purrl-er." },
+    { setup: "Why did the cat become a gardener?", punchline: "It had a green paw." },
+    { setup: "What's a cat's favorite holiday?", punchline: "Meow-loween." },
+    { setup: "What do you call a pile of cats?", punchline: "A meowtain!" },
+    { setup: "Why are cats such bad poker players?", punchline: "They always have a fur ace up their sleeve!" },
+    { setup: "What's a cat's favorite color?", punchline: "Purr-ple!" },
+    { setup: "What do you call a cat that gets anything it wants?", punchline: "Purr-suasive." },
+    { setup: "What's a cat's favorite dessert?", punchline: "Chocolate mouse!" },
+    { setup: "What do cats like to eat on a hot day?", punchline: "A mice-cream cone!" },
+    { setup: "How do cats end a fight?", punchline: "They hiss and make up!" },
+    { setup: "What is a cat's favorite magazine?", punchline: "Good Mousekeeping!" },
+    { setup: "Why was the cat so small?", punchline: "Because it only drank condensed milk!" },
+    { setup: "What do you call a cat who's a magician?", punchline: "A Meow-gician!" },
+    { setup: "What's a cat's favorite song?", punchline: "Three Blind Mice!" },
+    { setup: "What state has a lot of cats and dogs?", punchline: "Petsylvania!" },
+    { setup: "If lights run on electricity and cars run on gas, what do cats run on?", punchline: "Their paws!" },
+    { setup: "What do you call a cat wearing shoes?", punchline: "Puss in Boots!" }
+];
+
+const dailyJokes = [
+    { setup: "What has keys but opens no locks?", punchline: "A piano." },
+    { setup: "What has a neck without a head, a body without legs?", punchline: "A bottle." },
+    { setup: "What is full of holes but still holds water?", punchline: "A sponge." },
+    { setup: "What question can you never answer yes to?", punchline: "Are you asleep yet?" },
+    { setup: "What is always coming but never arrives?", punchline: "Tomorrow." },
+    { setup: "What can you break, even if you never pick it up or touch it?", punchline: "A promise." },
+    { setup: "What goes up but never comes down?", punchline: "Your age." },
+    { setup: "What has a thumb and four fingers but is not alive?", punchline: "A glove." },
+    { setup: "What has one voice, but speaks in every language?", punchline: "An echo." },
+    { setup: "What has cities, but no houses; forests, but no trees; and water, but no fish?", punchline: "A map." },
+    { setup: "Why did the student bring a ladder to school?", punchline: "To go to high school!" },
+    { setup: "What do you call a dinosaur that is sleeping?", punchline: "A dino-snore." },
+    { setup: "What do you call a bear with no teeth?", punchline: "A gummy bear." },
+    { setup: "Why did the teddy bear say no to dessert?", punchline: "Because she was stuffed." },
+    { setup: "What gets wetter the more it dries?", punchline: "A towel." },
+    { setup: "Why did an orange stop running in the race?", punchline: "Because it ran out of juice!" },
+    { setup: "What animal can jump higher than a house?", punchline: "All of them, houses can't jump!" },
+    { setup: "Why was the math book unhappy?", punchline: "Because it had too many problems." },
+    { setup: "What is a pirate's favorite letter of the alphabet?", punchline: "You might think it's R, but their first love is the C!" },
+    { setup: "What do you call a lazy kangaroo?", punchline: "Pouch potato." },
+    { setup: "Why did the bicycle fall over?", punchline: "Because it was two-tired." },
+    { setup: "What time is it when an elephant sits on a fence?", punchline: "Time to fix the fence!" },
+    { setup: "What do you call a boomerang that doesn’t come back?", punchline: "A stick." },
+    { setup: "Why did the cookie go to the doctor?", punchline: "Because it felt crummy." },
+    { setup: "What do you call a cheese that isn't yours?", punchline: "Nacho cheese!" },
+    { setup: "What kind of tree fits in your hand?", punchline: "A palm tree." },
+    { setup: "How do you make a milkshake?", punchline: "Give a cow a pogo stick." },
+    { setup: "Why can't you give Elsa a balloon?", punchline: "Because she will let it go." },
+    { setup: "What do you call a snowman party?", punchline: "A snowball." },
+    { setup: "What has an end, but no beginning?", punchline: "A rainbow." },
+    { setup: "What do you call a dog magician?", punchline: "A labracadabrador." },
+    { setup: "Why did the scarecrow win an award?", punchline: "He was outstanding in his field." },
+    { setup: "What do you call fake spaghetti?", punchline: "An impasta." },
+    { setup: "What is brown and sticky?", punchline: "A stick." },
+    { setup: "Why don't skeletons fight each other?", punchline: "They don't have the guts." },
+    { setup: "What concert costs just 45 cents?", punchline: "50 Cent featuring Nickelback." },
+    { setup: "What did the ocean say to the beach?", punchline: "Nothing, it just waved." },
+    { setup: "What is easy to get into, but hard to get out of?", punchline: "Trouble." },
+    { setup: "Why did the scientist install a knocker on his door?", punchline: "He wanted to win the No-bell prize!" },
+    { setup: "What do you call a fly without wings?", punchline: "A walk." },
+    { setup: "What do you call a belt made out of watches?", punchline: "A waist of time." },
+    { setup: "Why are ghosts such bad liars?", punchline: "Because you can see right through them." },
+    { setup: "What goes up and down but doesn’t move?", punchline: "A staircase." },
+    { setup: "What can you catch, but not throw?", punchline: "A cold." },
+    { setup: "What has words, but never speaks?", punchline: "A book." },
+    { setup: "Why did the girl throw butter out the window?", punchline: "She wanted to see a butterfly." },
+    { setup: "What is a vampire's favorite fruit?", punchline: "A neck-tarine." },
+    { setup: "What do you call a fish with no eyes?", punchline: "Fsh!" },
+    { setup: "Why did the tomato turn red?", punchline: "Because it saw the salad dressing." },
+    { setup: "What do you call a sleeping piece of paper?", punchline: "A nap-kin." },
+    { setup: "How do you organize a space party?", punchline: "You planet." },
+    { setup: "What kind of key opens a banana?", punchline: "A monkey." },
+    { setup: "What do you call a bear that's stuck in the rain?", punchline: "A drizzly bear." },
+    { setup: "Why was the computer cold?", punchline: "It left its Windows open." },
+    { setup: "What do you call a line of rabbits hopping backwards?", punchline: "A receding hare-line." },
+    { setup: "Why did the music teacher need a ladder?", punchline: "To reach the high notes." },
+    { setup: "What do you call an alligator in a vest?", punchline: "An investigator." },
+    { setup: "Why did the student sit on his watch?", punchline: "He wanted to be on time." },
+    { setup: "What do you call a group of musical whales?", punchline: "An orca-stra." },
+    { setup: "What kind of music do planets like?", punchline: "Nep-tunes." },
+    { setup: "Why did the boy bring a flashlight to school?", punchline: "His teacher told him it was a bright class." },
+    { setup: "What do you call a cheese that likes to shoot hoops?", punchline: "Swish cheese." },
+    { setup: "Why was the broom late for school?", punchline: "It over-swept." },
+    { setup: "What has a face and two hands but no arms or legs?", punchline: "A clock." },
+    { setup: "What do you call a number that just can't stand still?", punchline: "A roamin' numeral." },
+    { setup: "Why did the kid cross the playground?", punchline: "To get to the other slide." },
+    { setup: "What is black and white and read all over?", punchline: "A newspaper." },
+    { setup: "Why did the chewing gum cross the road?", punchline: "It was stuck to the chicken's foot." },
+    { setup: "What do you call a dinosaur with a good vocabulary?", punchline: "A thesaurus." },
+    { setup: "Why did the soccer ball quit the team?", punchline: "It was tired of being kicked around." },
+    { setup: "What do you call a pig that knows karate?", punchline: "A pork chop." },
+    { setup: "What is a ninja's favorite type of shoes?", punchline: "Sneakers." },
+    { setup: "Why did the golfer wear two pairs of pants?", punchline: "In case he got a hole in one." },
+    { setup: "What do you call a sad coffee?", punchline: "Depresso." },
+    { setup: "Why did the skeleton go to the party alone?", punchline: "He had no body to go with." },
+    { setup: "What can travel around the world while staying in a corner?", punchline: "A stamp." },
+    { setup: "What fruit is a vampire's favorite?", punchline: "A blood orange." },
+    { setup: "What do you call a thieving monkey?", punchline: "A prime-ape." },
+    { setup: "Why did the artist break up with the mathematician?", punchline: "They had too many differences." },
+    { setup: "What do you call a teacher who doesn’t fart in public?", punchline: "A private tutor." },
+    { setup: "Why was the stadium so cool?", punchline: "It was full of fans." },
+    { setup: "What do you call a magical dog?", punchline: "A Labracadabrador." },
+    { setup: "Why are fish so smart?", punchline: "They live in schools." },
+    { setup: "What is a pirate's favorite exercise?", punchline: "The plank!" },
+    { setup: "Why did the calendar factory hire a new person?", punchline: "They needed someone to take more days off." },
+    { setup: "What do you call a factory that sells good products?", punchline: "A satisfactory." },
+    { setup: "What do you call an old snowman?", punchline: "Water." },
+    { setup: "What is always in front of you but can’t be seen?", punchline: "The future." },
+    { setup: "What starts with a P, ends with an E, and has thousands of letters?", punchline: "The Post Office." },
+    { setup: "Why did the phone wear glasses?", punchline: "It lost its contacts." },
+    { setup: "What do you call a camel with no humps?", punchline: "Humphrey." },
+    { setup: "Why did the student bring a pencil to bed?", punchline: "To draw the curtains!" },
+    { setup: "What did the traffic light say to the car?", punchline: "Don't look! I'm about to change." },
+    { setup: "What do you call a cow with two legs?", punchline: "Lean beef." },
+    { setup: "What do you call a cow with no legs?", punchline: "Ground beef." },
+    { setup: "Why did the library books get scared?", punchline: "They heard the librarian was checking them out." },
+    { setup: "What do you call a funny mountain?", punchline: "Hill-arious." },
+    { setup: "Why did the banana go to the doctor?", punchline: "Because it wasn't peeling well." },
+    { setup: "What do you call a robot that takes the scenic route?", punchline: "R2-Detour." },
+    { setup: "Why did the baker stop making bread?", punchline: "He kneaded a break." },
+    { setup: "What do you call a dog that can tell time?", punchline: "A watchdog." },
+    { setup: "What do you call a pile of cats?", punchline: "A meowtain." },
+    { setup: "Why did the students like their math teacher?", punchline: "Because he was always fair and square." },
+    { setup: "What do you call a person who is afraid of Santa Claus?", punchline: "Claustrophobic." },
+    { setup: "What do you call a fish with a tie?", punchline: "So-fish-ticated." },
+    { setup: "What has an eye, but cannot see?", punchline: "A needle." },
+    { setup: "What has to be broken before you can use it?", punchline: "An egg." },
+    { setup: "What has one head, one foot, and four legs?", punchline: "A bed." },
+    { setup: "Why did the student eat his homework?", punchline: "Because the teacher said it was a piece of cake!" },
+    { setup: "What building has the most stories?", punchline: "The library." },
+    { setup: "What musical instrument is found in the bathroom?", punchline: "A tuba toothpaste." },
+    { setup: "Why was the equal sign so humble?", punchline: "Because he knew he wasn’t less than or greater than anyone else." },
+    { setup: "What do you call a sad strawberry?", punchline: "A blueberry." },
+    { setup: "What is a witch's favorite subject in school?", punchline: "Spelling!" },
+    { setup: "What do you get when you cross a snowman and a vampire?", punchline: "Frostbite." },
+    { setup: "Why did the orange stop running?", punchline: "It ran out of juice!" },
+    { setup: "How do you make a tissue dance?", punchline: "You put a little boogie in it!" },
+    { setup: "What do you call a sleeping bull?", punchline: "A bulldozer!" },
+    { setup: "What is a pirate's favorite letter?", punchline: "RRRR? You'd think so, but their first love is the C!" },
+    { setup: "Why did Dad bring a ladder to the grocery store?", punchline: "He heard the prices were high!" },
+    { setup: "What did Mom say when she fixed the broken toy?", punchline: "'I'm not a magician, but I have my 'mom'-ents!'" },
+    { setup: "Why is Dad like a human GPS?", punchline: "He always thinks he knows the best route, even when he doesn't!" },
+    { setup: "What's a mom's favorite saying when you can't find something?", punchline: "'It's in the last place you'd look!' (Because then you stop looking!)" },
+    { setup: "Why did Dad tiptoe past the medicine cabinet?", punchline: "He didn't want to wake up the sleeping pills!" },
+    { setup: "What's the difference between a dad joke and a bad joke?", punchline: "The first letter!" },
+    { setup: "Why did Mom put the family photos in the blender?", punchline: "She wanted to make a family shake!" },
+    { setup: "How do you know if your dad is telling a joke?", punchline: "He says, 'This one will crack you up!'... and then it doesn't." },
+    { setup: "What's a mom's superpower?", punchline: "Finding lost things with her eyes closed!" },
+    { setup: "Why did Dad start a band with the vegetables?", punchline: "He wanted to play some 'beet' music!" },
+    { setup: "Why did Dad sit on the remote control?", punchline: "He wanted to be in charge of the channels!" },
+    { setup: "What's Mom's favorite kind of music to clean to?", punchline: "Something with a good 'sweep' beat!" },
+    { setup: "Why did Dad wear two pairs of socks while golfing?", punchline: "In case he got a hole-in-one... in his sock!" },
+    { setup: "What's a mom's secret ingredient for making everything better?", punchline: "A little bit of 'mom'-gic!" },
+    { setup: "Why did Dad bring a flashlight to the dinner table?", punchline: "He heard it was going to be a 'light' meal!" },
+    { setup: "Why did the older sibling give the younger sibling a map?", punchline: "To help them find their way... to their own room!" },
+    { setup: "What do you call a brother who is always on the computer?", punchline: "A screen-ager!" },
+    { setup: "Why are little brothers and sisters like alarms?", punchline: "They always go off when you least expect it!" },
+    { setup: "What did one sibling say to the other after an argument?", punchline: "'You're annoying, but you're my kind of annoying!'" },
+    { setup: "Why is it hard to keep a secret from your sister?", punchline: "Because what's 'hers' is 'hers', and what's 'yours' is also 'hers' to know!" },
+    { setup: "What's the best thing about having an older brother?", punchline: "Someone to blame things on! (Just kidding... mostly!)" },
+    { setup: "Why did the siblings bring a ladder to the park?", punchline: "To take their arguments to a higher level!" },
+    { setup: "How do you stop your little sister from reading your diary?", punchline: "You write it in code that only you and your pet rock understand." },
+    { setup: "What's a sibling's favorite game?", punchline: "'Who can annoy the other one first?'" },
+    { setup: "Why are siblings like a good Wi-Fi signal?", punchline: "Sometimes strong, sometimes weak, but you can't live without them!" },
+    { setup: "What's the hardest part about sharing a room with your sibling?", punchline: "Sharing the air!" },
+    { setup: "Why did the older sister hide the younger brother's favorite toy?", punchline: "She said it was for 'safekeeping'... from him!" },
+    { setup: "What do you call it when your brother eats the last cookie?", punchline: "A 'crumby' situation!" },
+    { setup: "Why are siblings like built-in best friends and rivals?", punchline: "Because they know all your best moves... and all your secret snacks!" },
+    { setup: "Why are grandparents the best storytellers?", punchline: "Because they have 'grand' imaginations!" },
+    { setup: "What do you call a grandpa who tells amazing jokes?", punchline: "A 'pun'-pa!" },
+    { setup: "Why did Grandma knit sweaters for the vegetables?", punchline: "She wanted them to have a 'cozy' winter!" },
+    { setup: "What's an aunt's favorite type of music?", punchline: "Anything that makes her 'aunt-icipate' dancing!" },
+    { setup: "Why did Grandpa bring a net to the family dinner?", punchline: "He heard there were going to be 'fish' stories!" },
+    { setup: "What do you call a cool uncle?", punchline: "An 'ice' uncle!" },
+    { setup: "Why are grandmas so good at baking cookies?", punchline: "They have a 'batch' of experience!" },
+    { setup: "What did the cousin say when they couldn't find their shoes?", punchline: "'This is a 'sole'-crushing experience!'" },
+    { setup: "Why do grandparents give the best hugs?", punchline: "Because they're full of 'grand'-ness and love!" },
+    { setup: "What's a grandpa's favorite remote control button?", punchline: "The 'snooze' button... for his afternoon nap!" },
+    { setup: "Why was the family picture always a little blurry?", punchline: "Because someone always 'moved' by the family drama!" },
+    { setup: "What do you call a family of musical fruit?", punchline: "A jam session!" },
+    { setup: "Why did the family bring a ladder to the picnic?", punchline: "To reach the high expectations for fun!" },
+    { setup: "What's a family's favorite board game?", punchline: "Life... because it's always an adventure!" }
+];
+
+const spanishJokes = [
+    {
+        setup: "¿Qué le dice un jaguar a otro jaguar?",
+        setup_en: "What does one jaguar say to another jaguar?",
+        punchline: "¡Jaguar you!",
+        punchline_en: "(Sounds like 'How are you!')"
+    },
+    {
+        setup: "Why was the math book sad in Spanish class?",
+        setup_en: "(Same as setup)",
+        punchline: "Porque tenía demasiados problemas.",
+        punchline_en: "Because it had too many problems."
+    },
+    {
+        setup: "¿Cómo se llama un boomerang que no vuelve?",
+        setup_en: "What do you call a boomerang that doesn't come back?",
+        punchline: "Un palo.",
+        punchline_en: "A stick."
+    },
+    {
+        setup: "What do you call a tired dog in Spanish?",
+        setup_en: "(Same as setup)",
+        punchline: "Un Cansado.",
+        punchline_en: "(Cansado = tired; 'can' is a root for dog, like 'canine')"
+    },
+    {
+        setup: "¿Cuál es el animal que es dos veces animal?",
+        setup_en: "Which animal is an animal twice?",
+        punchline: "El gato, porque es gato y araña.",
+        punchline_en: "The cat, because it's a cat (gato) and it scratches (araña also means 'scratches', or spider)."
+    },
+    {
+        setup: "What does a Spanish cow say?",
+        setup_en: "(Same as setup)",
+        punchline: "Múúúúú!",
+        punchline_en: "(Moo!)"
+    },
+    {
+        setup: "¿Qué hace una abeja en el gimnasio?",
+        setup_en: "What does a bee do in the gym?",
+        punchline: "¡Zum-ba!",
+        punchline_en: "(Zumba! - 'zum' is like buzz)"
+    },
+    {
+        setup: "Why did the tortilla chip start dancing?",
+        setup_en: "(Same as setup)",
+        punchline: "Because they put on the salsa!",
+        punchline_en: "(Salsa music / salsa dip)"
+    },
+    {
+        setup: "¿Qué dice el semáforo al coche?",
+        setup_en: "What does the traffic light say to the car?",
+        punchline: "'No me mires, ¡me estoy cambiando!'",
+        punchline_en: "'Don't look at me, I'm changing!'"
+    },
+    {
+        setup: "What is a Spanish vampire's favorite fruit?",
+        setup_en: "(Same as setup)",
+        punchline: "Naranja sangre.",
+        punchline_en: "Blood orange."
+    },
+    {
+        setup: "¿Por qué fue la niña al doctor con un lápiz en la oreja?",
+        setup_en: "Why did the girl go to the doctor with a pencil in her ear?",
+        punchline: "Porque quería tener 'dibujo de oído'.",
+        punchline_en: "Because she wanted 'ear drawing' (a pun on 'buen oído' meaning good hearing)."
+    },
+    {
+        setup: "¿Qué le dijo un techo a otro techo?",
+        setup_en: "What did one roof say to another roof?",
+        punchline: "Techo de menos.",
+        punchline_en: "(Sounds like 'te echo de menos' - I miss you.)"
+    },
+    {
+        setup: "What do you call cheese that isn't yours in Spanish?",
+        setup_en: "(Same as setup)",
+        punchline: "Queso ajeno. (But the classic is Nacho Cheese!)",
+        punchline_en: "Someone else's cheese. (But the classic is Nacho Cheese!)"
+    },
+    {
+        setup: "If you're sad and you speak Spanish, are you de-stressed or 'depressed' in Spanish?",
+        setup_en: "(Same as setup)",
+        punchline: "Deprimido.",
+        punchline_en: "(Depressed.)"
+    },
+    {
+        setup: "Why did the student bring a ladder to Spanish class?",
+        setup_en: "(Same as setup)",
+        punchline: "To reach 'altas notas'!",
+        punchline_en: "(To reach high grades / high notes!)"
+    },
+    {
+        setup: "¿Cuál es el café más peligroso del mundo?",
+        setup_en: "What is the most dangerous coffee in the world?",
+        punchline: "El ex-preso.",
+        punchline_en: "The ex-prisoner (ex-preso) / Espresso (expreso)."
+    },
+    {
+        setup: "What do you call a sleeping pizza in Spanish?",
+        setup_en: "(Same as setup)",
+        punchline: "A pizzzzza.",
+        punchline_en: "(Same punchline, emphasizing the 'zzzz' for sleep)"
+    },
+    {
+        setup: "¿Qué le dice un espagueti a otro?",
+        setup_en: "What does one spaghetti say to another?",
+        punchline: "¡Oye, mi cuerpo me pide salsa!",
+        punchline_en: "Hey, my body is asking for salsa/sauce!"
+    },
+    {
+        setup: "Why did the tomato turn red when it saw the salad?",
+        setup_en: "(Same as setup)",
+        punchline: "Porque vio el aderezo.",
+        punchline_en: "Because it saw the salad dressing!"
+    },
+    {
+        setup: "¿Cómo se dice 'dentist' en japonés?",
+        setup_en: "How do you say 'dentist' in Japanese?",
+        punchline: "Tekito Tuka.",
+        punchline_en: "(Sounds like 'te quito tu caries' - I remove your cavity)"
+    },
+    {
+        setup: "What does a nosey pepper do?",
+        setup_en: "(Same as setup)",
+        punchline: "Se mete en jalapeños asuntos.",
+        punchline_en: "Gets into jalapeño business (gets into other people's business)."
+    },
+    {
+        setup: "¿Por qué los pájaros pequeños vuelan juntos?",
+        setup_en: "Why do little birds fly together?",
+        punchline: "¡Para ser pío-nieros!",
+        punchline_en: "To be pio-neers! ('Pío' is the sound 'chirp', like pioneers)"
+    },
+    {
+        setup: "What's a ghost's favorite dessert in Mexico?",
+        setup_en: "(Same as setup)",
+        punchline: "Boo-ñuelos!",
+        punchline_en: "(Buñuelos are a type of fritter; 'Boo' like a ghost sound)"
+    },
+    {
+        setup: "¿Qué le dijo una iguana a su hermana gemela?",
+        setup_en: "What did one iguana say to her twin sister?",
+        punchline: "Somos iguanitas.",
+        punchline_en: "We are little iguanas (iguanitas) / We are identical (igualitas - sounds similar)."
+    },
+    {
+        setup: "Why don't fish play basketball in Spanish?",
+        setup_en: "(Same as setup)",
+        punchline: "Porque tienen miedo a la red.",
+        punchline_en: "Because they are afraid of the net (basketball net / fishing net)."
+    },
+    {
+        setup: "¿Cuál es el último animal que subió al arca de Noé?",
+        setup_en: "What was the last animal to get on Noah's ark?",
+        punchline: "El del-fín.",
+        punchline_en: "The dolphin (delfín) / The end (el fin)."
+    },
+    {
+        setup: "What do you call a bear with no teeth in Spanish class?",
+        setup_en: "(Same as setup)",
+        punchline: "Un oso gomoso.",
+        punchline_en: "A gummy bear."
+    },
+    {
+        setup: "¿Cómo estornuda un tomate?",
+        setup_en: "How does a tomato sneeze?",
+        punchline: "¡Catsup!",
+        punchline_en: "(Ketchup!)"
+    },
+    {
+        setup: "What did the number zero say to the number eight?",
+        setup_en: "(Same as setup)",
+        punchline: "¡Qué bonito cinturón!",
+        punchline_en: "Nice belt!"
+    },
+    {
+        setup: "¿Qué hace un perro con un taladro?",
+        setup_en: "What does a dog do with a drill?",
+        punchline: "Ta-ladrando.",
+        punchline_en: "It's drilling (taladrando) / It's barking (ladrando)."
+    },
+    {
+        setup: "Why was the Spanish book always calm?",
+        setup_en: "(Same as setup)",
+        punchline: "Porque tenía mucha pa-ciencia.",
+        punchline_en: "Because it had a lot of patience (paciencia) / pa-science ('ciencia' is science)."
+    },
+    {
+        setup: "¿Cuál es la fruta más divertida?",
+        setup_en: "What is the most fun fruit?",
+        punchline: "La naranja ja-ja.",
+        punchline_en: "The orange ha-ha (naranja)."
+    },
+    {
+        setup: "What is a vampire's favorite type of ship in Spanish?",
+        setup_en: "(Same as setup)",
+        punchline: "Un buque de sangre.",
+        punchline_en: "A blood vessel / A ship of blood."
+    },
+    {
+        setup: "¿Qué le dice un gusano a otro gusano?",
+        setup_en: "What does one worm say to another worm?",
+        punchline: "Voy a dar una vuelta a la manzana.",
+        punchline_en: "I'm going for a walk around the block / around the apple."
+    },
+    {
+        setup: "Why did the student study in an airplane in Spain?",
+        setup_en: "(Same as setup)",
+        punchline: "Quería obtener un título de alto vuelo.",
+        punchline_en: "He wanted to get a high-flying degree."
+    },
+    {
+        setup: "¿Qué le dice una pared a otra pared?",
+        setup_en: "What does one wall say to another wall?",
+        punchline: "Nos vemos en la esquina.",
+        punchline_en: "See you at the corner."
+    },
+    {
+        setup: "What do you call a fish that wears a crown in Spanish?",
+        setup_en: "(Same as setup)",
+        punchline: "Un rey pez.",
+        punchline_en: "A kingfish."
+    },
+    {
+        setup: "¿Por qué el libro de matemáticas está siempre preocupado?",
+        setup_en: "Why is the math book always worried?",
+        punchline: "Porque tiene muchos problemas.",
+        punchline_en: "Because it has many problems."
+    },
+    {
+        setup: "What did one hat say to the other hat in Spanish?",
+        setup_en: "(Same as setup)",
+        punchline: "Quédate aquí, yo voy a dar una vuelta a la cabeza.",
+        punchline_en: "Stay here, I'm going for a spin around the head."
+    },
+    {
+        setup: "¿Cómo se llama el campeón de buceo japonés?",
+        setup_en: "What is the name of the Japanese diving champion?",
+        punchline: "Tokofondo.",
+        punchline_en: "(Sounds like 'toco fondo' - I hit the bottom.)"
+    },
+    {
+        setup: "Why did the students like the Spanish dictionary?",
+        setup_en: "(Same as setup)",
+        punchline: "Porque siempre tenía la palabra correcta.",
+        punchline_en: "Because it always had the right word."
+    },
+    {
+        setup: "¿Qué le dice una uva verde a una uva morada?",
+        setup_en: "What does a green grape say to a purple grape?",
+        punchline: "¡Respira!",
+        punchline_en: "Breathe!"
+    },
+    {
+        setup: "What's a cat's favorite button on a Spanish remote control?",
+        setup_en: "(Same as setup)",
+        punchline: "Pawsar.",
+        punchline_en: "(Sounds like 'pausar' - to pause.)"
+    },
+    {
+        setup: "¿Por qué el mar no se seca?",
+        setup_en: "Why doesn't the sea dry up?",
+        punchline: "Porque no tiene toalla.",
+        punchline_en: "Because it doesn't have a towel."
+    },
+    {
+        setup: "Why did the computer go to the doctor in Mexico City?",
+        setup_en: "(Same as setup)",
+        punchline: "Porque tenía un virus y necesitaba un anti-virus con chile.",
+        punchline_en: "Because it had a virus and needed an anti-virus with chili."
+    },
+    {
+        setup: "¿Cuál es el baile favorito del tomate?",
+        setup_en: "What is the tomato's favorite dance?",
+        punchline: "La salsa.",
+        punchline_en: "Salsa."
+    },
+    {
+        setup: "What's a Mexican magician's favorite phrase?",
+        setup_en: "(Same as setup)",
+        punchline: "¡Nada por aquí, nada por allá, y ahora unos tacos!",
+        punchline_en: "Nothing here, nothing there, and now some tacos!"
+    },
+    {
+        setup: "¿Por qué los esqueletos no pelean en España?",
+        setup_en: "Why don't skeletons fight in Spain?",
+        punchline: "Porque no tienen agallas.",
+        punchline_en: "Because they don't have guts."
+    },
+    {
+        setup: "What do you call a sad strawberry in Spanish class?",
+        setup_en: "(Same as setup)",
+        punchline: "Una fresa deprimida.",
+        punchline_en: "A depressed strawberry."
+    },
+    {
+        setup: "¿Cómo se despiden los químicos?",
+        setup_en: "How do chemists say goodbye?",
+        punchline: "Ácido un placer.",
+        punchline_en: "It's been a pleasure (ha sido un placer) / Acid a pleasure (Ácido un placer)."
+    },
+    {
+        setup: "Why did the student eat his Spanish homework?",
+        setup_en: "(Same as setup)",
+        punchline: "Porque la maestra dijo que era pan comido.",
+        punchline_en: "Because the teacher said it was a piece of cake (pan comido - literally 'eaten bread')."
+    },
+    {
+        setup: "¿Cuál es el animal más antiguo?",
+        setup_en: "What is the oldest animal?",
+        punchline: "La cebra, porque está en blanco y negro.",
+        punchline_en: "The zebra, because it's in black and white."
+    },
+    {
+        setup: "What do you call a lazy joey in Spanish?",
+        setup_en: "(Same as setup)",
+        punchline: "Un cangurito perezoso.",
+        punchline_en: "A lazy little kangaroo."
+    },
+    {
+        setup: "¿Qué le dijo el número 1 al número 10?",
+        setup_en: "What did the number 1 say to the number 10?",
+        punchline: "Para ser como yo, tienes que ser sincero.",
+        punchline_en: "To be like me, you have to be sincere (sincero) / without zero (sin cero)."
+    },
+    {
+        setup: "Why did the bicycle fall over in Spain?",
+        setup_en: "(Same as setup)",
+        punchline: "Porque estaba dos-cansada.",
+        punchline_en: "Because it was two-tired (dos - two) / too tired (cansada - tired)."
+    },
+    {
+        setup: "¿Qué hace una vaca pensando?",
+        setup_en: "What is a thinking cow doing?",
+        punchline: "Leche concentrada.",
+        punchline_en: "Concentrated milk."
+    },
+    {
+        setup: "What do you call a group of musical whales near Spain?",
+        setup_en: "(Same as setup)",
+        punchline: "Una orca-esta.",
+        punchline_en: "(An orchestra - orquesta)"
+    },
+    {
+        setup: "¿Por qué los diabéticos no pueden vengarse?",
+        setup_en: "Why can't diabetics take revenge?",
+        punchline: "Porque la venganza es dulce.",
+        punchline_en: "Because revenge is sweet."
+    },
+    {
+        setup: "What’s a baker’s favorite Spanish greeting?",
+        setup_en: "(Same as setup)",
+        punchline: "¡Hola Pan!",
+        punchline_en: "Hello Bread! (Pan - bread)"
+    },
+    {
+        setup: "¿Qué le dice un semáforo a un conductor enojado?",
+        setup_en: "What does a traffic light say to an angry driver?",
+        punchline: "¡No me cambies el color!",
+        punchline_en: "Don't change my color! / Don't change my mood!"
+    },
+    {
+        setup: "Why are Spanish skeletons so calm?",
+        setup_en: "(Same as setup)",
+        punchline: "Porque nada les llega al hueso.",
+        punchline_en: "Because nothing gets to their bones (under their skin)."
+    },
+    {
+        setup: "¿Qué es amarillo por fuera y plátano por dentro?",
+        setup_en: "What is yellow on the outside and banana on the inside?",
+        punchline: "¡Un plátano!",
+        punchline_en: "A banana!"
+    },
+    {
+        setup: "What's a Spanish sheep's favorite music?",
+        setup_en: "(Same as setup)",
+        punchline: "Baa-chata.",
+        punchline_en: "(Bachata - a type of music)"
+    },
+    {
+        setup: "¿Cuál es el colmo de un jardinero?",
+        setup_en: "What is the ultimate misfortune for a gardener?",
+        punchline: "Que su novia se llame Rosa y lo deje plantado.",
+        punchline_en: "That his girlfriend's name is Rose (Rosa) and she stands him up (leaves him planted - plantado)."
+    },
+    {
+        setup: "What is a Spanish owl's favorite subject?",
+        setup_en: "(Same as setup)",
+        punchline: "Owl-gebra.",
+        punchline_en: "(Algebra)"
+    },
+    {
+        setup: "¿Qué le dice un fideo a otro en la sopa?",
+        setup_en: "What does one noodle say to another in the soup?",
+        punchline: "¡Qué ambiente más caldoso!",
+        punchline_en: "What a brothy (caldoso) atmosphere!"
+    },
+    {
+        setup: "Why was the little Spanish book always happy?",
+        setup_en: "(Same as setup)",
+        punchline: "Porque tenía un buen final.",
+        punchline_en: "Because it had a good ending."
+    },
+    {
+        setup: "What sound does a Spanish ambulance make?",
+        setup_en: "(Same as setup)",
+        punchline: "Nino-nino-nino... ¡ayuda!",
+        punchline_en: "(Nee-naw sound... help!)"
+    },
+    {
+        setup: "¿Cómo se dice 'naufrago' en chino?",
+        setup_en: "How do you say 'shipwrecked person' in Chinese?",
+        punchline: "Chin chu lan cha.",
+        punchline_en: "(Sounds like 'sin su lancha' - without his boat.)"
+    },
+    {
+        setup: "Why did the math student bring a map to class in Madrid?",
+        setup_en: "(Same as setup)",
+        punchline: "Para encontrar la X.",
+        punchline_en: "To find X."
+    },
+    {
+        setup: "¿Qué le dijo una pulga a otra pulga?",
+        setup_en: "What did one flea say to another flea?",
+        punchline: "¿Vamos a pie o esperamos al perro?",
+        punchline_en: "Shall we go on foot or wait for the dog?"
+    },
+    {
+        setup: "What do you call a Spanish dog that does magic?",
+        setup_en: "(Same as setup)",
+        punchline: "Un perro-cadabra.",
+        punchline_en: "(A dog-cadabra)"
+    },
+    {
+        setup: "¿Cuál es el animal que siempre llega tarde?",
+        setup_en: "Which animal always arrives late?",
+        punchline: "El caracol.",
+        punchline_en: "The snail."
+    },
+    {
+        setup: "Why are Spanish jokes so cool?",
+        setup_en: "(Same as setup)",
+        punchline: "Porque son muy fresco.",
+        punchline_en: "Because they are very fresh/cool."
+    },
+    {
+        setup: "¿Cómo se dice pañuelo en japonés?",
+        setup_en: "How do you say 'handkerchief' in Japanese?",
+        punchline: "Saka Moko.",
+        punchline_en: "(Sounds like 'saca moco' - takes out booger.)"
+    },
+    {
+        setup: "What does a Spanish lightbulb say when it has an idea?",
+        setup_en: "(Same as setup)",
+        punchline: "¡Tengo una idea brillante!",
+        punchline_en: "I have a brilliant idea!"
+    },
+    {
+        setup: "¿Qué hace una abeja en el gimnasio gritando?",
+        setup_en: "What does a bee do in the gym yelling?",
+        punchline: "¡Zum-BAILA!",
+        punchline_en: "(Zumba-DANCE! - 'baila' means dance)"
+    },
+    {
+        setup: "Why did the Spanish student bring a fork to math class?",
+        setup_en: "(Same as setup)",
+        punchline: "Porque iba a haber división.",
+        punchline_en: "Because there was going to be division."
+    },
+    {
+        setup: "What's a Mexican cow's favorite holiday?",
+        setup_en: "(Same as setup)",
+        punchline: "Moo-chos Gracias Day!",
+        punchline_en: "(Muchos Gracias - Thank you very much / Thanksgiving)"
+    }
+];
+
+const schoolJokes = [
+    { setup: "Why did Coco the Mountain Lion bring a ladder to World Compass Academy?", punchline: "He heard the grades were high!" },
+    { setup: "What's Coco's favorite subject at World Compass Academy?", punchline: "ROAR-t class!" },
+    { setup: "Why is World Compass Academy like a good map?", punchline: "It always points you in the right direction!" },
+    { setup: "What do World Compass Academy students and Castle Rock have in common?", punchline: "They both ROCK!" },
+    { setup: "Why did Coco get a job at World Compass Academy?", punchline: "He wanted to be the 'mane' attraction!" },
+    { setup: "What's Coco the Mountain Lion's favorite game at recess?", punchline: "Tag, you're it... I'm faster!" },
+    { setup: "How does Coco help World Compass Academy students navigate their studies?", punchline: "With his excellent 'compass' sense!" },
+    { setup: "Why are World Compass Academy students so smart?", punchline: "They're always 'exploring' new ideas!" },
+    { setup: "What does Coco say when he learns something new?", punchline: "That's purr-fectly interesting!" },
+    { setup: "Why did the student bring a compass to lunch at World Compass Academy?", punchline: "To find the 'point' of the sandwich!" },
+    { setup: "What's Coco's favorite part of Castle Rock?", punchline: "The 'castle' part, of course!" },
+    { setup: "What do you call Coco when he's solving a puzzle?", punchline: "A 'think-lion' outside the box!" },
+    { setup: "Why is World Compass Academy the best school?", punchline: "Because it helps you find your 'true north'!" },
+    { setup: "What kind of stories does Coco like?", punchline: "Ones with a good 'tail'!" },
+    { setup: "Why was Coco so good at hide-and-seek in Castle Rock?", punchline: "He's a master of 'cam-eow-flage' among the rocks!" },
+    { setup: "What are Coco the Cougar's favorite colors at World Compass Academy?", punchline: "Blue, green, and purr-white!" },
+    { setup: "Why do World Compass Academy students always look so sharp in their uniforms?", punchline: "Because they're dressed for success, Cougar style!" },
+    { setup: "What did the green uniform say to the blue uniform at World Compass Academy?", punchline: "'You make me feel a little blue, but together we're a great team!'" },
+    { setup: "Why are there so many paw prints at World Compass Academy?", punchline: "Because Coco the Cougar is always prowling for knowledge!" },
+    { setup: "What's Coco's favorite thing about the World Compass Academy uniforms?", punchline: "They all look purr-fessionally smart!" },
+    { setup: "If World Compass Academy had a garden, what would it grow?", punchline: "Blue-berries, green beans, and white-lilies, of course!" },
+    { setup: "Why did the World Compass Academy student bring a blue marker, a green crayon, and white paper to art class?", punchline: "To paint a purr-fect school spirit picture!" },
+    { setup: "What do you call a very tidy Cougar at World Compass Academy?", punchline: "A neat freak with clean paw prints!" },
+    { setup: "Why did Coco the Cougar wear his blue, green, and white scarf?", punchline: "To show his World Compass Academy pride, even on a chilly day!" },
+    { setup: "How do World Compass Academy students follow directions so well?", punchline: "They follow the Cougar paw prints to success!" },
+    { setup: "What's a World Compass Academy student's favorite type of music?", punchline: "Anything with a good 'blue-green' beat!" },
+    { setup: "Why are the walls at World Compass Academy so inspiring?", punchline: "Because they're covered in wise words and Cougar paw-sitivity!" },
+    { setup: "What did the white stripe on the uniform say to the green stripe?", punchline: "'With blue, we make World Compass Academy look serene!'" },
+    { setup: "How does Coco the Cougar keep his uniform so clean?", punchline: "With extra 'fur-breeze' and careful paw-lacement!" },
+    { setup: "Why did the World Compass Academy student excel in geography?", punchline: "Because they knew how to navigate the 'World' with their 'Compass'!" },
+    { setup: "What's Coco's favorite type of math at World Compass Academy?", punchline: "Geome-tree, especially the blue spruce and green pines!" },
+    { setup: "Why do World Compass Academy students make great detectives?", punchline: "They always follow the paw prints to find the clues!" },
+    { setup: "What's the most stylish accessory for a World Compass Academy uniform?", punchline: "A big Cougar smile and a touch of blue, green, or white!" },
+    { setup: "Why was Coco the Cougar so good at the World Compass Academy spelling bee?", punchline: "He knew all the 'impaw-tant' words!" },
+    { setup: "What do you get if you mix World Compass Academy's blue and green?", punchline: "A very happy Cougar in a beautiful teal landscape!" },
+    { setup: "Why did the new student at World Compass Academy feel right at home?", punchline: "Because everyone was so 'paw-some' and welcoming!" },
+    { setup: "What's Coco's favorite part of the World Compass Academy playground?", punchline: "The parts painted blue, green, and white, where he leaves his paw prints!" },
+    { setup: "How do you know a World Compass Academy student is nearby?", punchline: "You'll see their smart uniform and a trail of good deeds (and maybe tiny paw prints)!" },
+    { setup: "Why is the World Compass Academy library so quiet?", punchline: "Because Coco is there, 'purr-using' the books!" },
+    { setup: "What's the official drink of World Compass Academy?", punchline: "Blue-green Kool-Aid with white ice cubes!" },
+    { setup: "Why did the World Compass Academy student bring a paintbrush to every class?", punchline: "In case they needed to add a touch of blue, green, or white to their notes!" },
+    { setup: "What does Coco the Cougar say about the World Compass Academy uniforms?", punchline: "'They're grrrreat for learning and looking smart!'" },
+    { setup: "What's the secret to World Compass Academy's success?", punchline: "A blend of blue knowledge, green growth, and white integrity... plus a lot of Cougar spirit!" },
+    { setup: "Why did the pencil wear a tiny blue, green, and white hat at World Compass Academy?", punchline: "To show its school spirit while writing!" },
+    { setup: "How does Coco the Cougar navigate the hallways of World Compass Academy so well?", punchline: "He follows the 'scent' of blue, green, and white learning!" }
+];
+
+const popCultureJokes = [
+    { setup: "Why did the Creeper cross the road?", punchline: "To get to the other ssssside!" },
+    { setup: "What's a Ghast's favorite country?", punchline: "The Nether-lands!" },
+    { setup: "Why don't Endermen like eye contact?", punchline: "They're a little shy." },
+    { setup: "What's a Pokémon's favorite type of music?", punchline: "Rock and Raichu-ll!" },
+    { setup: "Why did Pikachu cross the playground?", punchline: "To get to the other slide!" },
+    { setup: "What do you call a sleepy Pokémon?", punchline: "A Snorlax!" },
+    { setup: "Why did Mario and Luigi bring ladders to the party?", punchline: "Because it was a multi-level event!" },
+    { setup: "What's Mario's favorite type of clothing?", punchline: "Denim, denim, denim." },
+    { setup: "How does Luigi answer the phone?", punchline: "Green-green!" },
+    { setup: "Why did SpongeBob cross the road?", punchline: "To get to the Krusty Krab on the other side!" },
+    { setup: "What's Squidward's favorite instrument?", punchline: "The clarinet, obviously, when no one is listening!" },
+    { setup: "Why is Patrick so good at sleeping?", punchline: "He's a star-fish!" },
+    { setup: "Why did the anime character bring a pencil to the fight?", punchline: "To draw their own conclusions!" },
+    { setup: "What's a magical girl's favorite drink?", punchline: "Sparkle-ing water!" },
+    { setup: "Why are shonen protagonists always hungry?", punchline: "They burn a lot of energy yelling!" },
+    { setup: "What kind of car does a ninja drive?", punchline: "A Hooooonda... because they're stealthy!" },
+    { setup: "Why did the chibi character get a tiny ladder?", punchline: "To reach the high shelves!" },
+    { setup: "What do you call a sad Minecraft block?", punchline: "A blue-block!" },
+    { setup: "Why did Steve bring a boat to the desert in Minecraft?", punchline: "He heard there was an ocean of sand!" },
+    { setup: "What's a Minecraft pig's favorite karate move?", punchline: "The pork-chop!" },
+    { setup: "Why was the Minecraft chicken so good at math?", punchline: "It knew how to multiply its eggs!" },
+    { setup: "What did the ROBLOX character say after tripping in an obby?", punchline: "Oof! That was a blocky landing!" },
+    { setup: "Why did the ROBLOX player bring a ladder to every game?", punchline: "To reach new heights of fun!" },
+    { setup: "What's a ROBLOX avatar's favorite type of party?", punchline: "A block party, of course!" },
+    { setup: "How do ROBLOX characters send secret messages?", punchline: "Through the chat-acter mail!" },
+    { setup: "Why did the Fortnite player bring a pencil and paper to the battle?", punchline: "To draw up some victory plans!" },
+    { setup: "What's a Fortnite Llama's favorite type of music?", punchline: "Anything with a good 'loot' and beat!" },
+    { setup: "Why are Fortnite players so good at building?", punchline: "They always have a plan 'ramped' up!" },
+    { setup: "What do you call a Fortnite dance-off in the storm?", punchline: "A shocking performance!" },
+    { setup: "What’s Mario’s favorite type of pasta?", punchline: "Spaghetti with MEAT-balls!" },
+    { setup: "Why did Link bring a ladder to Hyrule Field?", punchline: "He heard the Deku Scrubs were giving high-fives!" },
+    { setup: "What does Tom Nook do on his day off?", punchline: "Counts his Bells and whistles!" },
+    { setup: "Why is Kirby such a good friend?", punchline: "Because he's always willing to inhale your problems!" },
+    { setup: "What did Princess Peach say to the Goomba?", punchline: "'You're not so tough, you're just a fun-guy!'" },
+    { setup: "Why was Isabelle so tired at the Animal Crossing town hall?", punchline: "She had too many 'ruff' announcements to make!" },
+    { setup: "What's Zelda's favorite instrument to 'tri'?", punchline: "The Ocarina of Time, of course!" },
+    { setup: "Why did the game consoles start a band?", punchline: "They wanted to have a 'controller' jam session!" },
+    { setup: "What did one game controller say to the other?", punchline: "'You push my buttons in all the right ways!'" },
+    { setup: "Why don't video game consoles ever get lonely?", punchline: "Because they always have plenty of 'players'!" },
+    { setup: "What's a console's favorite snack during a long game?", punchline: "Micro-chips!" },
+    { setup: "Why did the video game character take a nap before the boss battle?", punchline: "To save their energy!" },
+    { setup: "What’s a video game achievement's favorite subject?", punchline: "History, because it loves to be unlocked!" },
+    { setup: "Why do loading screens take so long?", punchline: "They're busy drawing up the next amazing level!" },
+    { setup: "What do you call a very polite video game enemy?", punchline: "A 'sir-vivor'!" },
+    { setup: "Why did Woody bring a ladder to the toy box?", punchline: "To reach for the sky!" },
+    { setup: "What's Buzz Lightyear's favorite planet?", punchline: "The one with the best 'space' for landing!" },
+    { setup: "Why did Olaf bring a beach towel to Arendelle?", punchline: "He heard summer was finally 'chilling' out!" },
+    { setup: "What's Elsa's favorite type of weather?", punchline: "A 'flurry' of fun!" },
+    { setup: "What did Dory say when she forgot her lines?", punchline: "'Just keep swimming... towards the script!'" },
+    { setup: "Why did Nemo cross the reef?", punchline: "To get to the other tide!" },
+    { setup: "What's Timon and Pumbaa's favorite motto for homework?", punchline: "'Hakuna Matata' - it means no worries, just do your best!" },
+    { setup: "Why did Simba practice his roar in the library?", punchline: "He wanted it to be a 'roaring' success, quietly!" },
+    { setup: "Why did Joy and Sadness start a band?", punchline: "They wanted to make some 'emotional' music!" },
+    { setup: "What's Anger's favorite game?", punchline: "Anything but 'cool' down tag!" },
+    { setup: "What does Lightning McQueen say before a big race?", punchline: "'Kachow! Time to 'tire' out the competition!'" },
+    { setup: "Why is Mater such a good friend?", punchline: "Because he'll always 'tow' the line for you!" },
+    { setup: "Why did Moana bring a coconut to the boat?", punchline: "In case she got 'board'!" },
+    { setup: "What's Maui's favorite way to travel?", punchline: "By 'hook' or by crook!" },
+    { setup: "Why did Bruno try to fix the cracks in Casita?", punchline: "He wanted everything to be 'magically' perfect!" },
+    { setup: "What's Mirabel's favorite thing to sew?", punchline: "A 'patchwork' of family love!" },
+    { setup: "Why did the Disney princess bring a map to the ball?", punchline: "In case she lost her 'way' to Prince Charming!" },
+    { setup: "What's a Pixar lamp's favorite game?", punchline: "I-spy, with its little light!" },
+    { setup: "Why are Disney sidekicks so funny?", punchline: "Because they always have a 'quip' up their sleeve!" }
+];
+const seasonalJokes = [
+    { setup: "Why do trees make good friends in spring?", punchline: "They're always ready to 'leaf' their worries behind!", tags: ["spring"] },
+    // --- Spring ---
+    { setup: "Why was the bee so happy in spring?", punchline: "Because everything was buzzing with life!", tags: ["spring"] },
+    { setup: "What do you call a rabbit with fleas in spring?", punchline: "Bugs Bunny!", tags: ["spring", "easter"] },
+    { setup: "How does a flower greet another in spring?", punchline: "'Hey bud!'", tags: ["spring"] },
+    { setup: "What's a tree's favorite drink in spring?", punchline: "Root beer!", tags: ["spring"] },
+
+    // --- St. Patrick's Day ---
+    { setup: "Why shouldn't you iron a four-leaf clover?", punchline: "You don't want to press your luck!", tags: ["stpatricks"] },
+    { setup: "What do you call a fake Irish stone?", punchline: "A sham-rock!", tags: ["stpatricks"] },
+    { setup: "Why do leprechauns love to garden?", punchline: "They have green thumbs!", tags: ["stpatricks"] },
+
+    // --- Valentine's Day ---
+    { setup: "What did the stamp say to the envelope on Valentine's Day?", punchline: "'I'm stuck on you!'", tags: ["valentines"] },
+    { setup: "What do you call a very small Valentine?", punchline: "A Valen-tiny!", tags: ["valentines"] },
+    { setup: "Why is Valentine's Day the best day for a celebration?", punchline: "Because you can really heart-y!", tags: ["valentines"] },
+
+    // --- Mother's Day ---
+    { setup: "Why are moms like buttons?", punchline: "They hold everything together!", tags: ["mothersday"] },
+    { setup: "What did the baby corn say to the mama corn?", punchline: "'Where's pop-corn?'", tags: ["mothersday"] },
+    { setup: "Why is a mom's hug the best?", punchline: "Because it's full of 'mom'-umental love!", tags: ["mothersday"] },
+
+    // --- Summer ---
+    { setup: "What does the sun drink out of?", punchline: "Sunglasses!", tags: ["summer"] },
+    { setup: "Why did the teddy bear say no to ice cream in summer?", punchline: "Because he was already stuffed!", tags: ["summer"] },
+    { setup: "What do you call a fish with no eyes in the summer?", punchline: "Fsh... on vacation!", tags: ["summer"] },
+
+    // --- Father's Day ---
+    { setup: "Why did the dad bring a spare tire to the Father's Day BBQ?", punchline: "In case he got a 'flat' from eating too much!", tags: ["fathersday"] },
+    { setup: "What do you call a dad who falls asleep while fishing?", punchline: "A 'nap'-perch!", tags: ["fathersday"] },
+    { setup: "Why are dads so good at fixing things?", punchline: "They have a 'tool'-riffic sense of humor!", tags: ["fathersday"] },
+
+    // --- Fall / Autumn ---
+    { setup: "Why did the scarecrow win an award in the fall?", punchline: "Because he was outstanding in his 'field' of pumpkins!", tags: ["fall"] },
+    { setup: "What's an autumn tree's favorite drink?", punchline: "Root beer, but with extra 'leaf'!", tags: ["fall"] },
+    { setup: "What do you call a running turkey in the fall?", punchline: "Fast food!", tags: ["fall", "thanksgiving"] },
+
+    // --- Halloween (can also be tagged "fall") ---
+    { setup: "Why don't skeletons fight each other on Halloween?", punchline: "They don't have the guts!", tags: ["halloween", "fall"] },
+    { setup: "What's a ghost's favorite dessert on Halloween?", punchline: "I-scream!", tags: ["halloween", "fall"] },
+    { setup: "What do you call a witch's garage?", punchline: "A broom closet!", tags: ["halloween", "fall"] },
+
+    // --- Thanksgiving (can also be tagged "fall") ---
+    { setup: "Why did the turkey cross the road twice on Thanksgiving?", punchline: "To prove he wasn't chicken!", tags: ["thanksgiving", "fall"] },
+    { setup: "What kind of key can't open doors but is great at Thanksgiving dinner?", punchline: "A tur-key!", tags: ["thanksgiving", "fall"] },
+    { setup: "If April showers bring May flowers, what do May flowers bring?", punchline: "Pilgrims (and Thanksgiving)!", tags: ["thanksgiving", "fall"] },
+
+    // --- Winter ---
+    { setup: "What do you call a snowman with a six-pack?", punchline: "An abdominal snowman!", tags: ["winter"] },
+    { setup: "How does a snowman get around?", punchline: "By 'icicle'!", tags: ["winter"] },
+    { setup: "What do snowmen eat for breakfast?", punchline: "Frosted Flakes or Ice Krispies!", tags: ["winter"] },
+
+    // --- Christmas (can also be tagged "winter") ---
+    { setup: "What do you call an elf who sings?", punchline: "A wrapper!", tags: ["christmas", "winter"] },
+    { setup: "Why was the Christmas tree so bad at knitting?", punchline: "It kept dropping all its needles!", tags: ["christmas", "winter"] },
+    { setup: "What do you get if you cross a snowman and a vampire at Christmas?", punchline: "Frostbite!", tags: ["christmas", "winter"] },
+
+    // --- New Year's (can also be tagged "winter") ---
+    { setup: "What’s a New Year’s resolution?", punchline: "Something that goes in one year and out the other!", tags: ["newyears", "winter"] },
+    { setup: "Why do we kiss on New Year's Eve?", punchline: "To start the year with a bang!", tags: ["newyearseve", "winter", "newyears"] }, // Added newyearseve tag
+    { setup: "What is the problem with jogging on New Year's Eve?", punchline: "The ice falls out of your glass!", tags: ["newyearseve", "winter", "newyears"] } // Added newyearseve tag
+];
+
+
+// --- FALLING ITEM DATA ---
+const funnyEmojis = [
+    '😂', '🤣', '😹', '🤪', '😜', '😎', '🥳', '😸', '🦁', '🐾', '🌟', '✨', '🗺️', '🧭', '🎮', '🎨', '📖', '✏️', '💡', '🎉', '🎈'
+];
+const funnySvgs = [
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><circle cx="50" cy="50" r="45" fill="yellow" stroke="black" stroke-width="2"/><circle cx="35" cy="35" r="8" fill="black"/><circle cx="65" cy="35" r="8" fill="black"/><path d="M 30 65 Q 50 80 70 65" stroke="black" fill="transparent" stroke-width="5"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><polygon points="50,5 61,35 95,35 67,57 78,87 50,68 22,87 33,57 5,35 39,35" fill="gold" stroke="orange" stroke-width="2"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Open Book</title><path d="M10 90 L10 10 L50 20 L90 10 L90 90 L50 80 Z" fill="#87CEEB" stroke="#4682B4" stroke-width="3"/><line x1="50" y1="20" x2="50" y2="80" stroke="#4682B4" stroke-width="3"/><path d="M15 30 L45 35 M15 40 L45 45 M15 50 L45 55 M15 60 L45 65 M15 70 L45 75" stroke="#000080" stroke-width="1.5"/><path d="M55 30 L85 25 M55 40 L85 35 M55 50 L85 45 M55 60 L85 55 M55 70 L85 65" stroke="#000080" stroke-width="1.5"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Pencil</title><rect x="30" y="10" width="40" height="60" fill="#FFD700" stroke="#DAA520" stroke-width="2"/><polygon points="30,70 70,70 50,95" fill="#F4A460" stroke="#8B4513" stroke-width="2"/><polygon points="45,90 55,90 50,95" fill="#333333"/><rect x="30" y="5" width="40" height="10" rx="3" ry="3" fill="#FFC0CB" stroke="#FF69B4" stroke-width="2"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Apple</title><circle cx="50" cy="55" r="30" fill="#FF6347" stroke="#DC143C" stroke-width="3"/><path d="M50 25 C 55 10, 65 10, 60 25" fill="#8B4513" stroke="#5F3A1F" stroke-width="2"/><path d="M60 25 C 70 15, 85 25, 75 35" fill="#32CD32" stroke="#228B22" stroke-width="2" transform="rotate(20 60 25)"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Lightbulb Idea</title><path d="M50 10 C30 10 20 30 20 50 C20 70 35 85 50 85 C65 85 80 70 80 50 C80 30 70 10 50 10 Z" fill="#FFFFE0" stroke="#F0E68C" stroke-width="3"/><rect x="40" y="83" width="20" height="10" fill="#A9A9A9" stroke="#696969" stroke-width="2"/><line x1="40" y1="50" x2="60" y2="50" stroke="#FFD700" stroke-width="3"/><line x1="50" y1="40" x2="50" y2="60" stroke="#FFD700" stroke-width="3"/><line x1="35" y1="35" x2="45" y2="45" stroke="#FFD700" stroke-width="3"/><line x1="55" y1="45" x2="65" y2="35" stroke="#FFD700" stroke-width="3"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Party Popper</title><polygon points="30,90 70,90 80,40 20,40" fill="#FF69B4" stroke="#C71585" stroke-width="3"/><circle cx="25" cy="30" r="5" fill="#FFD700"/><circle cx="35" cy="15" r="4" fill="#00CED1"/><circle cx="50" cy="25" r="6" fill="#32CD32"/><circle cx="65" cy="18" r="3" fill="#FF4500"/><circle cx="75" cy="35" r="5" fill="#9370DB"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Balloons</title><ellipse cx="35" cy="35" rx="15" ry="25" fill="#FF4500" stroke="#CD5C5C" stroke-width="2"/><line x1="35" y1="60" x2="40" y2="90" stroke="#708090" stroke-width="2"/><ellipse cx="65" cy="40" rx="18" ry="28" fill="#1E90FF" stroke="#4682B4" stroke-width="2"/><line x1="65" y1="68" x2="60" y2="90" stroke="#708090" stroke-width="2"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Gift Box</title><rect x="20" y="30" width="60" height="50" fill="#32CD32" stroke="#228B22" stroke-width="3"/><rect x="15" y="20" width="70" height="20" rx="5" ry="5" fill="#FF6347" stroke="#DC143C" stroke-width="3"/><line x1="50" y1="20" x2="50" y2="80" stroke="#FF6347" stroke-width="5"/><line x1="15" y1="55" x2="85" y2="55" stroke="#FF6347" stroke-width="5"/><path d="M40 20 Q30 0 50 5 Q70 0 60 20" fill="#FF6347" stroke="#DC143C" stroke-width="3"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Laughing Face</title><circle cx="50" cy="50" r="45" fill="#FFDE33" stroke="#FFA500" stroke-width="3"/><ellipse cx="35" cy="38" rx="8" ry="12" fill="#231F20"/><ellipse cx="65" cy="38" rx="8" ry="12" fill="#231F20"/><path d="M25 60 Q50 85 75 60 L70 70 Q50 95 30 70 Z" fill="#FFFFFF" stroke="#231F20" stroke-width="2"/><path d="M30 68 Q50 80 70 68" fill="#FF7F7F" stroke="none"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>LOL text</title><text x="50%" y="65%" dominant-baseline="middle" text-anchor="middle" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="#FF4500" stroke="#8B0000" stroke-width="1.5">LOL</text></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Sombrero</title><ellipse cx="50" cy="70" rx="45" ry="15" fill="#D2B48C" stroke="#8B4513" stroke-width="3"/><path d="M30 70 C30 40, 70 40, 70 70 L65 70 Q50 30 35 70 Z" fill="#A0522D" stroke="#8B4513" stroke-width="3"/><circle cx="40" cy="50" r="3" fill="red"/><circle cx="50" cy="45" r="3" fill="green"/><circle cx="60" cy="50" r="3" fill="red"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Maracas</title><ellipse cx="35" cy="30" rx="15" ry="25" fill="#FFD700" stroke="#DAA520" stroke-width="2"/><rect x="30" y="50" width="10" height="30" fill="#8B4513" stroke="#5F3A1F" stroke-width="2"/><ellipse cx="65" cy="40" rx="15" ry="25" fill="#32CD32" stroke="#228B22" stroke-width="2" transform="rotate(20 65 40)"/><rect x="55" y="60" width="10" height="30" fill="#8B4513" stroke="#5F3A1F" stroke-width="2" transform="rotate(20 60 75)"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Chili Pepper</title><path d="M50 10 C 20 20, 20 60, 40 80 Q 50 95, 60 80 C 80 60, 80 20, 50 10 Z" fill="#FF0000" stroke="#8B0000" stroke-width="3"/><path d="M50 10 C 40 20, 50 25, 55 15 L 60 5 Z" fill="#008000" stroke="#006400" stroke-width="2"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Acoustic Guitar Outline</title><path d="M60 10 L55 30 C40 25 30 40 30 55 C30 75 40 90 50 90 C60 90 70 75 70 55 C70 40 60 25 45 30 L40 10 Z" fill="#D2B48C" stroke="#8B4513" stroke-width="3"/><circle cx="50" cy="55" r="10" fill="#54341C" stroke="#3D2513" stroke-width="1"/><line x1="50" y1="10" x2="50" y2="40" stroke="#708090" stroke-width="2"/><line x1="45" y1="15" x2="55" y2="15" stroke="#708090" stroke-width="4"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Cougar Paw Print</title><ellipse cx="50" cy="65" rx="25" ry="20" fill="#D2B48C" stroke="#8B4513" stroke-width="3"/><ellipse cx="30" cy="35" rx="10" ry="12" fill="#D2B48C" stroke="#8B4513" stroke-width="3"/><ellipse cx="45" cy="28" rx="10" ry="12" fill="#D2B48C" stroke="#8B4513" stroke-width="3"/><ellipse cx="60" cy="28" rx="10" ry="12" fill="#D2B48C" stroke="#8B4513" stroke-width="3"/><ellipse cx="75" cy="35" rx="10" ry="12" fill="#D2B48C" stroke="#8B4513" stroke-width="3"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Cougar Head Silhouette</title><path d="M20 80 Q15 60 25 40 L30 20 Q50 5 70 20 L75 40 Q85 60 80 80 Q50 95 20 80 Z M40 30 Q35 20 50 25 Q65 20 60 30 Z M25 45 Q20 50 25 55 L30 50 Z M75 45 Q80 50 75 55 L70 50 Z" fill="#B8860B" stroke="#805500" stroke-width="3"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Pixel Heart</title><rect x="30" y="10" width="20" height="20" fill="#FF0000"/><rect x="50" y="10" width="20" height="20" fill="#FF0000"/><rect x="10" y="30" width="20" height="20" fill="#FF0000"/><rect x="30" y="30" width="20" height="20" fill="#FF0000"/><rect x="50" y="30" width="20" height="20" fill="#FF0000"/><rect x="70" y="30" width="20" height="20" fill="#FF0000"/><rect x="30" y="50" width="20" height="20" fill="#FF0000"/><rect x="50" y="50" width="20" height="20" fill="#FF0000"/><rect x="50" y="70" width="20" height="20" fill="#FF0000"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Gamepad Outline</title><path d="M10 40 Q5 20 30 20 L70 20 Q95 20 90 40 L90 60 Q95 80 70 80 L30 80 Q5 80 10 60 Z M20 50 H35 M27.5 42.5 V57.5" stroke="#555555" fill="#DDDDDD" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="70" cy="45" r="8" fill="#FF4136"/><circle cx="60" cy="55" r="8" fill="#0074D9"/><rect x="20" y="30" width="10" height="10" fill="#555555" rx="2"/><rect x="70" y="30" width="10" height="10" fill="#555555" rx="2"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Question Mark Block</title><rect x="15" y="15" width="70" height="70" fill="#FFD700" stroke="#DAA520" stroke-width="4"/><text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="Arial Black, Gadget, sans-serif" font-size="60" fill="#8B4513" stroke="#5F3A1F" stroke-width="1">?</text><circle cx="25" cy="25" r="5" fill="#DAA520"/><circle cx="75" cy="25" r="5" fill="#DAA520"/><circle cx="25" cy="75" r="5" fill="#DAA520"/><circle cx="75" cy="75" r="5" fill="#DAA520"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Simple Ghost</title><path d="M20 90 L20 50 Q20 20 50 20 Q80 20 80 50 L80 90 L70 80 L60 90 L50 80 L40 90 L30 80 Z" fill="#E0FFFF" stroke="#ADD8E6" stroke-width="3"/><circle cx="35" cy="45" r="8" fill="#2F4F4F"/><circle cx="65" cy="45" r="8" fill="#2F4F4F"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" shape-rendering="crispEdges"><title>Minecraft Creeper</title><rect x="30" y="10" width="40" height="40" fill="#5DBA52" stroke="#3E7C36" stroke-width="1"/><rect x="38" y="20" width="8" height="10" fill="#222222"/><rect x="54" y="20" width="8" height="10" fill="#222222"/><rect x="42" y="30" width="16" height="8" fill="#222222"/><rect x="46" y="38" width="8" height="8" fill="#222222"/><rect x="35" y="50" width="30" height="35" fill="#4CAF50" stroke="#388E3C" stroke-width="1"/><rect x="30" y="85" width="18" height="15" fill="#4CAF50" stroke="#388E3C" stroke-width="1"/><rect x="52" y="85" width="18" height="15" fill="#4CAF50" stroke="#388E3C" stroke-width="1"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" shape-rendering="crispEdges"><title>Minecraft Diamonds</title><polygon points="50,20 65,40 50,60 35,40" fill="#8EF0FF" stroke="#5BC0DE" stroke-width="2"/><polygon points="50,20 45,40 50,45 55,40" fill="#B3F7FF" stroke="#5BC0DE" stroke-width="1"/><polygon points="30,55 45,75 30,95 15,75" fill="#70D7E8" stroke="#48AFC1" stroke-width="2" transform="rotate(-15 30 75)"/><polygon points="30,55 25,75 30,80 35,75" fill="#A0E8F3" stroke="#48AFC1" stroke-width="1"  transform="rotate(-15 30 75)"/><polygon points="70,50 85,70 70,90 55,70" fill="#70D7E8" stroke="#48AFC1" stroke-width="2" transform="rotate(10 70 70)"/><polygon points="70,50 65,70 70,75 75,70" fill="#A0E8F3" stroke="#48AFC1" stroke-width="1"  transform="rotate(10 70 70)"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" shape-rendering="crispEdges"><title>Minecraft Steve</title><rect x="30" y="10" width="40" height="40" fill="#BC8A66" stroke="#8C654A" stroke-width="1"/><rect x="32" y="12" width="36" height="10" fill="#4A3A2A"/><rect x="32" y="22" width="6" height="10" fill="#4A3A2A"/><rect x="62" y="22" width="6" height="10" fill="#4A3A2A"/><rect x="40" y="30" width="6" height="6" fill="#FFFFFF" stroke="#555555" stroke-width="0.5"/><rect x="41" y="31" width="4" height="4" fill="#4C2FDC"/><rect x="54" y="30" width="6" height="6" fill="#FFFFFF" stroke="#555555" stroke-width="0.5"/><rect x="55" y="31" width="4" height="4" fill="#4C2FDC"/><rect x="44" y="40" width="12" height="4" fill="#7A583E"/><rect x="25" y="50" width="50" height="40" fill="#4EBDF0" stroke="#3A8CB0" stroke-width="1"/><rect x="25" y="90" width="50" height="10" fill="#3A2A7E" stroke="#2A1E5C" stroke-width="1"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Sitting Cat Silhouette</title><path d="M65 95 H35 C25 95 20 85 20 75 V45 C20 30 30 20 45 20 C50 10 50 10 55 20 C70 20 80 30 80 45 V75 C80 85 75 95 65 95 Z M75 70 Q85 60 85 40 T70 25 L68 27" fill="#333333"/><path d="M48 18 Q50 5 52 18 Z" fill="#333333"/><path d="M58 18 Q60 5 62 18 Z" fill="#333333"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Cartoon Cat Face</title><circle cx="50" cy="50" r="40" fill="#F0E68C" stroke="#D2B48C" stroke-width="3"/><path d="M30 40 Q20 20 40 25 Z" fill="#D2B48C" stroke="#A0522D" stroke-width="2"/><path d="M70 40 Q80 20 60 25 Z" fill="#D2B48C" stroke="#A0522D" stroke-width="2"/><circle cx="35" cy="50" r="7" fill="#2F4F4F"/><circle cx="65" cy="50" r="7" fill="#2F4F4F"/><polygon points="48,60 52,60 50,65" fill="#FFB6C1" stroke="#FF69B4" stroke-width="1"/><path d="M35 70 Q50 75 65 70" fill="none" stroke="#FF69B4" stroke-width="2" stroke-linecap="round"/><line x1="15" y1="55" x2="30" y2="58" stroke="#555" stroke-width="1.5"/><line x1="15" y1="60" x2="30" y2="60" stroke="#555" stroke-width="1.5"/><line x1="15" y1="65" x2="30" y2="62" stroke="#555" stroke-width="1.5"/><line x1="85" y1="55" x2="70" y2="58" stroke="#555" stroke-width="1.5"/><line x1="85" y1="60" x2="70" y2="60" stroke="#555" stroke-width="1.5"/><line x1="85" y1="65" x2="70" y2="62" stroke="#555" stroke-width="1.5"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Playful Cat with Yarn</title><path d="M60 85 C50 90 30 80 25 65 S20 40 35 35 C50 30 60 45 65 55 L70 50 C75 45 80 55 75 65 Z" fill="#A9A9A9" stroke="#696969" stroke-width="2"/><circle cx="30" cy="30" r="12" fill="#A9A9A9" stroke="#696969" stroke-width="2"/><path d="M25 20 Q20 10 30 15 Z" fill="#696969"/><path d="M35 20 Q40 10 30 15 Z" fill="#696969"/><path d="M70 60 Q85 50 90 70 T75 85" fill="none" stroke="#696969" stroke-width="3" stroke-linecap="round"/><circle cx="75" cy="30" r="10" fill="#FF6347" stroke="#DC143C" stroke-width="1.5"/><path d="M70 25 Q75 20 80 25 Q75 30 70 25 Q75 35 80 30" fill="none" stroke="#FFDAB9" stroke-width="1"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Stretching Cat</title><path d="M20 70 C10 50 30 30 50 40 C70 50 90 30 80 50 C70 70 80 80 65 85 L35 85 C20 80 20 70 20 70 Z" fill="#FFA07A" stroke="#E9967A" stroke-width="2"/><circle cx="75" cy="45" r="10" fill="#FFA07A" stroke="#E9967A" stroke-width="2"/><path d="M70 35 Q65 25 75 30 Z" fill="#E9967A"/><path d="M80 35 Q85 25 75 30 Z" fill="#E9967A"/><path d="M25 70 Q10 80 15 90" fill="none" stroke="#E9967A" stroke-width="3" stroke-linecap="round"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Pointy Ear Cat Head</title><path d="M50 90 C20 90 10 60 25 40 L40 10 L60 10 L75 40 C90 60 80 90 50 90 Z" fill="#B0C4DE" stroke="#778899" stroke-width="3"/><ellipse cx="38" cy="55" rx="7" ry="10" fill="#3CB371"/><ellipse cx="62" cy="55" rx="7" ry="10" fill="#3CB371"/><polygon points="48,65 52,65 50,70" fill="#FFC0CB"/><path d="M40 75 Q50 80 60 75" fill="none" stroke="#2F4F4F" stroke-width="2" stroke-linecap="round"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Sleeping Cat</title><path d="M25 50 C25 25 75 25 75 50 C75 75 55 85 50 85 C45 85 25 75 25 50 Z" fill="#FFE4B5" stroke="#D2B48C" stroke-width="3"/><path d="M40 40 C30 30 50 20 55 35" fill="#FFE4B5" stroke="#D2B48C" stroke-width="3"/><path d="M53 30 Q50 25 48 30 Z" fill="#D2B48C"/><path d="M45 50 Q50 53 55 50" fill="none" stroke="#A0522D" stroke-width="1.5" stroke-linecap="round"/><path d="M60 55 Q65 58 70 55" fill="none" stroke="#A0522D" stroke-width="1.5" stroke-linecap="round"/><path d="M70 60 Q85 65 80 80 C70 80 65 70 70 60 Z" fill="#FFE4B5" stroke="#D2B48C" stroke-width="3"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Kawaii Cat Face</title><circle cx="50" cy="55" r="38" fill="#FFF0F5" stroke="#FFB6C1" stroke-width="3"/><path d="M30 45 Q20 20 45 30 Z" fill="#FFDAB9" stroke="#FFA07A" stroke-width="2"/><path d="M70 45 Q80 20 55 30 Z" fill="#FFDAB9" stroke="#FFA07A" stroke-width="2"/><ellipse cx="38" cy="60" rx="12" ry="18" fill="#2F4F4F"/><circle cx="35" cy="55" r="4" fill="white"/><ellipse cx="62" cy="60" rx="12" ry="18" fill="#2F4F4F"/><circle cx="59" cy="55" r="4" fill="white"/><path d="M48 72 L52 72 L50 75 Z" fill="#FF69B4"/><path d="M45 78 Q50 82 55 78" fill="none" stroke="#FF69B4" stroke-width="2" stroke-linecap="round"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" shape-rendering="crispEdges"><title>Blocky Cat Face</title><rect x="10" y="10" width="80" height="80" fill="#708090" stroke="#2F4F4F" stroke-width="2"/><rect x="20" y="20" width="60" height="60" fill="#ADD8E6"/><rect x="10" y="0" width="20" height="10" fill="#708090" stroke="#2F4F4F" stroke-width="2"/><rect x="70" y="0" width="20" height="10" fill="#708090" stroke="#2F4F4F" stroke-width="2"/><rect x="30" y="35" width="15" height="15" fill="#006400"/><rect x="55" y="35" width="15" height="15" fill="#006400"/><rect x="45" y="55" width="10" height="10" fill="#FFC0CB"/><rect x="35" y="70" width="30" height="5" fill="#2F4F4F"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Leaping Cat Silhouette</title><path d="M10 60 Q30 30 50 40 C 70 50 80 30 95 40 L90 50 C70 70 50 60 30 70 L20 80 Q5 70 10 60 Z M45 38 Q48 25 55 35 Z M58 35 Q60 25 65 36 Z M15 85 Q30 95 40 80 Z" fill="#4A4A4A"/></svg>',
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Yarn Ball</title><circle cx="50" cy="50" r="35" fill="#1E90FF" stroke="#0000CD" stroke-width="3"/><path d="M30 30 Q50 20 70 30 Q80 50 70 70 Q50 80 30 70 Q20 50 30 30 Z M40 35 Q25 50 40 65 Q50 75 60 65 Q75 50 60 35 Q50 25 40 35" fill="none" stroke="#B0E0E6" stroke-width="2.5" stroke-linecap="round"/><line x1="75" y1="65" x2="90" y2="80" stroke="#B0E0E6" stroke-width="2.5" stroke-linecap="round"/></svg>'
+];
+
+// Holiday specific SVGs
+const valentineSvgs = [
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><title>Heart</title><path d="M50 90 L10 50 C10 20 40 20 50 40 C60 20 90 20 90 50 Z" fill="red" /></svg>'
+];
+const stPatricksSvgs = [
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><title>Shamrock</title><circle cx="35" cy="40" r="20" fill="green"/><circle cx="65" cy="40" r="20" fill="green"/><circle cx="50" cy="20" r="20" fill="green"/><rect x="45" y="50" width="10" height="40" fill="green"/></svg>'
+];
+const easterSvgs = [ // This array will not be used due to Easter omission
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><title>Easter Egg</title><ellipse cx="50" cy="55" rx="30" ry="40" fill="#ADD8E6"/><path d="M20 55 Q50 45 80 55" stroke="#FFC0CB" stroke-width="5" fill="none"/><path d="M30 65 Q50 75 70 65" stroke="#FFFF00" stroke-width="4" fill="none" stroke-dasharray="5,5"/></svg>'
+];
+const halloweenSvgs = [
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><title>Pumpkin</title><circle cx="50" cy="55" r="35" fill="orange" stroke="darkorange" stroke-width="3"/><rect x="45" y="15" width="10" height="15" fill="green"/><polygon points="30,45 40,40 35,55" fill="black"/><polygon points="70,45 60,40 65,55" fill="black"/><path d="M30 70 Q50 80 70 70 Q65 65 50 65 Q35 65 30 70" fill="black"/></svg>'
+];
+const motherDaySvgs = [
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><title>Flower Bouquet</title><path d="M50 90 L40 70 L60 70 Z" fill="#A0522D"/><circle cx="35" cy="50" r="15" fill="#FFC0CB"/><circle cx="65" cy="50" r="15" fill="#FFC0CB"/><circle cx="50" cy="35" r="15" fill="#FF69B4"/><circle cx="25" cy="65" r="10" fill="#90EE90"/><circle cx="75" cy="65" r="10" fill="#90EE90"/></svg>'
+];
+const fatherDaySvgs = [
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><title>Necktie</title><polygon points="40,10 60,10 70,50 50,90 30,50" fill="#4682B4" stroke="#2F4F4F" stroke-width="2"/><polygon points="45,10 55,10 50,20" fill="#191970"/></svg>'
+];
+const christmasSvgs = [
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><title>Christmas Tree</title><polygon points="50,10 20,70 80,70" fill="#228B22"/><rect x="40" y="70" width="20" height="20" fill="#8B4513"/><circle cx="50" cy="20" r="5" fill="gold"/><circle cx="40" cy="40" r="4" fill="red"/><circle cx="60" cy="40" r="4" fill="blue"/><circle cx="30" cy="60" r="4" fill="red"/><circle cx="70" cy="60" r="4" fill="blue"/></svg>'
+];
+const newYearSvgs = [
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><title>Fireworks</title><circle cx="50" cy="50" r="5" fill="gold"/><line x1="50" y1="50" x2="50" y2="20" stroke="gold" stroke-width="3"/><line x1="50" y1="50" x2="50" y2="80" stroke="gold" stroke-width="3"/><line x1="50" y1="50" x2="20" y2="50" stroke="gold" stroke-width="3"/><line x1="50" y1="50" x2="80" y2="50" stroke="gold" stroke-width="3"/><line x1="50" y1="50" x2="30" y2="30" stroke="red" stroke-width="2"/><line x1="50" y1="50" x2="70" y2="30" stroke="red" stroke-width="2"/><line x1="50" y1="50" x2="30" y2="70" stroke="red" stroke-width="2"/><line x1="50" y1="50" x2="70" y2="70" stroke="red" stroke-width="2"/></svg>'
+];
+const memorialDaySvgs = [
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><title>US Flag Element</title><rect x="10" y="20" width="80" height="15" fill="#B22222"/><rect x="10" y="40" width="80" height="15" fill="#FFFFFF"/><rect x="10" y="60" width="80" height="15" fill="#B22222"/><rect x="10" y="20" width="40" height="35" fill="#000080"/><text x="15" y="40" font-size="10" fill="white">★ ★</text></svg>'
+];
+// --- Groundhog Day SVGs ---
+const groundhogDaySvgs = [
+    // Groundhog Peeking
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Groundhog Peeking</title><ellipse cx="50" cy="80" rx="35" ry="15" fill="#A0522D" stroke="#5F3A1F" stroke-width="2"/><path d="M50 80 C 40 80, 35 70, 35 60 C 35 45, 40 35, 50 35 C 60 35, 65 45, 65 60 C 65 70, 60 80, 50 80 Z" fill="#C4A68A" stroke="#8B4513" stroke-width="1.5"/><circle cx="43" cy="48" r="3" fill="#222"/><circle cx="57" cy="48" r="3" fill="#222"/><ellipse cx="50" cy="56" rx="4" ry="3" fill="#5F3A1F"/><path d="M40 40 Q35 30 45 35 Z" fill="#C4A68A" stroke="#8B4513" stroke-width="1"/><path d="M60 40 Q65 30 55 35 Z" fill="#C4A68A" stroke="#8B4513" stroke-width="1"/></svg>',
+
+    // Sun Icon
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Sun</title><circle cx="50" cy="50" r="25" fill="#FFD700" stroke="#FFA500" stroke-width="3"/><g stroke="#FFA500" stroke-width="4" stroke-linecap="round"><line x1="50" y1="10" x2="50" y2="20"/><line x1="50" y1="80" x2="50" y2="90"/><line x1="10" y1="50" x2="20" y2="50"/><line x1="80" y1="50" x2="90" y2="50"/><line x1="22" y1="22" x2="30" y2="30"/><line x1="70" y1="30" x2="78" y2="22"/><line x1="22" y1="78" x2="30" y2="70"/><line x1="70" y1="70" x2="78" y2="78"/></g></svg>',
+
+    // Simple Cloud Icon
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Cloud</title><path d="M25 70 Q15 70 15 60 Q15 45 30 45 Q30 30 50 30 Q60 30 60 45 L75 45 Q85 45 85 55 Q85 70 70 70 L25 70 Z" fill="#E0FFFF" stroke="#ADD8E6" stroke-width="3"/></svg>'
+];
+
+// --- Mardi Gras SVGs ---
+const mardiGrasSvgs = [
+    // Mardi Gras Mask
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Mardi Gras Mask</title><path d="M10 50 Q20 30 50 35 T90 50 Q80 70 50 65 T10 50 Z" fill="#9B59B6" stroke="#8E44AD" stroke-width="3"/><ellipse cx="35" cy="48" rx="12" ry="8" fill="none" stroke="#F1C40F" stroke-width="2.5"/><ellipse cx="65" cy="48" rx="12" ry="8" fill="none" stroke="#F1C40F" stroke-width="2.5"/><path d="M40 30 Q30 10 50 15 T55 35" fill="#2ECC71" stroke="#27AE60" stroke-width="1.5"/><path d="M50 25 Q40 5 60 10 T65 30" fill="#F1C40F" stroke="#F39C12" stroke-width="1.5" transform="rotate(15 50 25)"/><path d="M60 30 Q70 10 50 15 T45 35" fill="#9B59B6" stroke="#8E44AD" stroke-width="1.5" transform="rotate(-15 50 25)"/></svg>',
+
+    // Fleur-de-Lis
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Fleur-de-Lis</title><path d="M50 15 L40 40 C30 35 25 50 30 60 L40 55 L40 85 L60 85 L60 55 L70 60 C75 50 70 35 60 40 Z M40 50 Q50 45 60 50" fill="#F1C40F" stroke="#B8860B" stroke-width="2.5"/></svg>',
+
+    // Mardi Gras Beads (Simplified)
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Mardi Gras Beads</title><circle cx="30" cy="70" r="8" fill="#9B59B6" stroke="#8E44AD" stroke-width="1"/><circle cx="45" cy="65" r="8" fill="#2ECC71" stroke="#27AE60" stroke-width="1"/><circle cx="60" cy="70" r="8" fill="#F1C40F" stroke="#F39C12" stroke-width="1"/><circle cx="50" cy="50" r="8" fill="#9B59B6" stroke="#8E44AD" stroke-width="1"/><circle cx="35" cy="40" r="8" fill="#2ECC71" stroke="#27AE60" stroke-width="1"/><circle cx="65" cy="40" r="8" fill="#F1C40F" stroke="#F39C12" stroke-width="1"/><circle cx="50" cy="25" r="8" fill="#9B59B6" stroke="#8E44AD" stroke-width="1"/></svg>'
+];
+
+// --- Cinco de Mayo SVGs ---
+const cincoDeMayoSvgs = [
+    // Sombrero
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Sombrero</title><ellipse cx="50" cy="70" rx="45" ry="15" fill="#D2B48C" stroke="#8B4513" stroke-width="3"/><path d="M30 70 C30 40, 70 40, 70 70 L65 70 Q50 30 35 70 Z" fill="#A0522D" stroke="#8B4513" stroke-width="3"/><circle cx="40" cy="50" r="3" fill="#E53935"/><circle cx="50" cy="45" r="3" fill="#4CAF50"/><circle cx="60" cy="50" r="3" fill="#FFFFFF" stroke="#333" stroke-width="0.5"/></svg>',
+
+    // Maracas
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Maracas</title><ellipse cx="35" cy="30" rx="15" ry="25" fill="#4CAF50" stroke="#2E7D32" stroke-width="2"/><rect x="30" y="50" width="10" height="30" fill="#8B4513" stroke="#5F3A1F" stroke-width="2"/><ellipse cx="65" cy="40" rx="15" ry="25" fill="#E53935" stroke="#C62828" stroke-width="2" transform="rotate(20 65 40)"/><rect x="55" y="60" width="10" height="30" fill="#8B4513" stroke="#5F3A1F" stroke-width="2" transform="rotate(20 60 75)"/></svg>',
+
+    // Papel Picado Banner Element (Simplified)
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Papel Picado Element</title><rect x="10" y="20" width="80" height="60" fill="#1E88E5" stroke="#0D47A1" stroke-width="1.5" rx="5"/><circle cx="30" cy="50" r="8" fill="#fff"/><circle cx="70" cy="50" r="8" fill="#fff"/><polygon points="50,30 40,50 50,70 60,50" fill="#fff"/></svg>'
+];
+
+// --- Flag Day SVGs ---
+const flagDaySvgs = [
+    // US Flag Element 
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>US Flag Element</title><rect x="10" y="20" width="80" height="12" fill="#BF0A30"/><rect x="10" y="37" width="80" height="12" fill="#FFFFFF"/><rect x="10" y="54" width="80" height="12" fill="#BF0A30"/><rect x="10" y="71" width="80" height="12" fill="#FFFFFF"/><rect x="10" y="20" width="35" height="49" fill="#002868"/><!-- Stars (simplified representation) --><g fill="white"><circle cx="18" cy="28" r="2"/><circle cx="32" cy="28" r="2"/><circle cx="25" cy="36" r="2"/><circle cx="18" cy="44" r="2"/><circle cx="32" cy="44" r="2"/></g></svg>',
+
+    // Simple Star 
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Patriotic Star</title><polygon points="50,10 61.8,38.2 95.1,38.2 68.2,58.8 79.5,87 50,68 20.5,87 31.8,58.8 4.9,38.2 38.2,38.2" fill="#FFFFFF" stroke="#002868" stroke-width="3"/><polygon points="50,15 59.5,39.2 88.1,39.2 64.2,56.8 72.5,81 50,65 27.5,81 35.8,56.8 11.9,39.2 40.5,39.2" fill="#BF0A30" stroke="none"/></svg>',
+
+    // Simple Stripes
+    '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><title>Patriotic Stripes</title><rect x="0" y="0" width="100" height="33.33" fill="#BF0A30"/><rect x="0" y="33.33" width="100" height="33.33" fill="#FFFFFF"/><rect x="0" y="66.66" width="100" height="33.33" fill="#002868"/></svg>'
+];
+// Hanukkah and Chinese New Year SVGs are omitted.
+const newYearsEveSvgs = newYearSvgs;
+
+
+// --- STYLING CONFIGURATION ---
+const seasonsConfig = [
+    { name: "Spring", startMonth: 2, startDate: 20, endMonth: 5, endDate: 20, cssClass: "spring-theme", svgs: [...funnySvgs, ...stPatricksSvgs, ...motherDaySvgs], tags: ["spring", "stpatricks", "mothersday"] }, // Easter SVGs removed
+    { name: "Summer", startMonth: 5, startDate: 21, endMonth: 8, endDate: 21, cssClass: "summer-theme", svgs: [...funnySvgs, ...fatherDaySvgs, ...flagDaySvgs], tags: ["summer", "fathersday", "flagday"] },
+    { name: "Fall", startMonth: 8, startDate: 22, endMonth: 11, endDate: 20, cssClass: "fall-theme", svgs: [...funnySvgs, ...halloweenSvgs], tags: ["fall", "halloween", "thanksgiving"] },
+    { name: "Winter", startMonth: 11, startDate: 21, endMonth: 2, endDate: 19, cssClass: "winter-theme", svgs: [...funnySvgs, ...christmasSvgs, ...newYearSvgs, ...valentineSvgs, ...groundhogDaySvgs], tags: ["winter", "christmas", "newyears", "valentines", "groundhogday", "newyearseve"] }
+];
+
+const federalHolidaysConfig = [
+    { name: "New Year's Day", getDate: (year) => new Date(year, 0, 1), daysBefore: 3, daysAfter: 2, cssClass: "new-years-theme", svgs: newYearSvgs, tags: ["newyears"] },
+    { name: "Martin Luther King Jr. Day", getDate: (year) => getNthWeekdayOfMonth(year, 0, 1, 3), daysBefore: 2, daysAfter: 1, cssClass: "mlk-theme", svgs: [], tags: ["mlkday"] },
+    { name: "Washington's Birthday", getDate: (year) => getNthWeekdayOfMonth(year, 1, 1, 3), daysBefore: 2, daysAfter: 1, cssClass: "presidents-day-theme", svgs: [], tags: ["presidentsday"] },
+    { name: "Memorial Day", getDate: (year) => getLastWeekdayOfMonth(year, 4, 1), daysBefore: 3, daysAfter: 1, cssClass: "memorial-day-theme", svgs: memorialDaySvgs, tags: ["memorialday"] },
+    { name: "Juneteenth", getDate: (year) => new Date(year, 5, 19), daysBefore: 1, daysAfter: 1, cssClass: "juneteenth-theme", svgs: [], tags: ["juneteenth"] },
+    { name: "Independence Day", getDate: (year) => new Date(year, 6, 4), daysBefore: 3, daysAfter: 3, cssClass: "independence-day-theme", svgs: memorialDaySvgs, tags: ["july4th"] },
+    { name: "Labor Day", getDate: (year) => getNthWeekdayOfMonth(year, 8, 1, 1), daysBefore: 2, daysAfter: 1, cssClass: "labor-day-theme", svgs: [], tags: ["laborday"] },
+    { name: "Columbus Day", getDate: (year) => getNthWeekdayOfMonth(year, 9, 1, 2), daysBefore: 1, daysAfter: 1, cssClass: "columbus-day-theme", svgs: [], tags: ["columbusday"] },
+    { name: "Veterans Day", getDate: (year) => new Date(year, 10, 11), daysBefore: 1, daysAfter: 1, cssClass: "veterans-day-theme", svgs: memorialDaySvgs, tags: ["veteransday"] },
+    { name: "Thanksgiving Day", getDate: (year) => getNthWeekdayOfMonth(year, 10, 4, 4), daysBefore: 5, daysAfter: 3, cssClass: "thanksgiving-theme", svgs: [...halloweenSvgs], tags: ["thanksgiving", "fall"] },
+    { name: "Christmas Day", getDate: (year) => new Date(year, 11, 25), daysBefore: 20, daysAfter: 7, cssClass: "christmas-theme", svgs: christmasSvgs, tags: ["christmas", "winter"] }
+];
+
+// Helper function for Easter (ensure it's defined if used by commonHolidaysConfig)
+// This function is now expected to be in date-utils.js, so no need to redefine here
+// function getEasterSunday(year) { /* ... */ }
+
+const commonHolidaysConfig = [
+    {
+        name: "Groundhog Day",
+        month: 1, // February
+        day: 2,
+        svgs: groundhogDaySvgs,
+        tags: ["groundhogday", "winter"]
+    },
+    {
+        name: "Valentine's Day",
+        month: 1, // February
+        day: 14,
+        svgs: valentineSvgs,
+        tags: ["valentines", "winter"]
+    },
+    {
+        name: "Mardi Gras",
+        calculated: true,
+        getDate: (year) => {
+            const easterDate = getEasterSunday(year); // This function MUST be available (from date-utils.js)
+            if (!easterDate) return null;
+            return addDays(easterDate, -47);
+        },
+        svgs: mardiGrasSvgs,
+        tags: ["mardigras", "spring"]
+    },
+    {
+        name: "Ash Wednesday",
+        calculated: true,
+        getDate: (year) => {
+            const easterDate = getEasterSunday(year);
+            if (!easterDate) return null;
+            return addDays(easterDate, -46);
+        },
+        svgs: [],
+        tags: ["ashwednesday", "spring"]
+    },
+    {
+        name: "St. Patrick's Day",
+        month: 2, // March
+        day: 17,
+        svgs: stPatricksSvgs,
+        tags: ["stpatricks", "spring"]
+    },
+    {
+        name: "Good Friday",
+        calculated: true,
+        getDate: (year) => {
+            const easterDate = getEasterSunday(year);
+            if (!easterDate) return null;
+            return addDays(easterDate, -2);
+        },
+        svgs: [], // Using spring/general SVGs, not easterSvgs directly here as Easter itself is omitted
+        tags: ["goodfriday", "spring"] // Tag as spring, not specifically easter if easter is omitted
+    },
+    {
+        name: "Cinco de Mayo",
+        month: 4, // May
+        day: 5,
+        svgs: cincoDeMayoSvgs,
+        tags: ["cincodemayo", "spring"]
+    },
+    {
+        name: "Mother's Day",
+        calculated: true,
+        getDate: (year) => getNthWeekdayOfMonth(year, 4, 0, 2),
+        svgs: motherDaySvgs,
+        tags: ["mothersday", "spring"]
+    },
+    {
+        name: "Flag Day",
+        month: 5, // June
+        day: 14,
+        svgs: flagDaySvgs,
+        tags: ["flagday", "summer"]
+    },
+    {
+        name: "Father's Day",
+        calculated: true,
+        getDate: (year) => getNthWeekdayOfMonth(year, 5, 0, 3),
+        svgs: fatherDaySvgs,
+        tags: ["fathersday", "summer"]
+    },
+    {
+        name: "Halloween",
+        month: 9, // October
+        day: 31,
+        svgs: halloweenSvgs,
+        tags: ["halloween", "fall"]
+    },
+    {
+        name: "New Year's Eve",
+        month: 11, // December
+        day: 31,
+        svgs: newYearsEveSvgs,
+        tags: ["newyearseve", "winter", "newyears"]
+    }
+];
+
+const funDaysConfig = [
+    // January
+    { name: "National Science Fiction Day", month: 0, day: 2 },
+    { name: "Festival of Sleep Day", month: 0, day: 3 },
+    { name: "National Spaghetti Day", month: 0, day: 4 },
+    { name: "National Bird Day", month: 0, day: 5 },
+    { name: "National Cuddle Up Day", month: 0, day: 6 },
+    { name: "Old Rock Day", month: 0, day: 7 },
+    { name: "National Static Electricity Day", month: 0, day: 9 },
+    { name: "Peculiar People Day", month: 0, day: 10 },
+    { name: "National Milk Day", month: 0, day: 11 },
+    { name: "National Rubber Ducky Day", month: 0, day: 13 },
+    { name: "Dress Up Your Pet Day", month: 0, day: 14 },
+    { name: "National Hat Day", month: 0, day: 15 },
+    { name: "National Popcorn Day", month: 0, day: 19 },
+    { name: "Penguin Awareness Day", month: 0, day: 20 },
+    { name: "National Hugging Day", month: 0, day: 21 },
+    { name: "National Pie Day", month: 0, day: 23 },
+    { name: "Library Shelfie Day", month: 0, day: 24 },
+    { name: "Opposite Day", month: 0, day: 25 },
+    { name: "National Puzzle Day", month: 0, day: 29 },
+    { name: "National Backward Day", month: 0, day: 31 },
+
+    // February
+    { name: "National Bubble Gum Day", month: 1, day: 2 },
+    { name: "Ice Cream for Breakfast Day", month: 1, day: 3 },
+    { name: "National Weatherperson's Day", month: 1, day: 5 },
+    { name: "National Chopsticks Day", month: 1, day: 6 },
+    { name: "National Kite Flying Day", month: 1, day: 8 },
+    { name: "National Pizza Day", month: 1, day: 9 },
+    { name: "National Make a Friend Day", month: 1, day: 11 },
+    { name: "National Clean Out Your Computer Day", month: 1, day: 12 },
+    { name: "World Radio Day", month: 1, day: 13 },
+    { name: "National Random Acts of Kindness Day", month: 1, day: 17 },
+    { name: "National Grape Juice Day", month: 1, day: 18 },
+    { name: "Love Your Pet Day", month: 1, day: 20 },
+    { name: "National Muffin Day", month: 1, day: 20 },
+    { name: "National Sticky Bun Day", month: 1, day: 21 },
+    { name: "Play More Cards Day", month: 1, day: 22 },
+    { name: "National Banana Bread Day", month: 1, day: 23 },
+    { name: "National Tortilla Chip Day", month: 1, day: 24 },
+    { name: "Tell a Fairy Tale Day", month: 1, day: 26 },
+    { name: "National Strawberry Day", month: 1, day: 27 },
+    { name: "National Tooth Fairy Day", month: 1, day: 28 },
+
+    // March
+    { name: "National Peanut Butter Lover's Day", month: 2, day: 1 },
+    { name: "World Book Day", month: 2, day: 2 },
+    { name: "National Grammar Day", month: 2, day: 4 },
+    { name: "National Cereal Day", month: 2, day: 7 },
+    { name: "International Women's Day", month: 2, day: 8 },
+    { name: "National Napping Day", month: 2, day: 13 },
+    { name: "National Pi Day", month: 2, day: 14 },
+    { name: "World Sleep Day", month: 2, day: 15 },
+    { name: "Absolutely Incredible Kid Day", month: 2, day: 21 },
+    { name: "National Goof Off Day", month: 2, day: 22 },
+    { name: "National Puppy Day", month: 2, day: 23 },
+    { name: "Waffle Day", month: 2, day: 25 },
+    { name: "Make Up Your Own Holiday Day", month: 2, day: 26 },
+    { name: "National Pencil Day", month: 2, day: 30 },
+    { name: "World Backup Day", month: 2, day: 31 },
+
+    // April
+    { name: "April Fool's Day", month: 3, day: 1 },
+    { name: "International Children's Book Day", month: 3, day: 2 },
+    { name: "National Walking Day", month: 3, day: 3 },
+    { name: "National Deep Dish Pizza Day", month: 3, day: 5 },
+    { name: "National Library Workers Day", month: 3, day: 9 },
+    { name: "National Siblings Day", month: 3, day: 10 },
+    { name: "National Grilled Cheese Day", month: 3, day: 12 },
+    { name: "National Scrabble Day", month: 3, day: 13 },
+    { name: "National Look-Alike Day", month: 3, day: 20 },
+    { name: "National Kindergarten Day", month: 3, day: 21 },
+    { name: "Earth Day", month: 3, day: 22 },
+    { name: "National Take a Chance Day", month: 3, day: 23 },
+    { name: "National Pretzel Day", month: 3, day: 26 },
+    { name: "International Dance Day", month: 3, day: 29 },
+    { name: "National Honesty Day", month: 3, day: 30 },
+
+    // May
+    { name: "May Day", month: 4, day: 1 },
+    { name: "Star Wars Day", month: 4, day: 4 },
+    { name: "Cinco de Mayo", month: 4, day: 5 },
+    { name: "National No Homework Day", month: 4, day: 6 },
+    { name: "Lost Sock Memorial Day", month: 4, day: 9 },
+    { name: "Eat What You Want Day", month: 4, day: 11 },
+    { name: "National Limerick Day", month: 4, day: 12 },
+    { name: "International Hummus Day", month: 4, day: 13 },
+    { name: "Dance Like a Chicken Day", month: 4, day: 14 },
+    { name: "National Chocolate Chip Day", month: 4, day: 15 },
+    { name: "National Pizza Party Day", month: 4, day: 17 },
+    { name: "National Talk Like Yoda Day", month: 4, day: 21 },
+    { name: "World Turtle Day", month: 4, day: 23 },
+    { name: "National Scavenger Hunt Day", month: 4, day: 24 },
+    { name: "National Brown-Bag-It Day", month: 4, day: 25 },
+    { name: "National Paper Airplane Day", month: 4, day: 26 },
+
+    // June
+    { name: "National Doughnut Day", month: 5, day: 2 },
+    { name: "National Yo-Yo Day", month: 5, day: 6 },
+    { name: "World Oceans Day", month: 5, day: 8 },
+    { name: "International Children's Day", month: 5, day: 9 },
+    { name: "National Corn on the Cob Day", month: 5, day: 11 },
+    { name: "World Juggling Day", month: 5, day: 15 },
+    { name: "Eat Your Vegetables Day", month: 5, day: 17 },
+    { name: "International Sushi Day", month: 5, day: 18 },
+    { name: "International Picnic Day", month: 5, day: 18 },
+    { name: "National Flip Flop Day", month: 5, day: 21 },
+    { name: "World Music Day", month: 5, day: 21 },
+    { name: "National Take Your Dog to Work Day", month: 5, day: 21 },
+    { name: "International Fairy Day", month: 5, day: 24 },
+    { name: "National Sunglasses Day", month: 5, day: 27 },
+    { name: "International Mud Day", month: 5, day: 29 },
+
+    // July
+    { name: "International Joke Day", month: 6, day: 1 },
+    { name: "World UFO Day", month: 6, day: 2 },
+    { name: "National Macaroni Day", month: 6, day: 7 },
+    { name: "World Chocolate Day", month: 6, day: 7 },
+    { name: "National Video Game Day", month: 6, day: 8 },
+    { name: "National Kitten Day", month: 6, day: 10 },
+    { name: "World Population Day", month: 6, day: 11 },
+    { name: "National French Fry Day", month: 6, day: 13 },
+    { name: "Shark Awareness Day", month: 6, day: 14 },
+    { name: "National Ice Cream Day", month: 6, day: 21 },
+    { name: "World Emoji Day", month: 6, day: 17 },
+    { name: "National Moon Day", month: 6, day: 20 },
+    { name: "National Cousins Day", month: 6, day: 24 },
+    { name: "International Day of Friendship", month: 6, day: 30 },
+
+    // August
+    { name: "National Root Beer Float Day", month: 7, day: 6 },
+    { name: "International Cat Day", month: 7, day: 8 },
+    { name: "Book Lovers Day", month: 7, day: 9 },
+    { name: "National S'mores Day", month: 7, day: 10 },
+    { name: "National Bowling Day", month: 7, day: 10 },
+    { name: "National Relaxation Day", month: 7, day: 15 },
+    { name: "National Tell a Joke Day", month: 7, day: 16 },
+    { name: "World Photo Day", month: 7, day: 19 },
+    { name: "National Radio Day", month: 7, day: 20 },
+    { name: "National Banana Split Day", month: 7, day: 25 },
+    { name: "National Dog Day", month: 7, day: 26 },
+    { name: "International Bat Night", month: 7, day: 28 },
+
+    // September
+    { name: "World Beard Day", month: 8, day: 4 },
+    { name: "National Read a Book Day", month: 8, day: 6 },
+    { name: "National Grandparents Day", month: 8, day: 8 },
+    { name: "National Video Games Day", month: 8, day: 12 },
+    { name: "International Chocolate Day", month: 8, day: 13 },
+    { name: "National Day of Encouragement", month: 8, day: 12 },
+    { name: "Positive Thinking Day", month: 8, day: 13 },
+    { name: "National Talk Like a Pirate Day", month: 8, day: 19 },
+    { name: "International Day of Peace", month: 8, day: 21 },
+    { name: "World Gratitude Day", month: 8, day: 21 },
+    { name: "Elephant Appreciation Day", month: 8, day: 22 },
+    { name: "National Punctuation Day", month: 8, day: 24 },
+    { name: "National Comic Book Day", month: 8, day: 25 },
+    { name: "World Tourism Day", month: 8, day: 27 },
+
+    // October
+    { name: "International Coffee Day", month: 9, day: 1 },
+    { name: "World Smile Day", month: 9, day: 4 },
+    { name: "World Animal Day", month: 9, day: 4 },
+    { name: "World Teachers' Day", month: 9, day: 5 },
+    { name: "Mad Hatter Day", month: 9, day: 6 },
+    { name: "World Octopus Day", month: 9, day: 8 },
+    { name: "International Skeptics Day", month: 9, day: 13 },
+    { name: "National Dessert Day", month: 9, day: 14 },
+    { name: "World Food Day", month: 9, day: 16 },
+    { name: "National Reptile Awareness Day", month: 9, day: 21 },
+    { name: "International Snow Leopard Day", month: 9, day: 23 },
+    { name: "National Cat Day", month: 9, day: 29 },
+    { name: "National Candy Corn Day", month: 9, day: 30 },
+
+    // November
+    { name: "World Vegan Day", month: 10, day: 1 },
+    { name: "National Sandwich Day", month: 10, day: 3 },
+    { name: "National Candy Day", month: 10, day: 4 },
+    { name: "World Science Day for Peace and Development", month: 10, day: 10 },
+    { name: "World Kindness Day", month: 10, day: 13 },
+    { name: "National Fast Food Day", month: 10, day: 16 },
+    { name: "International Students' Day", month: 10, day: 17 },
+    { name: "Mickey Mouse Birthday", month: 10, day: 18 },
+    { name: "World Toilet Day", month: 10, day: 19 },
+    { name: "Universal Children's Day", month: 10, day: 20 },
+    { name: "National Cake Day", month: 10, day: 26 },
+    { name: "National Day of Listening", month: 10, day: 29 },
+    { name: "Computer Security Day", month: 10, day: 30 },
+
+    // December
+    { name: "Rosa Parks Day", month: 11, day: 1 },
+    { name: "National Cookie Day", month: 11, day: 4 },
+    { name: "International Volunteer Day", month: 11, day: 5 },
+    { name: "Pretend To Be A Time Traveler Day", month: 11, day: 8 },
+    { name: "National Brownie Day", month: 11, day: 8 },
+    { name: "International Human Rights Day", month: 11, day: 10 },
+    { name: "National Cocoa Day", month: 11, day: 13 },
+    { name: "Monkey Day", month: 11, day: 14 },
+    { name: "National Ugly Christmas Sweater Day", month: 11, day: 15 },
+    { name: "International Tea Day", month: 11, day: 15 },
+    { name: "Wright Brothers Day", month: 11, day: 17 },
+    { name: "Crossword Puzzle Day", month: 11, day: 21 },
+    { name: "Festivus", month: 11, day: 23 },
+    { name: "National Eggnog Day", month: 11, day: 24 },
+    { name: "No Interruptions Day", month: 11, day: 31 }
+];
