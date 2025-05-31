@@ -1,30 +1,37 @@
-/* css/style.css */
+/*
+    File: style.css (for Joke App v4)
+    Version: 4.2 
+    Description: Stylesheet for the World Compass Academy Daily Jokes App.
+                 Features dynamic theming for seasons, holidays, and fun days.
+                 Logo is a static image and does not change with themes.
+    Last Modified: 5/21/2025
+*/
 
+/* === CSS Custom Properties (Variables) === */
 :root {
+    /* School Brand Colors */
     --wca-blue: #127db7;
     --wca-green: #8dcb8c;
-    --wca-text-dark: #333333;
-    --wca-accent-red: #e74c3c;
-    --wca-button-blue: #3498db;
+    --wca-text-dark: #333333; /* General dark text */
+
+    /* UI Element Colors */
+    --wca-accent-red: #e74c3c; /* For punchlines, accents */
+    --wca-button-blue: #3498db; /* Primary button blue */
     --wca-button-blue-hover: #2980b9;
-    --wca-button-green: #2ecc71;
+    --wca-button-green: #2ecc71; /* Secondary/Reveal button green */
     --wca-button-green-hover: #27ae60;
 
-    /* Seasonal & Holiday Base Variables (can be overridden by themes) */
-    --page-bg-color: #f0f8ff; /* AliceBlue default */
-    --container-bg-color: #fff;
-    --container-border-color: var(--wca-blue);
-    --header-text-color: var(--wca-green); /* For "Joke Time!" */
-    --joke-setup-color: #2c3e50;
-    --joke-punchline-color: var(--wca-accent-red);
+    /* Default Theme / Base Variables (Overridden by specific themes) */
+    --page-bg-color: #f0f8ff;               /* AliceBlue (Default page background) */
+    --container-bg-color: #ffffff;          /* White (Default joke container background) */
+    --container-border-color: var(--wca-blue); /* Default joke container border */
+    --header-text-color: var(--wca-green);  /* Default for "Joke Time!" heading */
+    --joke-setup-color: #2c3e50;            /* Dark Slate Gray (Default setup text) */
+    --joke-punchline-color: var(--wca-accent-red); /* Default punchline text */
     --font-family-main: 'Comic Sans MS', 'Chalkboard SE', 'Arial Rounded MT Bold', sans-serif;
-    --fun-day-bg: rgba(255, 255, 224, 0.8); /* Light yellow, slightly more opaque */
-    --fun-day-text: #856404; /* Dark yellow/brown text */
+    --fun-day-bg: rgba(255, 255, 224, 0.8);
+    --fun-day-text: #856404;
     --fun-day-border: #ffeeba;
-    --logo-text-world-compass-color: #333333; /* Default for WORLD COMPASS */
-    --logo-text-academy-color: var(--wca-green); /* Default for Academy */
-    --logo-swoosh-color: #007ABF; /* Default blue for swoosh */
-    --logo-sprout-color: #8BC34A; /* Default green for sprout */
 }
 
 body {
@@ -38,8 +45,8 @@ body {
     background-color: var(--page-bg-color);
     color: var(--wca-text-dark);
     text-align: center;
-    overflow: hidden; /* For falling items */
-    position: relative; /* For falling items */
+    overflow: hidden;
+    position: relative;
     transition: background-color 0.5s ease, color 0.5s ease;
     -webkit-tap-highlight-color: transparent;
 }
@@ -62,7 +69,7 @@ body {
     border-radius: 8px;
     font-size: 0.9em;
     margin-bottom: 10px;
-    display: none; /* Hidden by default */
+    display: none;
     width: fit-content;
     max-width: 90%;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -77,7 +84,7 @@ body {
     border-radius: 15px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     width: 100%;
-    min-height: 220px;
+    min-height: 220px; /* Adjust as needed based on content */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -85,43 +92,18 @@ body {
     border: 5px solid var(--container-border-color);
     transition: background-color 0.5s ease, border-color 0.5s ease;
 }
+
 #logo-container {
-    width: 300px;
+    width: 300px; /* Adjust as needed for your PNG logo */
     max-width: 80%;
-    height: auto;
-    margin: 0 auto 10px auto;
+    height: auto; /* Let height be auto for img */
+    margin: 0 auto 15px auto;
 }
-#logo-container svg {
+#logo-container img {
     width: 100%;
-    height: 100%;
+    height: auto; /* Ensures aspect ratio is maintained */
     display: block;
 }
-/* Blue Swoosh */
-#logo-container svg path[stroke="#007ABF"] {
-    stroke: var(--logo-swoosh-color) !important;
-}
-/* Sprout Stem */
-#logo-container svg path[fill="#6A4028"] {
-    fill: var(--logo-sprout-stem-color, #6A4028) !important; /* Added a new variable with fallback */
-}
-
-/* Leaves */
-#logo-container svg path[fill="#8BC34A"],
-#logo-container svg path[fill="#AED581"],
-#logo-container svg path[fill="#9CCC65"] {
-    fill: var(--logo-sprout-color) !important;
-}
-
-/* "WORLD" and "COMPASS" Text */
-#logo-container svg text[fill="#333333"][font-family*="Arial"] { /* Targeting by fill and part of font-family */
-    fill: var(--logo-text-world-compass-color) !important;
-}
-
-/* "Academy" Text */
-#logo-container svg text[fill="#8BC34A"][font-family*="Comic Sans MS"] { /* Targeting by fill and part of font-family */
-    fill: var(--logo-text-academy-color) !important;
-}
-
 
 #school-name { /* This is "Joke Time!" */
     font-size: 1.8em;
@@ -134,11 +116,15 @@ body {
 #joke-display {
     width: 100%;
     margin-bottom: 20px;
+    flex-grow: 1; /* Allow this to take up space if punchline is long */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 #joke-setup-text {
     font-size: 1.7em;
     margin-bottom: 15px;
-    min-height: 50px;
+    min-height: 40px; /* Adjust based on typical setup length */
     color: var(--joke-setup-color);
     line-height: 1.4;
     transition: color 0.5s ease;
@@ -146,7 +132,7 @@ body {
 .translation {
     display: block;
     font-size: 0.8em;
-    color: #555;
+    color: #555555;
     font-style: italic;
     margin-top: 5px;
 }
@@ -154,7 +140,7 @@ body {
     font-size: 1.8em;
     font-weight: bold;
     margin-top: 10px;
-    min-height: 50px;
+    min-height: 40px; /* Adjust based on typical punchline length */
     color: var(--joke-punchline-color);
     line-height: 1.4;
     transition: color 0.5s ease;
@@ -164,7 +150,8 @@ body {
     display: flex;
     gap: 15px;
     justify-content: center;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* Allow buttons to wrap on small screens */
+    margin-top: auto; /* Push buttons to bottom if joke-display doesn't fill space */
 }
 .joke-button {
     background-color: var(--wca-button-blue);
@@ -228,18 +215,13 @@ body {
 .spring-theme {
     --page-bg-color: #e6ffe6;
     --container-border-color: #4CAF50;
-    --header-text-color: #2E8B57; /* For "Joke Time!" */
-    --logo-sprout-color: #4CAF50;
-    --logo-text-academy-color: #2E8B57;
+    --header-text-color: #2E8B57;
 }
 
 .summer-theme {
     --page-bg-color: #fffacd;
     --container-border-color: #FFD700;
     --header-text-color: #FF8C00;
-    --logo-swoosh-color: #FFC107;
-    --logo-sprout-color: #FFEB3B;
-    --logo-text-academy-color: #FFA000;
 }
 
 .fall-theme {
@@ -247,19 +229,13 @@ body {
     --container-border-color: #D2691E;
     --header-text-color: #FF7F50;
     --joke-punchline-color: #B22222;
-    --logo-swoosh-color: #FF7043;
-    --logo-sprout-color: #FF8A65;
-    --logo-text-academy-color: #D2691E;
 }
 .fall-theme.halloween-active {
-    --container-border-color: #FF8C00; /* Orange for Halloween */
-    --header-text-color: #E65100; /* Darker Orange */
-    --fun-day-bg: #424242; /* Darker for spooky */
-    --fun-day-text: #FF9800; /* Orange text */
+    --container-border-color: #FF9800;
+    --header-text-color: #E65100;
+    --fun-day-bg: #424242;
+    --fun-day-text: #FF9800;
     --fun-day-border: #FF9800;
-    --logo-swoosh-color: #FFB74D;
-    --logo-sprout-color: #FB8C00;
-    --logo-text-academy-color: #E65100;
 }
 
 .winter-theme {
@@ -267,230 +243,116 @@ body {
     --container-border-color: #87CEEB;
     --header-text-color: #008080;
     --joke-punchline-color: #4682B4;
-    --logo-swoosh-color: #4FC3F7;
-    --logo-sprout-color: #B3E5FC; /* Light frosty blue for sprout */
-    --logo-text-academy-color: #0097A7;
 }
+
 /* --- FEDERAL HOLIDAY THEMES (Full Page Overrides) --- */
-/* New Year's Theme*/
 .new-years-theme {
     --page-bg-color: #1a1a2e;
     --container-bg-color: #2a2a3e;
-    --container-border-color: #FFD700; /* Gold */
-    --header-text-color: #FFF;
+    --container-border-color: #FFD700;
+    --header-text-color: #FFFFFF;
     --joke-setup-color: #E0E0E0;
     --joke-punchline-color: #FFD700;
     --font-family-main: 'Georgia', 'Times New Roman', serif;
     --fun-day-bg: #FFD700;
     --fun-day-text: #1a1a2e;
     --fun-day-border: #1a1a2e;
-    --logo-text-world-compass-color: #fafafa;
-    --logo-text-academy-color: #FFD700;
-    --logo-swoosh-color: #FFF59D;
-    --logo-sprout-color: #FFF9C4;
 }
 
-/* Martin Luther King Jr. Day Theme */
 .mlk-theme {
-    --page-bg-color: #f5f5f5; /* Light, hopeful gray */
-    --container-bg-color: #ffffff;
-    --container-border-color: #333333; /* Strong black/dark gray for respect */
-    --header-text-color: #000000;   /* Black */
-    --joke-setup-color: #2c3e50;
-    --joke-punchline-color: var(--wca-accent-red); /* Keep punchline distinct */
-    --font-family-main: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Clean, modern, respectful */
-    --fun-day-bg: #e0e0e0;
-    --fun-day-text: #333333;
-    --fun-day-border: #cccccc;
-    --logo-text-world-compass-color: #000000;
-    --logo-text-academy-color: #4CAF50; /* A hopeful green */
-    --logo-swoosh-color: #757575; /* Neutral gray */
-    --logo-sprout-color: #A5D6A7; /* Lighter, hopeful green */
+    --page-bg-color: #f5f5f5;
+    --container-border-color: #333333;
+    --header-text-color: #000000;
+    --font-family-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-/* Presidents' Day / Washington's Birthday Theme */
 .presidents-day-theme {
-    --page-bg-color: #e3f2fd; /* Light blue, reminiscent of sky/flag */
-    --container-bg-color: #ffffff;
-    --container-border-color: #B22222; /* Deep Red */
-    --header-text-color: #0D47A1;   /* Navy Blue */
-    --joke-setup-color: #2c3e50;
-    --joke-punchline-color: #D32F2F; /* Slightly brighter red for punchline */
-    --font-family-main: 'Times New Roman', Times, serif; /* Traditional, formal */
-    --logo-swoosh-color: #0D47A1; /* Navy */
-    --logo-sprout-color: #FFFFFF; /* White */
-    --logo-text-world-compass-color: #0D47A1; /* Navy */
-    --logo-text-academy-color: #B22222; /* Red */
+    --page-bg-color: #e3f2fd;
+    --container-border-color: #B22222;
+    --header-text-color: #0D47A1;
+    --joke-punchline-color: #D32F2F;
+    --font-family-main: 'Times New Roman', Times, serif;
 }
 
-/* Memorial Day Theme*/
 .memorial-day-theme {
-    --page-bg-color: #e9ecef; /* Light gray, slightly somber */
-    --container-bg-color: #ffffff;
-    --container-border-color: #002868; /* Dark Navy Blue */
-    --header-text-color: #333333;   /* Dark Gray */
-    --joke-setup-color: #4F4F4F;
-    --joke-punchline-color: #BF0A30; /* Deep Red */
+    --page-bg-color: #e9ecef;
+    --container-border-color: #002868;
+    --header-text-color: #333333;
+    --joke-punchline-color: #BF0A30;
     --font-family-main: 'Georgia', serif;
-    --logo-swoosh-color: #6c757d; /* Muted blue/gray */
-    --logo-sprout-color: #f8f9fa; /* Off-white */
-    --logo-text-world-compass-color: #343a40; /* Dark gray */
-    --logo-text-academy-color: #BF0A30; /* Deep Red */
 }
 
-/* Juneteenth National Independence Day Theme */
 .juneteenth-theme {
-    --page-bg-color: #fef9e7; /* Warm off-white, celebratory */
-    --container-bg-color: #fff;
-    --container-border-color: #E4002B; /* Juneteenth Red */
-    --header-text-color: #007A33;   /* Juneteenth Green */
-    --joke-setup-color: #2c3e50;
-    --joke-punchline-color: #000000; /* Black, for strong contrast */
-    --font-family-main: 'Arial Black', Gadget, sans-serif; /* Bold, impactful */
-    --fun-day-bg: #FFF2CC;
-    --fun-day-text: #004D20;
-    --fun-day-border: #007A33;
-    --logo-swoosh-color: #007A33; /* Green */
-    --logo-sprout-color: #E4002B; /* Red */
-    --logo-text-world-compass-color: #000000; /* Black */
-    --logo-text-academy-color: #007A33; /* Green */
+    --page-bg-color: #fef9e7;
+    --container-border-color: #E4002B;
+    --header-text-color: #007A33;
+    --joke-punchline-color: #000000;
+    --font-family-main: 'Arial Black', Gadget, sans-serif;
 }
 
-/* Independence Day Theme (July 4th - Festive Patriotism) */
 .independence-day-theme {
-    --page-bg-color: #e3f2fd; /* Light sky blue */
-    --container-bg-color: #ffffff;
-    --container-border-color: #BF0A30; /* Strong Red */
-    --header-text-color: #002868;   /* Navy Blue */
-    --joke-setup-color: #1E3A5F; /* Darker blue for text */
-    --joke-punchline-color: #D92E2E; /* Bright Red */
-    --font-family-main: 'Arial', sans-serif; /* Clean and clear */
-    --fun-day-bg: #FFEBCD; /* Blanched Almond for contrast */
-    --fun-day-text: #002868;
-    --fun-day-border: #BF0A30;
-    --logo-swoosh-color: #002868;        /* Navy Blue */
-    --logo-sprout-color: #FFFFFF;        /* White */
-    --logo-text-world-compass-color: #002868; /* Navy */
-    --logo-text-academy-color: #BF0A30;  /* Red */
-}
-/* Example of specific element styling for Independence Day */
-.independence-day-theme #logo-container svg path[fill="#6A4028"] { /* Sprout Stem */
-    fill: #002868 !important; /* Make stem blue for this theme */
+    --page-bg-color: #e3f2fd;
+    --container-border-color: #BF0A30;
+    --header-text-color: #002868;
+    --joke-punchline-color: #D92E2E;
 }
 
-/* Labor Day Theme*/
 .labor-day-theme {
-    --page-bg-color: #eef2f7; /* Light industrial blue/gray */
-    --container-bg-color: #ffffff;
-    --container-border-color: #004080; /* Strong, dependable blue */
-    --header-text-color: #002040;   /* Darker blue for heading */
-    --joke-setup-color: #334E68;
-    --joke-punchline-color: var(--wca-accent-red);
-    --font-family-main: 'Roboto', sans-serif; /* Modern, clean */
-    --logo-swoosh-color: #4A6B8A;
-    --logo-sprout-color: #B0BEC5;
-    --logo-text-world-compass-color: #002040;
-    --logo-text-academy-color: #004080;
+    --page-bg-color: #eef2f7;
+    --container-border-color: #004080;
+    --header-text-color: #002040;
+    --font-family-main: 'Roboto', sans-serif;
 }
 
-/* Indigenous Peoples' Day Theme */
-.indigenous-peoples-day-theme {
-    --page-bg-color: #f5e1c8; /* Earthy tan */
-    --container-border-color: #5c3d23; /* Dark earth brown */
-    --header-text-color: #8a5a44; /* Terracotta*/
-    --joke-punchline-color: #c06c3a; /* Burnt orange */
-    --font-family-main: 'Arial', sans-serif;
-    --logo-swoosh-color: #78726A; /* Stone gray */
-    --logo-sprout-color: #8FBC8F; /* Dark Sea Green */
-    --logo-text-academy-color: #8a5a44;
+.columbus-day-theme, .indigenous-peoples-day-theme { /* Combined as they often share a date or are alternatives */
+    --page-bg-color: #faf3e0;
+    --container-border-color: #8B4513;
+    --header-text-color: #5D4037;
+    --joke-punchline-color: #BF360C;
+    --font-family-main: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
 }
 
-
-/* Veterans Day Theme */
 .veterans-day-theme {
-    --page-bg-color: #f0f4f8; /* Slightly cleaner light blue/gray */
-    --container-bg-color: #ffffff;
-    --container-border-color: #003366; /* Stern Navy Blue */
-    --header-text-color: #222222;   /* Dark Gray, serious tone */
-    --joke-setup-color: #4A4A4A;
-    --joke-punchline-color: #CC0000; /* Strong Red */
-    --font-family-main: 'Arial', sans-serif; /* Clear, respectful */
-    --logo-swoosh-color: #003366;
-    --logo-sprout-color: #DCDCDC; /* Light Gray */
-    --logo-text-world-compass-color: #003366;
-    --logo-text-academy-color: #CC0000;
+    --page-bg-color: #f0f4f8;
+    --container-border-color: #003366;
+    --header-text-color: #222222;
+    --joke-punchline-color: #CC0000;
+    --font-family-main: 'Arial', sans-serif;
 }
 
-/* Thanksgiving Theme */
 .thanksgiving-theme {
     --page-bg-color: #fdf5e6;
     --container-border-color: #A0522D;
     --header-text-color: #D2691E;
     --font-family-main: 'Georgia', serif;
     --joke-punchline-color: #8B4513;
-    --logo-swoosh-color: #FF8F00;
-    --logo-sprout-color: #FFB74D;
-    --logo-text-academy-color: #D2691E;
 }
 
-/* Christmas Theme */
 .christmas-theme {
     --page-bg-color: #e8f5e9;
-    --container-bg-color: #fff;
-    --container-border-color: #c62828; /* Red */
-    --header-text-color: #2e7d32; /* Green */
-    --joke-punchline-color: #c62828; /* Red */
-    --logo-swoosh-color: #c62828;
-    --logo-sprout-color: #388E3C;
-    --logo-text-academy-color: #2e7d32;
+    --container-bg-color: #ffffff;
+    --container-border-color: #c62828;
+    --header-text-color: #2e7d32;
+    --joke-punchline-color: #c62828;
 }
 
+/* --- COMMON NON-FEDERAL HOLIDAY ACTIVE STATES (Mainly affects Fun Day Notification) --- */
+.valentines-day-active { --fun-day-bg: #ffe4e1; --fun-day-text: #d13049; --fun-day-border: #ffb6c1; }
+.st-patricks-day-active { --fun-day-bg: #d4efdf; --fun-day-text: #196f3d; --fun-day-border: #7dcea0; }
+.good-friday-active { --fun-day-bg: #f2f2f2; --fun-day-text: #555555; --fun-day-border: #cccccc; }
+.mardi-gras-active { --fun-day-bg: #f7dc6f; --fun-day-text: #6c3483; --fun-day-border: #2ecc71; }
+.cinco-de-mayo-active { --fun-day-bg: #e8f8f5; --fun-day-text: #0e6655; --fun-day-border: #76d7c4; }
+.mother-day-active { --fun-day-bg: #fff0f5; --fun-day-text: #c71585; --fun-day-border: #ffb6c1; }
+.flag-day-active { --fun-day-bg: #e9ecef; --fun-day-text: #002868; --fun-day-border: #BF0A30; }
+.father-day-active { --fun-day-bg: #e3f2fd; --fun-day-text: #0d47a1; --fun-day-border: #42a5f5; }
+.new-year-eve-active { --fun-day-bg: #333; --fun-day-text: #FFD700; --fun-day-border: #FFD700; }
 
-/* Common Non-Federal Holiday Active States (applied on top of seasonal or default) */
-/* These primarily affect the Fun Day notification or can add subtle tweaks */
-.valentines-day-active {
-    --fun-day-bg: #ffe4e1; /* Misty Rose */
-    --fun-day-text: #d13049;
-    --fun-day-border: #ffb6c1;
-}
-.st-patricks-day-active {
-    --fun-day-bg: #d4efdf;
-    --fun-day-text: #196f3d;
-    --fun-day-border: #7dcea0;
-}
-.good-friday-active {
-    /* Subtle, respectful styling if any */
-    --fun-day-bg: #f2f2f2;
-    --fun-day-text: #555;
-    --fun-day-border: #ccc;
-}
-.mardi-gras-active {
-    --fun-day-bg: #f7dc6f; /* Goldish */
-    --fun-day-text: #6c3483; /* Purple */
-    --fun-day-border: #2ecc71; /* Green */
-}
-.cinco-de-mayo-active {
-    --fun-day-bg: #e8f8f5; /* Light teal */
-    --fun-day-text: #0e6655;
-    --fun-day-border: #76d7c4;
-}
-.flag-day-active {
-    --fun-day-bg: #e9ecef;
-    --fun-day-text: #002868; /* Navy */
-    --fun-day-border: #BF0A30; /* Red */
-}
 
 /* --- Media Queries --- */
 @media (max-width: 768px) {
-    #joke-area {
-        gap: 10px;
-    }
-    #joke-container {
-        padding: 15px 20px;
-    }
-    #logo-container {
-        width: 200px;
-    }
+    #joke-area { gap: 10px; }
+    #joke-container { padding: 15px 20px; }
+    #logo-container { width: 200px; margin-bottom: 10px; }
     #school-name { font-size: 1.5em; }
     #joke-setup-text { font-size: 1.4em; }
     #joke-punchline-text { font-size: 1.5em; }
@@ -498,10 +360,10 @@ body {
     #static-svg-display { width: 70px; height: 70px; }
 }
 @media (max-width: 480px) {
-    #logo-container {
-        width: 150px;
-    }
+    #logo-container { width: 150px; }
     #school-name { font-size: 1.3em; }
     #joke-setup-text { font-size: 1.2em; }
     #joke-punchline-text { font-size: 1.3em; }
+    .button-container { gap: 10px; }
+    .joke-button { padding: 8px 15px; font-size: 0.9em; }
 }
