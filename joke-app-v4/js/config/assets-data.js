@@ -1,6 +1,6 @@
 // js/config/assets-data.js
 // --- FALLING ITEM DATA ---
-const funnyEmojis = ['😂', '🤣', '😹', '🤪', '😜', '😎', '🥳', '😸', '🦁', '🐾', '🌟', '✨', '🗺️', '🧭', '🎮', '🎨', '📖', '✏️', '💡', '🎉', '🎈'];
+const funnyEmojis = ['😀', '😄', '😁', '😆', '😂', '🤣', '😹', '🤪', '😋', '🤭', '😝', '😜', '😎', '🙄', '🤓', '🥳', '😸', '🦁', '🐾', '🌟', '✨', '🗺️', '🧭', '🎮', '🎨', '🤡', '📖', '✏️', '💡', '🧶', '🐶', '🎉', '🎈'];
 const funnySvgs = [
 	'<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><circle cx="50" cy="50" r="45" fill="yellow" stroke="black" stroke-width="2"/><circle cx="35" cy="35" r="8" fill="black"/><circle cx="65" cy="35" r="8" fill="black"/><path d="M 30 65 Q 50 80 70 65" stroke="black" fill="transparent" stroke-width="5"/></svg>',
 	'<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><polygon points="50,5 61,35 95,35 67,57 78,87 50,68 22,87 33,57 5,35 39,35" fill="gold" stroke="orange" stroke-width="2"/></svg>',
