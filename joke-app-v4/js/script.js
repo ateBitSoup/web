@@ -238,11 +238,11 @@ document.addEventListener('DOMContentLoaded', () => {
             );
 
             if (themedJokes.length > 0) {
-                if (Math.random() < 0.75 || themedJokes.length === jokePool.length) { 
+                if (Math.random() < 0.25 || themedJokes.length === jokePool.length) { 
                     jokePool = themedJokes;
                     console.log("Using themed joke pool. Matched Tags:", uniqueActiveTags);
                 } else {
-                    console.log("Using general joke pool (25% chance or fallback).");
+                    console.log("Using general joke pool (75% chance or fallback).");
                 }
             } else {
                  console.log("No specific themed jokes found for tags:", uniqueActiveTags, ". Using general pool.");
