@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, animationDuration * 1000 + 500);
     }
 
-    function triggerItemRain(count = 7) {
+    function triggerItemRain(count = 33) {
         for (let i = 0; i < count; i++) {
             setTimeout(createFallingItem, i * 120);
         }
